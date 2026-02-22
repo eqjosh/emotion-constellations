@@ -1,9 +1,9 @@
 /**
- * Connection renderer — draws luminous threads between emotions and needs.
+ * Connection renderer — draws luminous sinusoidal threads between emotions and needs.
  *
- * Each connection is a thin quad (instanced) with soft edges and
- * a subtle shimmer. Additive blending makes overlapping threads
- * accumulate light naturally.
+ * Each connection is a multi-segment instanced strip with a gentle
+ * sine-wave displacement, making threads look organic and alive.
+ * Additive blending makes overlapping threads accumulate light naturally.
  */
 
 import * as twgl from 'twgl.js';
@@ -11,25 +11,36 @@ import connectionVert from '../shaders/connection.vert';
 import connectionFrag from '../shaders/connection.frag';
 import { CONNECTIONS } from '../core/constants.js';
 
+const SEGMENTS = 24; // number of segments per connection — enough for smooth curves
+
 export function createConnectionRenderer(gl, maxConnections = 128) {
   const programInfo = twgl.createProgramInfo(gl, [connectionVert, connectionFrag]);
 
-  // Quad template — thin rectangle, 6 vertices (2 triangles)
-  // x: 0..1 along connection length, y: -0.5..0.5 across width
-  const quadCorners = new Float32Array([
-    0.0, -0.5,
-    1.0, -0.5,
-    0.0,  0.5,
-    0.0,  0.5,
-    1.0, -0.5,
-    1.0,  0.5,
-  ]);
+  // Build a multi-segment strip template.
+  // Each segment is a small quad (2 triangles, 6 vertices).
+  // x goes from 0..1 in SEGMENTS steps, y is -0.5..0.5 across width.
+  const vertsPerConnection = SEGMENTS * 6;
+  const quadCorners = new Float32Array(vertsPerConnection * 2);
+  let vi = 0;
+  for (let s = 0; s < SEGMENTS; s++) {
+    const t0 = s / SEGMENTS;
+    const t1 = (s + 1) / SEGMENTS;
+    // Triangle 1
+    quadCorners[vi++] = t0; quadCorners[vi++] = -0.5;
+    quadCorners[vi++] = t1; quadCorners[vi++] = -0.5;
+    quadCorners[vi++] = t0; quadCorners[vi++] =  0.5;
+    // Triangle 2
+    quadCorners[vi++] = t0; quadCorners[vi++] =  0.5;
+    quadCorners[vi++] = t1; quadCorners[vi++] = -0.5;
+    quadCorners[vi++] = t1; quadCorners[vi++] =  0.5;
+  }
 
   // Instance data
   const startPositions = new Float32Array(maxConnections * 2);
   const endPositions = new Float32Array(maxConnections * 2);
   const colors = new Float32Array(maxConnections * 3);
   const opacities = new Float32Array(maxConnections);
+  const seeds = new Float32Array(maxConnections); // per-connection phase seed
 
   // Create buffers
   const quadBuffer = twgl.createBufferFromTypedArray(gl, quadCorners);
@@ -37,6 +48,7 @@ export function createConnectionRenderer(gl, maxConnections = 128) {
   const endBuffer = gl.createBuffer();
   const colorBuffer = gl.createBuffer();
   const opacityBuffer = gl.createBuffer();
+  const seedBuffer = gl.createBuffer();
 
   // VAO
   const vao = gl.createVertexArray();
@@ -76,9 +88,21 @@ export function createConnectionRenderer(gl, maxConnections = 128) {
   gl.vertexAttribPointer(opacityLoc, 1, gl.FLOAT, false, 0, 0);
   gl.vertexAttribDivisor(opacityLoc, 1);
 
+  // Seed — per instance (for unique wave phase)
+  const seedLoc = gl.getAttribLocation(programInfo.program, 'a_seed');
+  gl.enableVertexAttribArray(seedLoc);
+  gl.bindBuffer(gl.ARRAY_BUFFER, seedBuffer);
+  gl.vertexAttribPointer(seedLoc, 1, gl.FLOAT, false, 0, 0);
+  gl.vertexAttribDivisor(seedLoc, 1);
+
   gl.bindVertexArray(null);
 
   let connectionCount = 0;
+
+  // Generate stable seeds for each connection slot
+  for (let i = 0; i < maxConnections; i++) {
+    seeds[i] = Math.random() * Math.PI * 2;
+  }
 
   return {
     /**
@@ -111,6 +135,8 @@ export function createConnectionRenderer(gl, maxConnections = 128) {
       gl.bufferData(gl.ARRAY_BUFFER, colors, gl.DYNAMIC_DRAW);
       gl.bindBuffer(gl.ARRAY_BUFFER, opacityBuffer);
       gl.bufferData(gl.ARRAY_BUFFER, opacities, gl.DYNAMIC_DRAW);
+      gl.bindBuffer(gl.ARRAY_BUFFER, seedBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, seeds, gl.DYNAMIC_DRAW);
     },
 
     draw(time, displayWidth, displayHeight, pixelRatio) {
@@ -126,7 +152,7 @@ export function createConnectionRenderer(gl, maxConnections = 128) {
         u_pixelRatio: pixelRatio,
       });
 
-      gl.drawArraysInstanced(gl.TRIANGLES, 0, 6, connectionCount);
+      gl.drawArraysInstanced(gl.TRIANGLES, 0, vertsPerConnection, connectionCount);
     },
 
     destroy() {

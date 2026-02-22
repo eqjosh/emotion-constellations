@@ -101,7 +101,12 @@
         {
           "needId": "belonging",
           "inquiry": "What bonds are worth cherishing and strengthening?",
-          "strength": 0.9
+          "strength": 0.8
+        },
+        {
+          "needId": "meaning",
+          "inquiry": "What is the deeper contentment telling me about how I'm living?",
+          "strength": 0.5
         }
       ]
     },

@@ -49,19 +49,19 @@ export const CONNECTIONS = {
 
 // Physics simulation
 export const PHYSICS = {
-  gravityStrength: 0.08,    // base gravitational pull toward needs
+  gravityStrength: 0.04,    // softer gravity — lets drift move stars visibly
   collisionRadiusEmotion: 14,
   collisionRadiusNeed: 50,
   collisionStrength: 0.7,
-  centeringStrength: 0.015,
+  centeringStrength: 0.008, // weaker centering — less resistance to motion
   chargeStrength: -30,      // repulsion between emotion nodes
   chargeMaxDistance: 200,
-  velocityDecay: 0.4,       // high friction = "floating in warm water"
-  alphaDecay: 0.0005,       // very slow decay — simulation stays alive
-  alphaTarget: 0.008,       // tiny residual energy for perpetual breathing
-  perturbation: 0.15,       // random micro-drift amplitude (visible jitter)
-  driftStrength: 0.35,      // cosmic drift — visible orbital motion
-  driftSpeed: 0.20,         // how fast the drift field rotates (radians per second)
+  velocityDecay: 0.25,      // less friction — stars coast further after impulse
+  alphaDecay: 0.0003,       // very slow decay — simulation stays alive
+  alphaTarget: 0.03,        // much higher residual energy for visible motion
+  perturbation: 0.25,       // strong micro-drift for visible organic jitter
+  driftStrength: 0.50,      // strong cosmic drift — visible orbital wandering
+  driftSpeed: 0.15,         // slightly slower rotation for graceful arcs
   warmupTicks: 120,         // pre-settle before first render
 };
 

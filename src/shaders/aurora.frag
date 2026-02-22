@@ -100,22 +100,12 @@ void main() {
 
   vec3 color = vec3(0.0);
 
-  // === Ambient aurora layers — classic Northern Lights palette ===
-
-  // Green/teal layer — the dominant Northern Lights color
+  // === Ambient green/teal aurora — classic Northern Lights backdrop ===
   float greenIntensity = ambientAurora(uv, u_time, 0.0);
   vec3 greenDeep = vec3(0.03, 0.18, 0.12);
   vec3 greenBright = vec3(0.10, 0.50, 0.30);
   vec3 greenColor = mix(greenDeep, greenBright, greenIntensity * 0.6);
-  color += greenColor * greenIntensity * 0.50;
-
-  // Dark purple/magenta shimmer layer — occasional deeper undertone
-  // Offset noise so it appears in different places than the green
-  float purpleIntensity = ambientAurora(uv, u_time, 1.0);
-  vec3 purpleDeep = vec3(0.10, 0.02, 0.14);
-  vec3 purpleBright = vec3(0.28, 0.06, 0.38);
-  vec3 purpleColor = mix(purpleDeep, purpleBright, purpleIntensity * 0.5);
-  color += purpleColor * purpleIntensity * 0.30;
+  color += greenColor * greenIntensity * 0.55;
 
   for (int i = 0; i < 6; i++) {
     if (i >= u_needCount) break;

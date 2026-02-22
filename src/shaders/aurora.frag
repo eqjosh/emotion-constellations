@@ -27,17 +27,17 @@ out vec4 fragColor;
  * creates the "curtain" rather than a "blob" — the key visual identity.
  */
 float auroraCurtain(vec2 uv, vec2 center, float time, float index) {
-  // Distance falloff — soft Gaussian around the need center
+  // Distance falloff — tighter Gaussian for more focused, less washy aurora
   vec2 delta = uv - center;
   float dist = length(delta);
-  float falloff = exp(-dist * dist * 1.8);
+  float falloff = exp(-dist * dist * 2.8);
 
   // Anisotropic noise coordinates:
   // High X frequency → many vertical bands (curtain striations)
   // Low Y frequency → tall, smooth vertical structure
   vec2 noiseCoord = vec2(
-    uv.x * 4.0 + index * 3.7,   // offset by index so each need has unique pattern
-    uv.y * 0.7
+    uv.x * 5.0 + index * 3.7,   // more vertical bands for richer texture
+    uv.y * 0.6
   );
 
   // Primary curtain shape — slow drift
@@ -52,12 +52,11 @@ float auroraCurtain(vec2 uv, vec2 center, float time, float index) {
   // Combine layers
   float curtain = n1 * 0.55 + n2 * 0.3 + n3 * 0.15;
 
-  // Remap from [-1,1] to [0,1] with bias toward brightness
+  // Remap from [-1,1] to [0,1] with stronger contrast — darker darks, vivid brights
   curtain = curtain * 0.5 + 0.5;
-  curtain = pow(curtain, 1.5); // contrast boost
+  curtain = pow(curtain, 2.2); // steeper contrast: more dark space, brighter peaks
 
   // Vertical gradient — aurora curtains tend to be brighter in the upper portion
-  // Subtle effect, not too strong, so it doesn't look like a hard gradient
   float verticalBias = smoothstep(0.0, 0.5, uv.y) * 0.3 + 0.7;
 
   // Breathing — gentle sinusoidal modulation unique to each need
@@ -67,9 +66,7 @@ float auroraCurtain(vec2 uv, vec2 center, float time, float index) {
 }
 
 void main() {
-  // Aspect-corrected UV (so circles are round, not squished)
   vec2 uv = v_uv;
-  float aspect = u_resolution.x / u_resolution.y;
 
   vec3 color = vec3(0.0);
 
@@ -79,16 +76,21 @@ void main() {
     float intensity = auroraCurtain(uv, u_needPositions[i], u_time, float(i));
     intensity *= u_needIntensities[i];
 
-    // Blend primary and secondary colors based on intensity
-    vec3 needColor = mix(u_needColors[i], u_needColors[i] * 1.8, intensity * 0.4);
-    color += needColor * intensity * 0.55;
+    // Use deep saturated color; at peak intensity, blend toward a slightly brighter version
+    // but NOT toward white — keep the hue rich like Northern Lights
+    vec3 deepColor = u_needColors[i] * 0.9;
+    vec3 brightColor = u_needColors[i] * 1.5; // saturated, vivid, not white
+    vec3 needColor = mix(deepColor, brightColor, intensity * 0.5);
+
+    // Moderate multiplier: rich aurora glow but dark enough for threads to show
+    color += needColor * intensity * 0.45;
   }
 
-  // Soft clamp — allow gentle over-bright at overlaps but prevent blowout
-  color = min(color, vec3(1.3));
+  // Clamp — rich color but prevent wash-out at overlaps
+  color = min(color, vec3(0.85));
 
-  // Very subtle overall vignette to ground the edges
-  float vignette = 1.0 - 0.3 * pow(length(v_uv - 0.5) * 1.4, 2.0);
+  // Stronger vignette to deepen edges
+  float vignette = 1.0 - 0.45 * pow(length(v_uv - 0.5) * 1.4, 2.0);
   color *= vignette;
 
   fragColor = vec4(color, 1.0);

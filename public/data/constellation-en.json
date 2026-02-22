@@ -9,22 +9,22 @@
       "id": "meaning",
       "label": "Meaning",
       "description": "These emotions reflect the search for something beyond survival, for what makes life feel meaningful. They orient us toward values and vision.",
-      "color": [0.29, 0.10, 0.42],
-      "colorSecondary": [0.53, 0.27, 0.73]
+      "color": [0.35, 0.08, 0.50],
+      "colorSecondary": [0.58, 0.22, 0.80]
     },
     {
       "id": "belonging",
       "label": "Belonging",
       "description": "These social emotions run deep. They shape behavior, values, even self-image. They invite reflection on how and where we seek connection.",
-      "color": [0.55, 0.41, 0.08],
-      "colorSecondary": [0.83, 0.66, 0.20]
+      "color": [0.60, 0.42, 0.05],
+      "colorSecondary": [0.88, 0.68, 0.15]
     },
     {
       "id": "achievement",
       "label": "Achievement",
       "description": "This family of emotions energizes action and asks us to recalibrate. They guide us through ambition, readiness, and challenge.",
-      "color": [0.55, 0.23, 0.10],
-      "colorSecondary": [0.88, 0.38, 0.19]
+      "color": [0.60, 0.18, 0.08],
+      "colorSecondary": [0.92, 0.35, 0.15]
     }
   ],
   "emotions": [

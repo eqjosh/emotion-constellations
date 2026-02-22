@@ -141,7 +141,7 @@ export function createSimulation(data, width, height) {
             endX: need.fx,
             endY: need.fy,
             color: need.colorSecondary || need.color,
-            opacity: 0.15 + link.strength * 0.20,
+            opacity: 0.25 + link.strength * 0.25,
           });
         }
       }

@@ -3,18 +3,18 @@
  * Tuning these values changes the feel of the entire visualization.
  */
 
-// Background
-export const BG_COLOR = [0.039, 0.055, 0.102, 1.0]; // #0a0e1a
+// Background — deep space, almost black with a hint of midnight blue
+export const BG_COLOR = [0.02, 0.025, 0.065, 1.0]; // deeper, darker space
 
-// Need colors — deep, atmospheric tones for the aurora regions
-// These will be the nebula/curtain colors
+// Need colors — rich, saturated tones for the aurora regions
+// Inspired by Northern Lights: deep magentas, teals, ambers — never washed out
 export const NEED_COLORS = {
-  meaning:     { primary: [0.29, 0.10, 0.42], secondary: [0.53, 0.27, 0.73] },  // deep purple/violet
-  belonging:   { primary: [0.55, 0.41, 0.08], secondary: [0.83, 0.66, 0.20] },  // warm amber/gold
-  achievement: { primary: [0.55, 0.23, 0.10], secondary: [0.88, 0.38, 0.19] },  // warm coral/orange
-  safety:      { primary: [0.10, 0.23, 0.42], secondary: [0.20, 0.40, 0.80] },  // deep blue/indigo
-  autonomy:    { primary: [0.05, 0.42, 0.43], secondary: [0.17, 0.77, 0.79] },  // teal/cyan
-  growth:      { primary: [0.10, 0.42, 0.16], secondary: [0.20, 0.80, 0.33] },  // green/emerald
+  meaning:     { primary: [0.35, 0.08, 0.50], secondary: [0.58, 0.22, 0.80] },  // rich violet/magenta
+  belonging:   { primary: [0.60, 0.42, 0.05], secondary: [0.88, 0.68, 0.15] },  // deep amber/gold
+  achievement: { primary: [0.60, 0.18, 0.08], secondary: [0.92, 0.35, 0.15] },  // rich coral/vermillion
+  safety:      { primary: [0.08, 0.20, 0.48], secondary: [0.18, 0.38, 0.85] },  // deep indigo
+  autonomy:    { primary: [0.03, 0.45, 0.45], secondary: [0.12, 0.80, 0.82] },  // teal/cyan
+  growth:      { primary: [0.08, 0.45, 0.14], secondary: [0.18, 0.82, 0.30] },  // emerald
 };
 
 // Aurora shader tuning
@@ -41,9 +41,9 @@ export const PARTICLES = {
 
 // Connection threads
 export const CONNECTIONS = {
-  baseOpacity: 0.25,        // visible at rest (increased)
-  activeOpacity: 0.7,       // bright when selected
-  width: 2.5,               // thread width in pixels
+  baseOpacity: 0.35,        // visible at rest — brighter against dark aurora
+  activeOpacity: 0.8,       // bright when selected
+  width: 3.0,               // thread width in pixels (wider for visibility)
   shimmerSpeed: 2.0,        // subtle shimmer animation speed
 };
 
@@ -60,6 +60,8 @@ export const PHYSICS = {
   alphaDecay: 0.0005,       // very slow decay — simulation stays alive
   alphaTarget: 0.008,       // tiny residual energy for perpetual breathing
   perturbation: 0.08,       // random micro-drift amplitude
+  driftStrength: 0.20,      // gentle cosmic drift — slow orbital motion
+  driftSpeed: 0.18,         // how fast the drift field rotates (radians per second)
   warmupTicks: 120,         // pre-settle before first render
 };
 

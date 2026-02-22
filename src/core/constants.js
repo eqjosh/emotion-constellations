@@ -70,3 +70,19 @@ export const LAYOUT = {
   needRingRadius: 0.35,     // fraction of min(width, height) for need positions (wider spread)
   needRingOffset: 0.3,      // angular offset in radians for organic feel
 };
+
+// Interaction
+export const INTERACTION = {
+  transitionDuration: 500,      // ms for selection transitions
+  hitRadiusEmotion: 28,         // CSS px — generous touch target (2× collision radius)
+  hitRadiusNeed: 75,            // CSS px — generous touch target (1.5× collision radius)
+  selectedBrightness: 1.6,      // brightness multiplier for selected node
+  selectedSizeScale: 1.4,       // size multiplier for selected emotion
+  relatedBrightness: 1.2,       // brightness for fellow messengers
+  dimmedBrightness: 0.4,        // brightness for unrelated nodes
+  dimmedSizeScale: 0.85,        // size for unrelated emotions
+  selectedNeedIntensity: 1.8,   // aurora intensity for selected/linked need
+  dimmedNeedIntensity: 0.5,     // aurora intensity for unrelated needs
+  hoverBrightness: 1.15,        // subtle brightness on hover
+  hoverSizeScale: 1.1,          // subtle size increase on hover
+};

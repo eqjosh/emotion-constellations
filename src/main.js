@@ -2,7 +2,7 @@
  * Emotion Constellation — main entry point.
  *
  * Initializes WebGL, loads data, creates the simulation and renderers,
- * and starts the frame loop.
+ * wires up interaction handling, and starts the frame loop.
  */
 
 import { createWebGLContext } from './renderer/context.js';
@@ -13,6 +13,11 @@ import { createParticleRenderer } from './renderer/particles.js';
 import { createConnectionRenderer } from './renderer/connections.js';
 import { createPipeline } from './renderer/pipeline.js';
 import { createLabelManager } from './ui/labels.js';
+import { createSelectionState } from './interaction/selection-state.js';
+import { createInputHandler } from './interaction/input-handler.js';
+import { createInfoPanel } from './ui/info-panel.js';
+import { findHit } from './interaction/hit-test.js';
+import { on } from './core/events.js';
 
 async function init() {
   // 1. Create WebGL context
@@ -20,7 +25,7 @@ async function init() {
   const { gl } = context;
 
   console.log('WebGL2 context created:', gl.getParameter(gl.VERSION));
-  console.log(`Canvas: ${context.width}×${context.height} @ ${context.pixelRatio}x`);
+  console.log(`Canvas: ${context.width}x${context.height} @ ${context.pixelRatio}x`);
 
   // 2. Load constellation data
   const data = await loadConstellationData('en');
@@ -40,16 +45,67 @@ async function init() {
   const labels = createLabelManager(labelContainer);
   labels.init(sim.needNodes, sim.emotionNodes);
 
-  // 6. Handle resize
+  // 6. Create interaction system
+  const selectionState = createSelectionState(
+    sim.emotionNodes, sim.needNodes, sim.needNodesById
+  );
+  const inputHandler = createInputHandler(context.canvas);
+  const infoPanel = createInfoPanel(document.body);
+
+  // 7. Wire input events to selection state
+  on('input:tap', ({ x, y }) => {
+    const hit = findHit(x, y, sim.emotionNodes, sim.needNodes);
+    if (hit.type === 'emotion') {
+      selectionState.selectEmotion(hit.node.id);
+    } else if (hit.type === 'need') {
+      selectionState.selectNeed(hit.node.id);
+    } else {
+      selectionState.deselect();
+    }
+  });
+
+  on('input:need-click', ({ id }) => {
+    selectionState.selectNeed(id);
+  });
+
+  on('input:emotion-click', ({ id }) => {
+    selectionState.selectEmotion(id);
+  });
+
+  on('input:deselect', () => {
+    selectionState.deselect();
+  });
+
+  // Hover (desktop only)
+  on('input:hover', ({ x, y }) => {
+    const hit = findHit(x, y, sim.emotionNodes, sim.needNodes);
+    if (hit.type === 'emotion') {
+      selectionState.setHover(hit.node.id);
+      context.canvas.style.cursor = 'pointer';
+    } else if (hit.type === 'need') {
+      selectionState.setHover(null);
+      context.canvas.style.cursor = 'pointer';
+    } else {
+      selectionState.setHover(null);
+      context.canvas.style.cursor = '';
+    }
+  });
+
+  on('input:hover-end', () => {
+    selectionState.setHover(null);
+    context.canvas.style.cursor = '';
+  });
+
+  // 8. Handle resize
   context.onResize((width, height) => {
     sim.resize(width, height);
   });
 
-  // 7. Create and start the pipeline
+  // 9. Create and start the pipeline
   const pipeline = createPipeline(
     gl, context, sim,
     auroraRenderer, particleRenderer, connectionRenderer,
-    labels
+    labels, selectionState
   );
 
   pipeline.start();

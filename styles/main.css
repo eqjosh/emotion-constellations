@@ -21,9 +21,11 @@ canvas#constellation {
   position: fixed;
   top: 0;
   left: 0;
+  touch-action: none; /* prevent pull-to-refresh on iOS */
 }
 
-/* Label container — positioned over the canvas */
+/* ─── Label container ─── */
+
 #labels {
   position: fixed;
   top: 0;
@@ -34,7 +36,8 @@ canvas#constellation {
   z-index: 10;
 }
 
-/* Need labels */
+/* ─── Need labels ─── */
+
 .need-label {
   position: absolute;
   transform: translate(-50%, -50%);
@@ -44,12 +47,29 @@ canvas#constellation {
   letter-spacing: 0.15em;
   text-transform: uppercase;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.5);
-  pointer-events: none;
+  pointer-events: auto; /* clickable */
+  cursor: pointer;
   user-select: none;
-  transition: opacity 0.6s ease;
+  padding: 12px; /* generous touch target */
+  transition: color 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
 }
 
-/* Emotion labels — smaller, appear on hover/click later */
+.need-label:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.need-label--selected {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 400;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 0, 0, 0.5);
+}
+
+.need-label--dimmed {
+  opacity: 0.35;
+}
+
+/* ─── Emotion labels ─── */
+
 .emotion-label {
   position: absolute;
   transform: translate(-50%, -130%);
@@ -60,10 +80,218 @@ canvas#constellation {
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
   pointer-events: none;
   user-select: none;
-  transition: opacity 0.4s ease;
+  transition: color 0.4s ease, opacity 0.4s ease;
 }
 
-/* Book credit */
+.emotion-label--highlighted {
+  color: rgba(255, 255, 255, 0.9);
+  opacity: 1;
+}
+
+.emotion-label--dimmed {
+  opacity: 0.15;
+}
+
+/* ─── Info Panel ─── */
+
+.info-panel {
+  position: fixed;
+  z-index: 100;
+  background: rgba(10, 14, 26, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Inter', sans-serif;
+  overflow-y: auto;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  pointer-events: auto;
+
+  /* Desktop: bottom-right card */
+  bottom: 24px;
+  right: 24px;
+  width: 320px;
+  max-height: 60vh;
+  padding: 24px;
+  transform: translateX(calc(100% + 48px));
+  opacity: 0;
+}
+
+.info-panel--visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Mobile: bottom drawer */
+@media (max-width: 768px) {
+  .info-panel {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    max-height: 50vh;
+    border-radius: 16px 16px 0 0;
+    padding: 20px 20px 32px;
+    transform: translateY(100%);
+  }
+  .info-panel--visible {
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbar styling for the info panel */
+.info-panel::-webkit-scrollbar {
+  width: 4px;
+}
+.info-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+.info-panel::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+/* Close button */
+.info-panel__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 24px;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+.info-panel__close:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Title */
+.info-panel__title {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* Description (for needs) */
+.info-panel__description {
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 20px;
+}
+
+/* Inquiry questions */
+.info-panel__inquiries {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-panel__need-group {
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-panel__need-name {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.info-panel__inquiry {
+  font-size: 15px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+/* Emotion list within need panel */
+.info-panel__emotion-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-panel__emotion-item {
+  padding-left: 12px;
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-panel__emotion-name {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 4px;
+  display: block;
+  transition: color 0.2s ease;
+}
+.info-panel__emotion-name:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Fellow messengers */
+.info-panel__fellows {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.info-panel__fellows-label {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.info-panel__fellows-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.info-panel__fellow {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.info-panel__fellow:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+/* ─── Book credit ─── */
+
 .book-credit {
   position: fixed;
   bottom: 16px;

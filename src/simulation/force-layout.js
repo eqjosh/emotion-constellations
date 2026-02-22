@@ -47,6 +47,7 @@ export function createSimulation(data, width, height) {
       id: need.id,
       type: 'need',
       label: need.label,
+      description: need.description || '',
       color: need.color,
       colorSecondary: need.colorSecondary,
       intensity: 1.0,
@@ -136,6 +137,8 @@ export function createSimulation(data, width, height) {
           const need = needNodesById.get(link.needId);
           if (!need) continue;
           connections.push({
+            emotionId: emotion.id,
+            needId: link.needId,
             startX: emotion.x,
             startY: emotion.y,
             endX: need.fx,

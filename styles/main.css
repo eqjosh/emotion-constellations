@@ -51,7 +51,9 @@ canvas#constellation {
   cursor: pointer;
   user-select: none;
   padding: 12px; /* generous touch target */
-  transition: color 0.4s ease, opacity 0.4s ease, text-shadow 0.4s ease;
+  transition: color 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              text-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .need-label:hover {
@@ -65,7 +67,7 @@ canvas#constellation {
 }
 
 .need-label--dimmed {
-  opacity: 0.35;
+  opacity: 0.12;
 }
 
 /* ─── Emotion labels ─── */
@@ -80,214 +82,168 @@ canvas#constellation {
   text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
   pointer-events: none;
   user-select: none;
-  transition: color 0.4s ease, opacity 0.4s ease;
+  transition: color 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
 .emotion-label--highlighted {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.7);
   opacity: 1;
 }
 
 .emotion-label--dimmed {
-  opacity: 0.15;
+  opacity: 0.06;
 }
 
-/* ─── Info Panel ─── */
+/* ─── Floating Inquiries ─── */
 
-.info-panel {
-  position: fixed;
-  z-index: 100;
-  background: rgba(10, 14, 26, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  color: rgba(255, 255, 255, 0.85);
-  font-family: 'Inter', sans-serif;
-  overflow-y: auto;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
-  pointer-events: auto;
-
-  /* Desktop: bottom-right card */
-  bottom: 24px;
-  right: 24px;
-  width: 320px;
-  max-height: 60vh;
-  padding: 24px;
-  transform: translateX(calc(100% + 48px));
-  opacity: 0;
-}
-
-.info-panel--visible {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-/* Mobile: bottom drawer */
-@media (max-width: 768px) {
-  .info-panel {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    max-height: 50vh;
-    border-radius: 16px 16px 0 0;
-    padding: 20px 20px 32px;
-    transform: translateY(100%);
-  }
-  .info-panel--visible {
-    transform: translateY(0);
-  }
-}
-
-/* Scrollbar styling for the info panel */
-.info-panel::-webkit-scrollbar {
-  width: 4px;
-}
-.info-panel::-webkit-scrollbar-track {
-  background: transparent;
-}
-.info-panel::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-}
-
-/* Close button */
-.info-panel__close {
+.floating-inquiry {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.4);
-  font-size: 24px;
-  cursor: pointer;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  transition: color 0.2s ease, background 0.2s ease;
-}
-.info-panel__close:hover {
-  color: rgba(255, 255, 255, 0.8);
-  background: rgba(255, 255, 255, 0.05);
-}
-
-/* Title */
-.info-panel__title {
-  font-size: 20px;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  margin-bottom: 16px;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-/* Description (for needs) */
-.info-panel__description {
-  font-size: 13px;
-  font-weight: 300;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
-  margin-bottom: 20px;
-}
-
-/* Inquiry questions */
-.info-panel__inquiries {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.info-panel__need-group {
-  padding-left: 12px;
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-.info-panel__need-name {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 6px;
-}
-
-.info-panel__inquiry {
-  font-size: 15px;
+  max-width: 220px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 14px;
   font-weight: 300;
   font-style: italic;
-  line-height: 1.5;
-  color: rgba(255, 255, 255, 0.8);
-  margin: 0;
+  line-height: 1.45;
+  /* text-shadow set inline per element (need-colored glow) */
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 1.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  transform: translate(-50%, calc(-50% + 10px));  /* start 10px lower */
+  pointer-events: auto;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  z-index: 15;
+  /* Subtle backdrop for readability against aurora */
+  background: rgba(21, 15, 33, 0.5);
+  padding: 8px 14px;
+  border-radius: 10px;
 }
 
-/* Emotion list within need panel */
-.info-panel__emotion-list {
+.floating-inquiry--visible {
+  opacity: 1;
+  transform: translate(-50%, -50%);  /* float up into final position */
+}
+
+/* Need description variant — wider, non-italic, positioned below need */
+.floating-inquiry--description {
+  max-width: 300px;
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  cursor: default;
+  /* Override the base upward drift — description just fades in place */
+  transform: translate(-50%, -50%);
+  padding: 10px 16px;
+}
+.floating-inquiry--description.floating-inquiry--visible {
+  transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+  .floating-inquiry {
+    font-size: 13px;
+    max-width: 180px;
+  }
+  .floating-inquiry--description {
+    max-width: 260px;
+    font-size: 12px;
+  }
+}
+
+/* ─── HUD Bar ─── */
+
+.hud-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 20px 24px;
+  opacity: 0;
+  transition: opacity 0.5s ease;  /* fast fade-out */
+  pointer-events: none;
 }
 
-.info-panel__emotion-item {
-  padding-left: 12px;
-  border-left: 2px solid rgba(255, 255, 255, 0.1);
+.hud-bar--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity 1.0s cubic-bezier(0.25, 0.1, 0.25, 1) 200ms;  /* slow organic fade-in with delay */
 }
 
-.info-panel__emotion-name {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 13px;
+.hud-bar__title {
+  font-size: 15px;
   font-weight: 500;
-  cursor: pointer;
-  padding: 0;
-  margin-bottom: 4px;
-  display: block;
-  transition: color 0.2s ease;
-}
-.info-panel__emotion-name:hover {
-  color: rgba(255, 255, 255, 1);
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.85);
 }
 
-/* Fellow messengers */
-.info-panel__fellows {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.info-panel__fellows-label {
-  font-size: 11px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.45);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 10px;
-}
-
-.info-panel__fellows-list {
+.hud-bar__pills {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  justify-content: center;
+  gap: 8px;
 }
 
-.info-panel__fellow {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  color: rgba(255, 255, 255, 0.7);
+.hud-bar__pill {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--pill-color, rgba(255, 255, 255, 0.12));
+  border-radius: 20px;
+  color: var(--pill-color, rgba(255, 255, 255, 0.7));
+  font-family: 'Inter', sans-serif;
   font-size: 12px;
   font-weight: 400;
-  padding: 5px 12px;
+  padding: 6px 14px;
   cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  user-select: none;
 }
-.info-panel__fellow:hover {
-  background: rgba(255, 255, 255, 0.12);
+
+.hud-bar__pill:hover {
+  background: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.95);
+}
+
+.hud-bar__hint {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.35);
+  align-self: center;
+}
+
+.hud-bar__pill--fellow {
+  --pill-color: rgba(255, 255, 255, 0.45);
+}
+
+.hud-bar__pill--emotion {
+  --pill-color: rgba(255, 255, 255, 0.55);
+}
+
+@media (max-width: 768px) {
+  .hud-bar {
+    padding: 12px 16px 20px;
+  }
+  .hud-bar__pill {
+    font-size: 11px;
+    padding: 5px 12px;
+  }
+}
+
+/* Hide book credit when HUD is visible */
+body:has(.hud-bar--visible) .book-credit {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
 /* ─── Book credit ─── */

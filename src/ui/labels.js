@@ -31,6 +31,11 @@ export function createLabelManager(container) {
         el.className = 'need-label';
         el.textContent = need.label;
         el.dataset.id = need.id;
+        // Stop pointerdown from reaching the canvas (which would also trigger
+        // selectNeed via hit-test, causing an immediate toggle-off)
+        el.addEventListener('pointerdown', (e) => {
+          e.stopPropagation();
+        });
         el.addEventListener('click', (e) => {
           e.stopPropagation();
           emit('input:need-click', { id: need.id });

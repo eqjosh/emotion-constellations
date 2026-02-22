@@ -15,7 +15,8 @@ import { createPipeline } from './renderer/pipeline.js';
 import { createLabelManager } from './ui/labels.js';
 import { createSelectionState } from './interaction/selection-state.js';
 import { createInputHandler } from './interaction/input-handler.js';
-import { createInfoPanel } from './ui/info-panel.js';
+import { createFloatingInquiries } from './ui/floating-inquiries.js';
+import { createHudBar } from './ui/hud-bar.js';
 import { findHit } from './interaction/hit-test.js';
 import { on } from './core/events.js';
 
@@ -50,7 +51,8 @@ async function init() {
     sim.emotionNodes, sim.needNodes, sim.needNodesById
   );
   const inputHandler = createInputHandler(context.canvas);
-  const infoPanel = createInfoPanel(document.body);
+  const floatingInquiries = createFloatingInquiries(labelContainer);
+  const hudBar = createHudBar(document.body);
 
   // 7. Wire input events to selection state
   on('input:tap', ({ x, y }) => {
@@ -105,7 +107,7 @@ async function init() {
   const pipeline = createPipeline(
     gl, context, sim,
     auroraRenderer, particleRenderer, connectionRenderer,
-    labels, selectionState
+    labels, selectionState, floatingInquiries
   );
 
   pipeline.start();

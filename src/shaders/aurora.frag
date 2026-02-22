@@ -119,8 +119,15 @@ void main() {
     vec3 brightColor = u_needColors[i] * 1.5; // saturated, vivid, not white
     vec3 needColor = mix(deepColor, brightColor, intensity * 0.5);
 
+    // Perceptual luminance correction — warm colors (gold, coral) appear
+    // much brighter than cool colors (purple) at the same intensity.
+    // Scale inversely so all auroras feel equally prominent.
+    float luma = dot(u_needColors[i], vec3(0.299, 0.587, 0.114));
+    float lumaScale = 0.25 / max(luma, 0.08); // normalize to target ~0.25 luma
+    lumaScale = clamp(lumaScale, 0.55, 1.3);  // keep within reasonable range
+
     // Moderate multiplier: rich aurora glow but dark enough for threads to show
-    color += needColor * intensity * 0.45;
+    color += needColor * intensity * 0.45 * lumaScale;
   }
 
   // Clamp — rich color but prevent wash-out at overlaps

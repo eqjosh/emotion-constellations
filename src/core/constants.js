@@ -73,7 +73,7 @@ export const LAYOUT = {
 
 // Interaction
 export const INTERACTION = {
-  transitionDuration: 500,      // ms for selection transitions
+  transitionDuration: 650,      // ms for selection transitions (organic, unhurried)
   hitRadiusEmotion: 28,         // CSS px — generous touch target (2× collision radius)
   hitRadiusNeed: 75,            // CSS px — generous touch target (1.5× collision radius)
   selectedBrightness: 1.6,      // brightness multiplier for selected node

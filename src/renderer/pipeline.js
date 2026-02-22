@@ -11,11 +11,12 @@
  * 7. Draw connections (emotion -> need threads)
  * 8. Draw particles (emotion nodes)
  * 9. Update HTML labels
+ * 10. Update floating inquiry positions
  */
 
 import { BG_COLOR } from '../core/constants.js';
 
-export function createPipeline(gl, context, sim, auroraRenderer, particleRenderer, connectionRenderer, labels, selectionState) {
+export function createPipeline(gl, context, sim, auroraRenderer, particleRenderer, connectionRenderer, labels, selectionState, floatingInquiries) {
   let running = false;
   let startTime = 0;
   let lastTimestamp = 0;
@@ -99,6 +100,11 @@ export function createPipeline(gl, context, sim, auroraRenderer, particleRendere
     // 9. Update HTML labels (throttled to every 2nd frame for perf)
     if (labels && frameCount % 2 === 0) {
       labels.update(sim.needNodes, sim.emotionNodes);
+    }
+
+    // 10. Update floating inquiry positions (same throttle cadence)
+    if (floatingInquiries && frameCount % 2 === 0) {
+      floatingInquiries.updatePositions(sim.emotionNodes, sim.needNodes, sim.needNodesById);
     }
 
     frameCount++;

@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "version": "0.1.0",
+    "locale": "en",
+    "source": "Emotion Rules by Joshua Freedman, Chapter 4: Wholeness — Beyond Opposites, pp. 81-83"
+  },
+  "needs": [
+    {
+      "id": "meaning",
+      "label": "Meaning",
+      "description": "These emotions reflect the search for something beyond survival, for what makes life feel meaningful. They orient us toward values and vision.",
+      "color": [0.29, 0.10, 0.42],
+      "colorSecondary": [0.53, 0.27, 0.73]
+    },
+    {
+      "id": "belonging",
+      "label": "Belonging",
+      "description": "These social emotions run deep. They shape behavior, values, even self-image. They invite reflection on how and where we seek connection.",
+      "color": [0.55, 0.41, 0.08],
+      "colorSecondary": [0.83, 0.66, 0.20]
+    },
+    {
+      "id": "achievement",
+      "label": "Achievement",
+      "description": "This family of emotions energizes action and asks us to recalibrate. They guide us through ambition, readiness, and challenge.",
+      "color": [0.55, 0.23, 0.10],
+      "colorSecondary": [0.88, 0.38, 0.19]
+    }
+  ],
+  "emotions": [
+    {
+      "id": "awe",
+      "label": "Awe",
+      "links": [
+        {
+          "needId": "meaning",
+          "inquiry": "Where do I fit in the face of this greater whole?",
+          "strength": 0.9
+        }
+      ]
+    },
+    {
+      "id": "despair",
+      "label": "Despair",
+      "links": [
+        {
+          "needId": "meaning",
+          "inquiry": "Has something I counted on disappeared?",
+          "strength": 0.85
+        }
+      ]
+    },
+    {
+      "id": "inspiration",
+      "label": "Inspiration",
+      "links": [
+        {
+          "needId": "meaning",
+          "inquiry": "What is calling me forward?",
+          "strength": 0.9
+        }
+      ]
+    },
+    {
+      "id": "emptiness",
+      "label": "Emptiness",
+      "links": [
+        {
+          "needId": "meaning",
+          "inquiry": "What's missing?",
+          "strength": 0.8
+        }
+      ]
+    },
+    {
+      "id": "delight",
+      "label": "Delight",
+      "links": [
+        {
+          "needId": "meaning",
+          "inquiry": "What's beyond what I could have imagined?",
+          "strength": 0.75
+        }
+      ]
+    },
+    {
+      "id": "loneliness",
+      "label": "Loneliness",
+      "links": [
+        {
+          "needId": "belonging",
+          "inquiry": "Am I disconnected from others or myself?",
+          "strength": 0.9
+        }
+      ]
+    },
+    {
+      "id": "love",
+      "label": "Love",
+      "links": [
+        {
+          "needId": "belonging",
+          "inquiry": "What bonds are worth cherishing and strengthening?",
+          "strength": 0.9
+        }
+      ]
+    },
+    {
+      "id": "jealousy",
+      "label": "Jealousy",
+      "links": [
+        {
+          "needId": "belonging",
+          "inquiry": "Do I want what others seem to have?",
+          "strength": 0.8
+        },
+        {
+          "needId": "achievement",
+          "inquiry": "Am I falling behind where I want to be?",
+          "strength": 0.4
+        }
+      ]
+    },
+    {
+      "id": "shame",
+      "label": "Shame",
+      "links": [
+        {
+          "needId": "belonging",
+          "inquiry": "Have I fallen short of expectations?",
+          "strength": 0.85
+        }
+      ]
+    },
+    {
+      "id": "anger",
+      "label": "Anger",
+      "links": [
+        {
+          "needId": "achievement",
+          "inquiry": "What's blocking the way?",
+          "strength": 0.85
+        }
+      ]
+    },
+    {
+      "id": "excitement",
+      "label": "Excitement",
+      "links": [
+        {
+          "needId": "achievement",
+          "inquiry": "What's fueling me to move?",
+          "strength": 0.85
+        }
+      ]
+    },
+    {
+      "id": "urgency",
+      "label": "Urgency",
+      "links": [
+        {
+          "needId": "achievement",
+          "inquiry": "What do I need to prioritize?",
+          "strength": 0.8
+        }
+      ]
+    },
+    {
+      "id": "pride",
+      "label": "Pride",
+      "links": [
+        {
+          "needId": "achievement",
+          "inquiry": "Can I honor my own contribution?",
+          "strength": 0.85
+        },
+        {
+          "needId": "belonging",
+          "inquiry": "Do others see my value?",
+          "strength": 0.3
+        }
+      ]
+    },
+    {
+      "id": "doubt",
+      "label": "Doubt",
+      "links": [
+        {
+          "needId": "achievement",
+          "inquiry": "Am I prepared enough, or is something missing?",
+          "strength": 0.7
+        },
+        {
+          "needId": "meaning",
+          "inquiry": "How open am I to what's new and possible?",
+          "strength": 0.45
+        }
+      ]
+    }
+  ]
+}

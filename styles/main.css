@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0a0e1a;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+canvas#constellation {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Label container — positioned over the canvas */
+#labels {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Need labels */
+.need-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.6s ease;
+}
+
+/* Emotion labels — smaller, appear on hover/click later */
+.emotion-label {
+  position: absolute;
+  transform: translate(-50%, -130%);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 12px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.4s ease;
+}
+
+/* Book credit */
+.book-credit {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  z-index: 20;
+  pointer-events: auto;
+}
+
+.book-credit a {
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.book-credit a:hover {
+  color: rgba(255, 255, 255, 0.6);
+}

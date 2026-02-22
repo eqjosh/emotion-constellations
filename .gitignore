@@ -4,3 +4,7 @@ dist/
 *.local
 .env
 .env.*
+
+# Confidential book content — do not publish
+docs/*confidential*
+docs/*.pdf

@@ -1,0 +1,12 @@
+#version 300 es
+
+// Fullscreen quad — two triangles covering the viewport.
+in vec2 position;
+
+out vec2 v_uv;
+
+void main() {
+  // Position comes from buffer: [-1,-1], [1,-1], [-1,1], [-1,1], [1,-1], [1,1]
+  v_uv = position * 0.5 + 0.5;
+  gl_Position = vec4(position, 0.0, 1.0);
+}

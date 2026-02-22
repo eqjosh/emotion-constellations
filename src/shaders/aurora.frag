@@ -66,31 +66,31 @@ float auroraCurtain(vec2 uv, vec2 center, float time, float index) {
 }
 
 /**
- * Ambient aurora — a gentle green/teal curtain that drifts across
- * the entire field, not anchored to any specific need. This is the
- * classic Northern Lights green that fills the spaces between need regions.
+ * Ambient aurora — colored curtains that drift across the entire field,
+ * not anchored to any specific need. Adds depth and the classic
+ * Northern Lights palette (green, purple) to the spaces between needs.
  */
-float ambientAurora(vec2 uv, float time) {
+float ambientAurora(vec2 uv, float time, float indexOffset) {
   // Wide, slow-moving curtain that covers much of the canvas
   vec2 noiseCoord = vec2(
-    uv.x * 3.5 + 50.0,    // offset from need curtains
-    uv.y * 0.5
+    uv.x * 3.5 + 50.0 + indexOffset * 17.0,
+    uv.y * 0.5 + indexOffset * 8.0
   );
 
   // Very slow primary shape
-  float n1 = fbm(vec3(noiseCoord, time * 0.06), 3);
+  float n1 = fbm(vec3(noiseCoord, time * 0.06 + indexOffset * 30.0), 3);
   // Secondary detail
-  float n2 = snoise(vec3(noiseCoord * 1.8, time * 0.04 + 200.0));
+  float n2 = snoise(vec3(noiseCoord * 1.8, time * 0.04 + 200.0 + indexOffset * 50.0));
 
   float curtain = n1 * 0.65 + n2 * 0.35;
   curtain = curtain * 0.5 + 0.5;
-  curtain = pow(curtain, 2.8); // very contrasty — mostly dark, occasional bright bands
+  curtain = pow(curtain, 2.6); // contrasty — mostly dark, occasional bright bands
 
   // Gentle vertical bias
   float verticalBias = smoothstep(0.0, 0.6, uv.y) * 0.4 + 0.6;
 
-  // Very slow breathing
-  float breath = 0.8 + 0.2 * sin(time * 0.12 + 7.0);
+  // Very slow breathing — different phase per layer
+  float breath = 0.8 + 0.2 * sin(time * 0.12 + 7.0 + indexOffset * 4.0);
 
   return curtain * verticalBias * breath;
 }
@@ -100,14 +100,22 @@ void main() {
 
   vec3 color = vec3(0.0);
 
-  // Ambient green/teal aurora — the classic Northern Lights backdrop
-  // Appears as occasional shimmering bands in the spaces between need regions
-  float ambientIntensity = ambientAurora(uv, u_time);
-  // Two-tone green: deep forest green shifting to brighter emerald/teal
-  vec3 ambientDeep = vec3(0.03, 0.15, 0.10);
-  vec3 ambientBright = vec3(0.08, 0.42, 0.28);
-  vec3 ambientColor = mix(ambientDeep, ambientBright, ambientIntensity * 0.6);
-  color += ambientColor * ambientIntensity * 0.40;
+  // === Ambient aurora layers — classic Northern Lights palette ===
+
+  // Green/teal layer — the dominant Northern Lights color
+  float greenIntensity = ambientAurora(uv, u_time, 0.0);
+  vec3 greenDeep = vec3(0.03, 0.18, 0.12);
+  vec3 greenBright = vec3(0.10, 0.50, 0.30);
+  vec3 greenColor = mix(greenDeep, greenBright, greenIntensity * 0.6);
+  color += greenColor * greenIntensity * 0.50;
+
+  // Dark purple/magenta shimmer layer — occasional deeper undertone
+  // Offset noise so it appears in different places than the green
+  float purpleIntensity = ambientAurora(uv, u_time, 1.0);
+  vec3 purpleDeep = vec3(0.10, 0.02, 0.14);
+  vec3 purpleBright = vec3(0.28, 0.06, 0.38);
+  vec3 purpleColor = mix(purpleDeep, purpleBright, purpleIntensity * 0.5);
+  color += purpleColor * purpleIntensity * 0.30;
 
   for (int i = 0; i < 6; i++) {
     if (i >= u_needCount) break;

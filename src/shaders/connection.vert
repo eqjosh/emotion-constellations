@@ -52,8 +52,13 @@ void main() {
   vec2 pos = mix(a_startPos, a_endPos, t);
   pos += perp * sineOffset;
 
-  // Offset perpendicular for width (on top of the sine displacement)
-  float halfWidth = u_lineWidth * u_pixelRatio * 0.5;
+  // Width variation along the thread:
+  // Thin at endpoints (1px), thick in the middle (up to lineWidth),
+  // with gentle sinusoidal modulation for organic "breathing" feel
+  float widthTaper = sin(t * 3.14159); // 0 at ends, 1 at middle
+  widthTaper = 0.3 + 0.7 * widthTaper; // range: 0.3..1.0 (never fully vanish)
+  float widthBreath = 0.85 + 0.15 * sin(t * 8.0 + a_seed * 2.3 + u_time * 0.4);
+  float halfWidth = u_lineWidth * u_pixelRatio * 0.5 * widthTaper * widthBreath;
   pos += perp * a_quadCorner.y * halfWidth * 2.0;
 
   // To clip space

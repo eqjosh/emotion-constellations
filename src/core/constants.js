@@ -43,7 +43,7 @@ export const PARTICLES = {
 export const CONNECTIONS = {
   baseOpacity: 0.35,        // visible at rest — brighter against dark aurora
   activeOpacity: 0.8,       // bright when selected
-  width: 3.0,               // thread width in pixels (wider for visibility)
+  width: 3.5,               // max thread width in pixels (tapers at endpoints)
   shimmerSpeed: 2.0,        // subtle shimmer animation speed
 };
 
@@ -59,9 +59,9 @@ export const PHYSICS = {
   velocityDecay: 0.4,       // high friction = "floating in warm water"
   alphaDecay: 0.0005,       // very slow decay — simulation stays alive
   alphaTarget: 0.008,       // tiny residual energy for perpetual breathing
-  perturbation: 0.08,       // random micro-drift amplitude
-  driftStrength: 0.20,      // gentle cosmic drift — slow orbital motion
-  driftSpeed: 0.18,         // how fast the drift field rotates (radians per second)
+  perturbation: 0.15,       // random micro-drift amplitude (visible jitter)
+  driftStrength: 0.35,      // cosmic drift — visible orbital motion
+  driftSpeed: 0.20,         // how fast the drift field rotates (radians per second)
   warmupTicks: 120,         // pre-settle before first render
 };
 

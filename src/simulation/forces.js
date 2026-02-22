@@ -38,19 +38,21 @@ export function needGravityForce(needNodesById) {
       }
 
       // Cosmic drift — a slow, swirling current that varies spatially.
-      // Each particle gets a slightly different drift angle based on its
-      // position, creating an organic flowing-river feel rather than
-      // everything sliding in one direction.
+      // IMPORTANT: drift uses sqrt(alpha) so it stays visible even when
+      // the simulation has settled to low alpha. This is what makes
+      // the stars visibly float rather than appearing frozen.
       const spatialPhase = (node.x * 0.003 + node.y * 0.002);
       const driftAngle = baseAngle + spatialPhase + (node._driftSeed || 0);
-      const driftMag = PHYSICS.driftStrength * alpha;
+      const driftAlpha = Math.sqrt(alpha); // much stronger than raw alpha at low values
+      const driftMag = PHYSICS.driftStrength * driftAlpha;
       node.vx += Math.cos(driftAngle) * driftMag;
       node.vy += Math.sin(driftAngle) * driftMag;
 
-      // Organic micro-perturbation — prevents static freeze,
-      // creates the "floating in warm water" quality
-      node.vx += (Math.random() - 0.5) * PHYSICS.perturbation * alpha;
-      node.vy += (Math.random() - 0.5) * PHYSICS.perturbation * alpha;
+      // Organic micro-perturbation — also uses sqrt(alpha) to stay
+      // alive when simulation has settled. Creates the "floating in
+      // warm water" quality with visible jitter.
+      node.vx += (Math.random() - 0.5) * PHYSICS.perturbation * driftAlpha;
+      node.vy += (Math.random() - 0.5) * PHYSICS.perturbation * driftAlpha;
     }
   }
 

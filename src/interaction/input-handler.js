@@ -5,17 +5,26 @@
  * via the event bus. Handles touch vs mouse detection and
  * coordinate extraction.
  *
+ * Uses a "consumed" flag so that UI overlays (like the ✦ wisdom icon)
+ * can suppress the canvas tap when they handle a pointerdown first.
+ *
  * Events emitted:
  *   'input:tap' — { x, y } in CSS pixels
  *   'input:hover' — { x, y } in CSS pixels (desktop only)
  *   'input:hover-end' — (no data)
  */
 
-import { emit } from '../core/events.js';
+import { emit, on } from '../core/events.js';
 
 export function createInputHandler(canvas) {
   let isTouch = false;
   let hoverThrottleId = null;
+  let tapConsumed = false;
+
+  // UI overlays emit this to suppress the next canvas tap
+  const unsub = on('input:consume-tap', () => {
+    tapConsumed = true;
+  });
 
   function getCanvasPoint(event) {
     const rect = canvas.getBoundingClientRect();
@@ -28,6 +37,12 @@ export function createInputHandler(canvas) {
   function onPointerDown(event) {
     // Track whether this is a touch device
     isTouch = event.pointerType === 'touch';
+
+    // If a UI overlay already handled this pointer event, skip
+    if (tapConsumed) {
+      tapConsumed = false;
+      return;
+    }
 
     const point = getCanvasPoint(event);
     emit('input:tap', point);
@@ -65,6 +80,7 @@ export function createInputHandler(canvas) {
       if (hoverThrottleId) {
         cancelAnimationFrame(hoverThrottleId);
       }
+      if (unsub) unsub();
     },
   };
 }

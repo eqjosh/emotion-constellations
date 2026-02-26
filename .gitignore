@@ -8,3 +8,4 @@ dist/
 # Confidential book content — do not publish
 docs/*confidential*
 docs/*.pdf
+*.mp4

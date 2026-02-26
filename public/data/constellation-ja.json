@@ -1,0 +1,359 @@
+{
+  "meta": {
+    "version": "0.2.0",
+    "locale": "ja",
+    "source": "Emotion Rules by Joshua Freedman, Chapter 4: Wholeness — Beyond Opposites, pp. 75-76, 81-83"
+  },
+  "needs": [
+    {
+      "id": "safety",
+      "label": "安全",
+      "description": "私たちの神経構造の奥深くに、安全への欲求が根源的に存在しています。脳は脅威を察知し、それに反応するように作られています。",
+      "color": [0.08, 0.20, 0.48],
+      "colorSecondary": [0.18, 0.38, 0.85]
+    },
+    {
+      "id": "belonging",
+      "label": "帰属",
+      "description": "これらの社会的感情は深く根づいています。行動、価値観、さらには自己像をも形作ります。どこで、どのようにつながりを求めているのかを振り返るよう促してくれます。",
+      "color": [0.60, 0.42, 0.05],
+      "colorSecondary": [0.88, 0.68, 0.15]
+    },
+    {
+      "id": "autonomy",
+      "label": "自律",
+      "description": "静かな欲求ですが、奪われた途端に感情が噴き出します。これらのシグナルは、自分自身の人生の主導権を取り戻すよう私たちを突き動かします。",
+      "color": [0.03, 0.45, 0.45],
+      "colorSecondary": [0.12, 0.80, 0.82]
+    },
+    {
+      "id": "achievement",
+      "label": "達成",
+      "description": "この感情群は行動にエネルギーを与え、再調整を求めます。野心、準備、挑戦を通じて私たちを導いてくれます。",
+      "color": [0.60, 0.18, 0.08],
+      "colorSecondary": [0.92, 0.35, 0.15]
+    },
+    {
+      "id": "meaning",
+      "label": "意味",
+      "description": "これらの感情は、生存を超えた何か、人生を意味あるものにするものへの探求を映し出しています。価値観とビジョンへと私たちを方向づけます。",
+      "color": [0.35, 0.08, 0.50],
+      "colorSecondary": [0.58, 0.22, 0.80]
+    },
+    {
+      "id": "growth",
+      "label": "成長",
+      "description": "成長はめったに直線的ではありません。これらの感情は波のように訪れ、洞察に先立つ不快さへと私たちを導きます。",
+      "color": [0.08, 0.45, 0.14],
+      "colorSecondary": [0.18, 0.82, 0.30]
+    }
+  ],
+  "emotions": [
+    {
+      "id": "trust",
+      "label": "信頼",
+      "links": [
+        {"needId": "safety", "inquiry": "私には支えてくれる人、守ってくれるものがあるだろうか？", "strength": 0.9},
+        {"needId": "belonging", "inquiry": "周りの絆は信頼できるものだろうか？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "fear",
+      "label": "恐れ",
+      "links": [
+        {"needId": "safety", "inquiry": "私が大切にしているものは何で、そのリスクは何だろう？", "strength": 0.9}
+      ]
+    },
+    {
+      "id": "vigilance",
+      "label": "警戒",
+      "links": [
+        {"needId": "safety", "inquiry": "次に何が起こるのだろう？", "strength": 0.8}
+      ]
+    },
+    {
+      "id": "surprise",
+      "label": "驚き",
+      "links": [
+        {"needId": "safety", "inquiry": "何が変わったのか、どう適応すればいいのだろう？", "strength": 0.7},
+        {"needId": "growth", "inquiry": "ここから学べる新しいことは何だろう？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "loneliness",
+      "label": "孤独",
+      "links": [
+        {"needId": "belonging", "inquiry": "他者から、あるいは自分自身から切り離されていないだろうか？", "strength": 0.9}
+      ]
+    },
+    {
+      "id": "love",
+      "label": "愛",
+      "links": [
+        {"needId": "belonging", "inquiry": "大切にし、強めていくべき絆は何だろう？", "strength": 0.9},
+        {"needId": "safety", "inquiry": "失うことを恐れるほど大切にしているものは何だろう？", "strength": 0.4},
+        {"needId": "meaning", "inquiry": "心の内側を灯してくれるものは何だろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "jealousy",
+      "label": "嫉妬",
+      "links": [
+        {"needId": "belonging", "inquiry": "他の人が持っているように見えるものを、私も欲しいのだろうか？", "strength": 0.8},
+        {"needId": "achievement", "inquiry": "なりたい自分から遅れをとっていないだろうか？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "shame",
+      "label": "恥",
+      "links": [
+        {"needId": "belonging", "inquiry": "期待に応えられなかったのだろうか？", "strength": 0.8},
+        {"needId": "growth", "inquiry": "自分自身の基準に沿って生きているだろうか？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "frustrated",
+      "label": "フラストレーション",
+      "links": [
+        {"needId": "autonomy", "inquiry": "自分の道を進むことを妨げているものは何だろう？", "strength": 0.9},
+        {"needId": "achievement", "inquiry": "なぜ前に進めないのだろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "guilty",
+      "label": "罪悪感",
+      "links": [
+        {"needId": "autonomy", "inquiry": "自分の基準に反する選択をしてしまっただろうか？", "strength": 0.7},
+        {"needId": "belonging", "inquiry": "大切な関係を傷つけてしまっただろうか？", "strength": 0.5},
+        {"needId": "growth", "inquiry": "より良くなることを自分で抑えていないだろうか？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "free",
+      "label": "自由",
+      "links": [
+        {"needId": "autonomy", "inquiry": "私が進みたい道はどこだろう？", "strength": 0.9}
+      ]
+    },
+    {
+      "id": "trapped",
+      "label": "束縛感",
+      "links": [
+        {"needId": "autonomy", "inquiry": "行動する力を制限しているものは何だろう？", "strength": 0.9}
+      ]
+    },
+    {
+      "id": "anger",
+      "label": "怒り",
+      "links": [
+        {"needId": "achievement", "inquiry": "道を阻んでいるものは何だろう？", "strength": 0.8},
+        {"needId": "autonomy", "inquiry": "どんな境界線や価値観が脅かされているのだろう？", "strength": 0.7}
+      ]
+    },
+    {
+      "id": "excitement",
+      "label": "興奮",
+      "links": [
+        {"needId": "achievement", "inquiry": "私を動かしている原動力は何だろう？", "strength": 0.8},
+        {"needId": "growth", "inquiry": "どんな新しい可能性を感じ取っているのだろう？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "urgency",
+      "label": "切迫感",
+      "links": [
+        {"needId": "achievement", "inquiry": "今、何を優先すべきだろう？", "strength": 0.8}
+      ]
+    },
+    {
+      "id": "pride",
+      "label": "誇り",
+      "links": [
+        {"needId": "achievement", "inquiry": "自分自身の貢献を認めてあげられるだろうか？", "strength": 0.8},
+        {"needId": "belonging", "inquiry": "周りの人は私の価値を見てくれているだろうか？", "strength": 0.3}
+      ]
+    },
+    {
+      "id": "doubt",
+      "label": "疑い",
+      "links": [
+        {"needId": "achievement", "inquiry": "十分に準備できているだろうか、それとも何か足りないものがあるだろうか？", "strength": 0.7},
+        {"needId": "meaning", "inquiry": "新しいことや可能性にどれだけ心を開いているだろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "awe",
+      "label": "畏敬",
+      "links": [
+        {"needId": "meaning", "inquiry": "この大いなる全体の中で、私はどこに位置するのだろう？", "strength": 0.9}
+      ]
+    },
+    {
+      "id": "despair",
+      "label": "絶望",
+      "links": [
+        {"needId": "meaning", "inquiry": "頼りにしていたものが消えてしまったのだろうか？", "strength": 0.8},
+        {"needId": "safety", "inquiry": "まだ前に進む道はあるだろうか？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "inspiration",
+      "label": "インスピレーション",
+      "links": [
+        {"needId": "meaning", "inquiry": "私を前へと導いているものは何だろう？", "strength": 0.9},
+        {"needId": "growth", "inquiry": "私はどんな自分になる準備ができているだろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "emptiness",
+      "label": "空虚",
+      "links": [
+        {"needId": "meaning", "inquiry": "何が欠けているのだろう？", "strength": 0.8}
+      ]
+    },
+    {
+      "id": "delight",
+      "label": "歓び",
+      "links": [
+        {"needId": "meaning", "inquiry": "想像を超えたものがここにあるのではないか？", "strength": 0.7},
+        {"needId": "growth", "inquiry": "自分自身の生き生きとした感覚に気づいているだろうか？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "curiosity",
+      "label": "好奇心",
+      "links": [
+        {"needId": "growth", "inquiry": "ここから学んだり発見したりできることは何だろう？", "strength": 0.9},
+        {"needId": "meaning", "inquiry": "どんな限界を広げることができるだろう？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "joy",
+      "label": "喜び",
+      "links": [
+        {"needId": "growth", "inquiry": "自分が広がっていく感覚、生き生きとした感覚に気づいているだろうか？", "strength": 0.7},
+        {"needId": "meaning", "inquiry": "今この瞬間、人生を生きる価値があると感じさせてくれるものは何だろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "impatience",
+      "label": "焦り",
+      "links": [
+        {"needId": "growth", "inquiry": "私を引き止めているものは何だろう？", "strength": 0.7},
+        {"needId": "achievement", "inquiry": "なぜもっと速く進まないのだろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "depression",
+      "label": "抑うつ",
+      "links": [
+        {"needId": "growth", "inquiry": "本当に前に進みたいと思っているだろうか？", "strength": 0.7},
+        {"needId": "meaning", "inquiry": "目的を失ったものは何だろう？", "strength": 0.6}
+      ]
+    },
+    {
+      "id": "boredom",
+      "label": "退屈",
+      "links": [
+        {"needId": "growth", "inquiry": "学んだり探求したりする時が来ているのではないか？", "strength": 0.8}
+      ]
+    },
+    {
+      "id": "sadness",
+      "label": "悲しみ",
+      "links": [
+        {"needId": "belonging", "inquiry": "失われた、あるいは欠けているつながりは何だろう？", "strength": 0.8},
+        {"needId": "meaning", "inquiry": "失うことがこれほど痛いほど、大切にしているものは何だろう？", "strength": 0.6}
+      ]
+    },
+    {
+      "id": "anxiety",
+      "label": "不安",
+      "links": [
+        {"needId": "safety", "inquiry": "危うく感じるほど大切にしているものは何だろう？", "strength": 0.8},
+        {"needId": "achievement", "inquiry": "これから来るものに対して十分に備えているだろうか？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "gratitude",
+      "label": "感謝",
+      "links": [
+        {"needId": "belonging", "inquiry": "どんなつながりや贈り物を受け取ってきただろう？", "strength": 0.7},
+        {"needId": "meaning", "inquiry": "すでに人生の中にある豊かさとは何だろう？", "strength": 0.6}
+      ]
+    },
+    {
+      "id": "hope",
+      "label": "希望",
+      "links": [
+        {"needId": "meaning", "inquiry": "望むものに向かうために、どんな機会が見えているだろう？", "strength": 0.7},
+        {"needId": "growth", "inquiry": "どんな自分へと成長する準備ができているだろう？", "strength": 0.6}
+      ]
+    },
+    {
+      "id": "compassion",
+      "label": "思いやり",
+      "links": [
+        {"needId": "belonging", "inquiry": "自分や他者の苦しみに、どう寄り添い続けられるだろう？", "strength": 0.7},
+        {"needId": "growth", "inquiry": "この痛みは、何が大切かについて何を教えてくれているだろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "grief",
+      "label": "悲嘆",
+      "links": [
+        {"needId": "belonging", "inquiry": "どんな絆が壊れた、あるいは変容したのだろう？", "strength": 0.9},
+        {"needId": "meaning", "inquiry": "この喪失をどう受け止めればいいのだろう？", "strength": 0.7}
+      ]
+    },
+    {
+      "id": "stress",
+      "label": "ストレス",
+      "links": [
+        {"needId": "safety", "inquiry": "私の課題は、私の持つ資源を超えていないだろうか？", "strength": 0.7},
+        {"needId": "achievement", "inquiry": "何を優先し、何を手放すべきだろう？", "strength": 0.5}
+      ]
+    },
+    {
+      "id": "overwhelm",
+      "label": "圧倒感",
+      "links": [
+        {"needId": "safety", "inquiry": "今、何が多すぎるのだろう？", "strength": 0.7},
+        {"needId": "autonomy", "inquiry": "選ぶ力をどこで失ってしまったのだろう？", "strength": 0.6}
+      ]
+    },
+    {
+      "id": "contentment",
+      "label": "満足",
+      "links": [
+        {"needId": "safety", "inquiry": "今、落ち着いていて穏やかなものは何だろう？", "strength": 0.6},
+        {"needId": "meaning", "inquiry": "大切なものと調和して生きているだろうか？", "strength": 0.6}
+      ]
+    },
+    {
+      "id": "courage",
+      "label": "勇気",
+      "links": [
+        {"needId": "safety", "inquiry": "大切なもののために、何をリスクにさらす覚悟があるだろう？", "strength": 0.6},
+        {"needId": "growth", "inquiry": "この恐れを乗り越えたら、何が可能になるだろう？", "strength": 0.7}
+      ]
+    },
+    {
+      "id": "disgust",
+      "label": "嫌悪",
+      "links": [
+        {"needId": "safety", "inquiry": "どんなルールが破られたのか？この状況は安全だろうか？", "strength": 0.8},
+        {"needId": "belonging", "inquiry": "これは自分のコミュニティの価値観と合っているだろうか？", "strength": 0.4}
+      ]
+    },
+    {
+      "id": "exhaustion",
+      "label": "疲弊",
+      "links": [
+        {"needId": "achievement", "inquiry": "見返りもなく頑張りすぎていなかっただろうか？", "strength": 0.7},
+        {"needId": "meaning", "inquiry": "努力の背後にあった目的が消えてしまったのではないか？", "strength": 0.6},
+        {"needId": "belonging", "inquiry": "一人でやろうとしていないだろうか？", "strength": 0.4}
+      ]
+    }
+  ]
+}

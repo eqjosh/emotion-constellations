@@ -41,9 +41,9 @@ canvas#constellation {
 .need-label {
   position: absolute;
   transform: translate(-50%, -50%);
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.78);
   font-size: 13px;
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.5);
@@ -53,7 +53,9 @@ canvas#constellation {
   padding: 12px; /* generous touch target */
   transition: color 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
               opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-              text-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+              text-shadow 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              background 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  border-radius: 8px;
 }
 
 .need-label:hover {
@@ -62,12 +64,13 @@ canvas#constellation {
 
 .need-label--selected {
   color: rgba(255, 255, 255, 0.95);
-  font-weight: 400;
+  font-weight: 600;
   text-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(0, 0, 0, 0.5);
+  background: rgba(21, 15, 33, 0.82);
 }
 
 .need-label--dimmed {
-  opacity: 0.12;
+  opacity: 0.08;
 }
 
 /* ─── Emotion labels ─── */
@@ -83,16 +86,20 @@ canvas#constellation {
   pointer-events: none;
   user-select: none;
   transition: color 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
-              opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+              opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              background 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  padding: 3px 7px;
+  border-radius: 6px;
 }
 
 .emotion-label--highlighted {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(21, 15, 33, 0.65);
   opacity: 1;
 }
 
 .emotion-label--dimmed {
-  opacity: 0.06;
+  opacity: 0.05;
 }
 
 /* ─── Floating Inquiries ─── */
@@ -116,7 +123,7 @@ canvas#constellation {
   text-align: center;
   z-index: 15;
   /* Subtle backdrop for readability against aurora */
-  background: rgba(21, 15, 33, 0.5);
+  background: rgba(21, 15, 33, 0.6);
   padding: 8px 14px;
   border-radius: 10px;
 }
@@ -155,6 +162,421 @@ canvas#constellation {
   }
 }
 
+/* ─── Wisdom Icon (✦) ─── */
+
+@keyframes wisdom-pulse {
+  0%, 100% { opacity: 0.55; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.12); }
+}
+
+.wisdom-icon {
+  position: absolute;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 16px;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+  padding: 6px;
+  z-index: 16;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.1, 0.25, 1),
+              color 0.3s ease;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.wisdom-icon--visible {
+  opacity: 1;
+  animation: wisdom-pulse 2.5s ease-in-out infinite;
+}
+
+.wisdom-icon:hover {
+  color: rgba(255, 255, 255, 0.95);
+  animation: none;
+  opacity: 1;
+  transform: scale(1.2);
+  text-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+}
+
+/* ─── Wisdom Panel (unified wisdom + chat) ─── */
+
+.wisdom-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(20px);
+  width: 30%;
+  min-width: 320px;
+  max-width: 420px;
+  background: rgba(21, 15, 33, 0.45);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-left: 1px solid rgba(255, 255, 255, 0.06);
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.wisdom-panel--visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.wisdom-panel__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 20px 24px 12px;
+  flex-shrink: 0;
+}
+
+.wisdom-panel__icon {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 14px;
+}
+
+.wisdom-panel__title {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  flex: 1;
+}
+
+.wisdom-panel__close {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  font-size: 20px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.wisdom-panel__close:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.wisdom-panel__scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px;
+  min-height: 0; /* Allow flex shrink for overflow */
+}
+
+.wisdom-panel__emotion-name {
+  font-size: 22px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 16px;
+  letter-spacing: 0.01em;
+}
+
+.wisdom-panel__body {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+.wisdom-panel__body p {
+  margin-bottom: 12px;
+}
+
+.wisdom-panel__body p:last-child {
+  margin-bottom: 0;
+}
+
+/* Essence — slightly brighter for emphasis */
+.wisdom-panel__essence {
+  color: rgba(255, 255, 255, 0.75);
+  font-weight: 400;
+}
+
+/* Signal — main body text */
+.wisdom-panel__signal {
+  color: rgba(255, 255, 255, 0.60);
+}
+
+/* Reflection question — italic, distinct */
+.wisdom-panel__reflection {
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.70);
+  border-left: 2px solid rgba(255, 255, 255, 0.12);
+  padding-left: 12px;
+}
+
+/* Book reference — small, muted */
+.wisdom-panel__book-ref {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.30);
+  letter-spacing: 0.03em;
+  margin-top: 4px;
+}
+
+/* ─── Privacy notice ─── */
+
+.wisdom-panel__privacy-notice {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  line-height: 1.5;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+  margin-top: 12px;
+}
+
+/* ─── Starter prompts ─── */
+
+.wisdom-panel__starters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 0;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.3s;
+}
+
+.wisdom-panel__starters--visible {
+  opacity: 1;
+}
+
+.wisdom-panel__starter-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  padding: 10px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  line-height: 1.4;
+}
+
+.wisdom-panel__starter-btn:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* ─── Chat messages ─── */
+
+.wisdom-panel__messages {
+  padding: 8px 0 16px;
+}
+
+.wisdom-panel__message {
+  margin: 8px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 92%;
+  word-wrap: break-word;
+}
+
+.wisdom-panel__message--user {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.85);
+  margin-left: auto;
+  border-radius: 12px 12px 4px 12px;
+}
+
+.wisdom-panel__message--assistant {
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.68);
+  border-radius: 12px 12px 12px 4px;
+}
+
+/* Links inside assistant messages (e.g. About panel) */
+.wisdom-panel__message--assistant a {
+  color: #a78bfa;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.wisdom-panel__message--assistant a:hover {
+  color: #c4b5fd;
+}
+
+.wisdom-panel__message--error {
+  background: rgba(200, 50, 50, 0.12);
+  color: rgba(255, 180, 180, 0.7);
+  font-size: 13px;
+  border: 1px solid rgba(200, 50, 50, 0.15);
+}
+
+.wisdom-panel__message--system {
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 13px;
+  font-style: italic;
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Loading dots */
+@keyframes chat-pulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40% { opacity: 0.8; transform: scale(1); }
+}
+
+.wisdom-panel__loading {
+  display: flex;
+  gap: 6px;
+  padding: 12px 14px;
+}
+
+.wisdom-panel__loading-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  animation: chat-pulse 1.2s ease-in-out infinite;
+}
+
+/* ─── Input area ─── */
+
+.wisdom-panel__input-area {
+  display: flex;
+  gap: 8px;
+  padding: 12px 24px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
+}
+
+.wisdom-panel__input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 10px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.wisdom-panel__input:focus {
+  border-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.wisdom-panel__input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.wisdom-panel__input:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.wisdom-panel__send {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  flex-shrink: 0;
+}
+
+.wisdom-panel__send:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Scrollbar styling */
+.wisdom-panel__scroll-area::-webkit-scrollbar {
+  width: 4px;
+}
+.wisdom-panel__scroll-area::-webkit-scrollbar-track {
+  background: transparent;
+}
+.wisdom-panel__scroll-area::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+}
+
+/* ─── Mobile: bottom drawer ─── */
+
+@media (max-width: 768px) {
+  .wisdom-panel {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    height: 60vh;
+    border-left: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+  }
+  .wisdom-panel--visible {
+    transform: translateY(0);
+  }
+  .wisdom-panel__header {
+    padding: 16px 20px 10px;
+  }
+  .wisdom-panel__scroll-area {
+    padding: 0 20px;
+  }
+  .wisdom-panel__emotion-name {
+    font-size: 18px;
+  }
+  .wisdom-panel__body {
+    font-size: 13px;
+  }
+  .wisdom-panel__input-area {
+    padding: 10px 20px 16px;
+  }
+}
+
+/* ─── Entry Hint ─── */
+
+.entry-hint {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-60%); /* offset left to match constellation center */
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0);
+  transition: color 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+  z-index: 20;
+  pointer-events: none;
+  user-select: none;
+}
+
+.entry-hint--visible {
+  color: rgba(255, 255, 255, 0.35);
+}
+
 /* ─── HUD Bar ─── */
 
 .hud-bar {
@@ -177,6 +599,7 @@ canvas#constellation {
   opacity: 1;
   pointer-events: auto;
   transition: opacity 1.0s cubic-bezier(0.25, 0.1, 0.25, 1) 200ms;  /* slow organic fade-in with delay */
+  background: linear-gradient(to top, rgba(8, 5, 18, 0.78) 0%, rgba(8, 5, 18, 0) 100%);
 }
 
 .hud-bar__title {
@@ -269,4 +692,637 @@ body:has(.hud-bar--visible) .book-credit {
 
 .book-credit a:hover {
   color: rgba(255, 255, 255, 0.6);
+}
+
+/* ─── Copyright Line (rotated, left edge) ─── */
+
+.copyright-line {
+  position: fixed;
+  top: 50%;
+  left: 16px;
+  transform: rotate(-90deg) translateX(-50%);
+  transform-origin: 0 0;
+  white-space: nowrap;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  z-index: 20;
+  pointer-events: auto;
+  transition: opacity 0.5s ease;
+}
+
+.copyright-line a {
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.copyright-line a:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* "About this App" inline button in the copyright line */
+.copyright-about-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 11px;
+  font-weight: 300;
+  font-family: inherit;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 0;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.copyright-about-btn:hover {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+/* Hide copyright when subscription gate is open */
+body:has(.sub-gate--visible) .copyright-line {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .copyright-line {
+    display: none; /* too cramped on mobile */
+  }
+}
+
+/* ─── Subscription Gate Modal ─── */
+
+.sub-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 5, 15, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              background 0.6s cubic-bezier(0.25, 0.1, 0.25, 1),
+              backdrop-filter 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+  pointer-events: none;
+}
+
+.sub-gate--visible {
+  opacity: 1;
+  background: rgba(5, 5, 15, 0.35);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  pointer-events: auto;
+}
+
+.sub-gate--hard.sub-gate--visible {
+  background: rgba(5, 5, 15, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.sub-gate__card {
+  width: 92%;
+  max-width: 420px;
+  background: rgba(21, 15, 33, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 40px 36px 36px;
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.sub-gate--visible .sub-gate__card {
+  transform: translateY(0) scale(1);
+}
+
+.sub-gate__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.sub-gate__star {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.sub-gate__title {
+  font-size: 20px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  letter-spacing: 0.01em;
+}
+
+.sub-gate__copy {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 28px;
+}
+
+.sub-gate__form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.sub-gate__input {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.sub-gate__input:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.sub-gate__input::placeholder {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.sub-gate__select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.sub-gate__select option {
+  background: #1a1228;
+  color: #ddd;
+}
+
+.sub-gate__consent {
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.3);
+  text-align: center;
+  margin-top: 2px;
+}
+
+.sub-gate__consent a {
+  color: rgba(180, 200, 255, 0.5);
+  text-decoration: underline;
+  text-decoration-color: rgba(180, 200, 255, 0.2);
+  transition: color 0.2s ease;
+}
+
+.sub-gate__consent a:hover {
+  color: rgba(200, 215, 255, 0.8);
+}
+
+.sub-gate__submit {
+  width: 100%;
+  padding: 13px;
+  margin-top: 4px;
+  background: rgba(140, 180, 255, 0.12);
+  border: 1px solid rgba(140, 180, 255, 0.2);
+  border-radius: 14px;
+  color: rgba(200, 220, 255, 0.9);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.sub-gate__submit:hover {
+  background: rgba(140, 180, 255, 0.2);
+  border-color: rgba(140, 180, 255, 0.35);
+  color: rgba(220, 235, 255, 1);
+}
+
+.sub-gate__submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sub-gate__error {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(255, 140, 130, 0.8);
+  min-height: 0;
+  text-align: center;
+}
+
+.sub-gate__error:empty {
+  display: none;
+}
+
+.sub-gate__success {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 0;
+}
+
+.sub-gate__success .sub-gate__star {
+  font-size: 28px;
+  color: rgba(140, 200, 160, 0.7);
+}
+
+.sub-gate__success .sub-gate__title {
+  font-size: 22px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.sub-gate__dismiss {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.3);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.sub-gate__dismiss:hover {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .sub-gate__card {
+    padding: 32px 24px 28px;
+    border-radius: 16px;
+  }
+  .sub-gate__title {
+    font-size: 18px;
+  }
+  .sub-gate__copy {
+    font-size: 13px;
+  }
+}
+
+/* ─── Help Icon (Windrose) ─── */
+
+@keyframes help-icon-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.2));
+    color: rgba(255, 255, 255, 0.55);
+  }
+  50% {
+    filter: drop-shadow(0 0 14px rgba(200, 220, 255, 0.45));
+    color: rgba(255, 255, 255, 0.75);
+  }
+}
+
+.help-icon {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  pointer-events: auto;
+  color: rgba(255, 255, 255, 0.6);
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease,
+              transform 0.3s ease, opacity 0.4s ease;
+  animation: help-icon-glow 3.5s ease-in-out infinite;
+  /* Prevent canvas deselect */
+  touch-action: manipulation;
+}
+
+.help-icon__svg {
+  width: 26px;
+  height: 26px;
+}
+
+.help-icon:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.95);
+  animation: none;
+  transform: scale(1.1);
+}
+
+/* Hide when panel is open */
+.help-icon--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.help-icon__tooltip {
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(21, 15, 33, 0.88);
+  padding: 6px 14px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  letter-spacing: 0.02em;
+}
+
+.help-icon:hover .help-icon__tooltip {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .help-icon {
+    top: 12px;
+    right: 12px;
+    width: 42px;
+    height: 42px;
+  }
+  .help-icon__svg {
+    width: 22px;
+    height: 22px;
+  }
+  .help-icon__tooltip {
+    display: none;
+  }
+}
+
+/* ─── Language Selector ─── */
+
+.lang-selector {
+  position: fixed;
+  top: 20px;
+  right: 86px;  /* more air between selector and windrose icon */
+  z-index: 100;
+  pointer-events: auto;
+  /* Vertically center with the 48px windrose icon */
+  height: 48px;
+  display: flex;
+  align-items: center;
+  transition: right 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+/* Shift lang selector just past the chat panel when open.
+   Panel is 30% wide (min 320px, max 420px). */
+.lang-selector--panel-open {
+  right: calc(max(30%, 320px) + 16px);
+  min-width: 0;
+}
+
+.lang-selector__btn {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.lang-selector__btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.75);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.lang-selector__dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 140px;
+  background: rgba(21, 15, 33, 0.92);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 6px 0;
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.lang-selector--open .lang-selector__dropdown {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.lang-selector__item {
+  display: block;
+  width: 100%;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  padding: 8px 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.lang-selector__item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.lang-selector__item--active {
+  color: rgba(180, 200, 255, 0.8);
+  font-weight: 400;
+}
+
+/* Scrollbar for dropdown */
+.lang-selector__dropdown::-webkit-scrollbar {
+  width: 3px;
+}
+.lang-selector__dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.lang-selector__dropdown::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .lang-selector {
+    top: 12px;
+    right: 62px;
+    height: 42px; /* match mobile windrose height */
+  }
+  .lang-selector__btn {
+    font-size: 10px;
+    padding: 7px 10px;
+  }
+  /* On mobile, panel is bottom drawer — keep lang selector in place */
+  .lang-selector--panel-open {
+    right: 62px;
+  }
+}
+
+/* ─── Welcome state in wisdom panel ─── */
+
+.wisdom-panel__welcome-section {
+  padding: 8px 0 0;
+}
+
+.wisdom-panel__welcome-greeting {
+  font-size: 18px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.55;
+  margin-bottom: 24px;
+  letter-spacing: 0.01em;
+}
+
+.wisdom-panel__welcome-starters {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.5s ease 0.15s;
+}
+
+.wisdom-panel__welcome-starters--visible {
+  opacity: 1;
+}
+
+/* Reuse .wisdom-panel__starter-btn for welcome buttons */
+
+/* ─── RTL Support for Arabic & Hebrew ─── */
+
+/* Floating inquiries & need descriptions */
+html[lang="ar"] .floating-inquiry,
+html[lang="he"] .floating-inquiry {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Wisdom panel — text content flows RTL */
+html[lang="ar"] .wisdom-panel,
+html[lang="he"] .wisdom-panel {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Panel header: keep close button on the far side */
+html[lang="ar"] .wisdom-panel__header,
+html[lang="he"] .wisdom-panel__header {
+  flex-direction: row-reverse;
+}
+
+/* Input area: flip send button to left */
+html[lang="ar"] .wisdom-panel__input-area,
+html[lang="he"] .wisdom-panel__input-area {
+  direction: rtl;
+}
+
+html[lang="ar"] .wisdom-panel__input,
+html[lang="he"] .wisdom-panel__input {
+  text-align: right;
+}
+
+/* Chat messages */
+html[lang="ar"] .wisdom-panel__message,
+html[lang="he"] .wisdom-panel__message {
+  direction: rtl;
+  text-align: right;
+}
+
+/* User messages stay aligned to the right (which in RTL is the start) */
+html[lang="ar"] .wisdom-panel__message--user,
+html[lang="he"] .wisdom-panel__message--user {
+  align-self: flex-start;
+}
+
+html[lang="ar"] .wisdom-panel__message--assistant,
+html[lang="he"] .wisdom-panel__message--assistant {
+  align-self: flex-end;
+}
+
+/* Welcome greeting & starters */
+html[lang="ar"] .wisdom-panel__welcome-greeting,
+html[lang="he"] .wisdom-panel__welcome-greeting {
+  text-align: right;
+}
+
+html[lang="ar"] .wisdom-panel__starter-btn,
+html[lang="he"] .wisdom-panel__starter-btn {
+  text-align: right;
+}
+
+/* Wisdom text sections */
+html[lang="ar"] .wisdom-panel__essence,
+html[lang="ar"] .wisdom-panel__signal,
+html[lang="ar"] .wisdom-panel__reflection,
+html[lang="ar"] .wisdom-panel__book-ref,
+html[lang="he"] .wisdom-panel__essence,
+html[lang="he"] .wisdom-panel__signal,
+html[lang="he"] .wisdom-panel__reflection,
+html[lang="he"] .wisdom-panel__book-ref {
+  direction: rtl;
+  text-align: right;
+}
+
+/* HUD bar — pills and title flow RTL */
+html[lang="ar"] .hud-bar,
+html[lang="he"] .hud-bar {
+  direction: rtl;
+}
+
+html[lang="ar"] .hud-bar__title,
+html[lang="he"] .hud-bar__title {
+  direction: rtl;
+}
+
+/* Privacy notice */
+html[lang="ar"] .wisdom-panel__privacy-notice,
+html[lang="he"] .wisdom-panel__privacy-notice {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Copyright line — force LTR for the rotated text to keep layout consistent */
+html[lang="ar"] .copyright-line,
+html[lang="he"] .copyright-line {
+  direction: ltr;
+}
+
+/* Language selector dropdown — keep LTR since it shows native language names */
+html[lang="ar"] .lang-selector,
+html[lang="he"] .lang-selector {
+  direction: ltr;
 }

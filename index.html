@@ -3,13 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <meta name="description" content="Emotion Constellation — an interactive, non-dualistic visualization of emotions and human needs">
+  <meta name="description" content="Emotion Constellation — an interactive, non-dualistic visualization of emotions and human needs from Emotion Rules by Joshua Freedman">
   <title>Emotion Constellation</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Emotion Constellation">
+  <meta property="og:description" content="An interactive visualization of emotions and human needs from Emotion Rules by Joshua Freedman">
+  <meta property="og:image" content="https://emotion-rules.web.app/constellation/images/og.jpeg">
+  <meta property="og:url" content="https://emotion-rules.web.app/constellation/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Emotion Constellation">
+  <meta name="twitter:description" content="An interactive visualization of emotions and human needs from Emotion Rules by Joshua Freedman">
+  <meta name="twitter:image" content="https://emotion-rules.web.app/constellation/images/og.jpeg">
+
   <link rel="stylesheet" href="/styles/main.css">
 </head>
 <body>
   <canvas id="constellation"></canvas>
   <div id="labels" aria-hidden="true"></div>
+  <script src="/js/countries.js"></script>
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>

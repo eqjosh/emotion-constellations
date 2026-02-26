@@ -1,49 +1,49 @@
 {
   "meta": {
     "version": "0.2.0",
-    "locale": "en",
+    "locale": "de",
     "source": "Emotion Rules by Joshua Freedman, Chapter 4: Wholeness — Beyond Opposites, pp. 75-76, 81-83"
   },
   "needs": [
     {
       "id": "safety",
-      "label": "Safety",
-      "description": "Deep in our neural architecture, the drive for safety is primary. Our brains are wired to detect and respond to threats.",
+      "label": "Sicherheit",
+      "description": "Tief in unserer neuronalen Architektur ist das Bedürfnis nach Sicherheit vorrangig. Unser Gehirn ist darauf ausgerichtet, Bedrohungen zu erkennen und darauf zu reagieren.",
       "color": [0.08, 0.20, 0.48],
       "colorSecondary": [0.18, 0.38, 0.85]
     },
     {
       "id": "belonging",
-      "label": "Belonging",
-      "description": "These social emotions run deep. They shape behavior, values, even self-image. They invite reflection on how and where we seek connection.",
+      "label": "Zugehörigkeit",
+      "description": "Diese sozialen Emotionen wirken tief. Sie prägen Verhalten, Werte, sogar das Selbstbild. Sie laden zur Reflexion ein, wie und wo wir Verbindung suchen.",
       "color": [0.60, 0.42, 0.05],
       "colorSecondary": [0.88, 0.68, 0.15]
     },
     {
       "id": "autonomy",
-      "label": "Autonomy",
-      "description": "A quiet need, until it's taken away; then emotions flare. These signals push us to reclaim authorship of our own lives.",
+      "label": "Autonomie",
+      "description": "Ein stilles Bedürfnis — bis es uns genommen wird; dann flammen Emotionen auf. Diese Signale treiben uns an, die Urheberschaft über unser eigenes Leben zurückzugewinnen.",
       "color": [0.03, 0.45, 0.45],
       "colorSecondary": [0.12, 0.80, 0.82]
     },
     {
       "id": "achievement",
-      "label": "Achievement",
-      "description": "This family of emotions energizes action and asks us to recalibrate. They guide us through ambition, readiness, and challenge.",
+      "label": "Leistung",
+      "description": "Diese Emotionsfamilie energetisiert das Handeln und fordert uns zur Neukalibrierung auf. Sie leiten uns durch Ehrgeiz, Bereitschaft und Herausforderung.",
       "color": [0.60, 0.18, 0.08],
       "colorSecondary": [0.92, 0.35, 0.15]
     },
     {
       "id": "meaning",
-      "label": "Meaning",
-      "description": "These emotions reflect the search for something beyond survival, for what makes life feel meaningful. They orient us toward values and vision.",
+      "label": "Sinn",
+      "description": "Diese Emotionen spiegeln die Suche nach etwas jenseits des Überlebens wider — nach dem, was das Leben bedeutsam macht. Sie richten uns auf Werte und Visionen aus.",
       "color": [0.35, 0.08, 0.50],
       "colorSecondary": [0.58, 0.22, 0.80]
     },
     {
       "id": "growth",
-      "label": "Growth",
-      "description": "Growth is rarely linear. These feelings often come in waves, pointing us toward discomfort that precedes insight.",
+      "label": "Wachstum",
+      "description": "Wachstum verläuft selten linear. Diese Gefühle kommen oft in Wellen und weisen uns auf das Unbehagen hin, das der Erkenntnis vorausgeht.",
       "color": [0.08, 0.45, 0.14],
       "colorSecondary": [0.18, 0.82, 0.30]
     }
@@ -51,118 +51,118 @@
   "emotions": [
     {
       "id": "trust",
-      "label": "Trust",
+      "label": "Vertrauen",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "Do I have support and protection?",
+          "inquiry": "Habe ich Unterstützung und Schutz?",
           "strength": 0.9
         },
         {
           "needId": "belonging",
-          "inquiry": "Are the bonds around me reliable?",
+          "inquiry": "Sind die Bindungen um mich herum verlässlich?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "fear",
-      "label": "Fear",
+      "label": "Angst",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What is it that I care about, and what is the risk?",
+          "inquiry": "Was liegt mir am Herzen, und was steht auf dem Spiel?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "vigilance",
-      "label": "Vigilance",
+      "label": "Wachsamkeit",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What's coming next?",
+          "inquiry": "Was kommt als Nächstes?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "surprise",
-      "label": "Surprise",
+      "label": "Überraschung",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What just changed, and how do I need to adapt?",
+          "inquiry": "Was hat sich gerade verändert, und wie muss ich mich anpassen?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "What is new here for me to learn?",
+          "inquiry": "Was gibt es hier Neues für mich zu lernen?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "loneliness",
-      "label": "Loneliness",
+      "label": "Einsamkeit",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "Am I disconnected from others or myself?",
+          "inquiry": "Bin ich von anderen oder von mir selbst abgeschnitten?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "love",
-      "label": "Love",
+      "label": "Liebe",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What bonds are worth cherishing and strengthening?",
+          "inquiry": "Welche Bindungen sind es wert, gehegt und gestärkt zu werden?",
           "strength": 0.9
         },
         {
           "needId": "safety",
-          "inquiry": "What do I care so much about that I fear losing it?",
+          "inquiry": "Was bedeutet mir so viel, dass ich fürchte, es zu verlieren?",
           "strength": 0.4
         },
         {
           "needId": "meaning",
-          "inquiry": "What lights me up inside?",
+          "inquiry": "Was lässt mich innerlich leuchten?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "jealousy",
-      "label": "Jealousy",
+      "label": "Eifersucht",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "Do I want what others seem to have?",
+          "inquiry": "Wünsche ich mir das, was andere zu haben scheinen?",
           "strength": 0.8
         },
         {
           "needId": "achievement",
-          "inquiry": "Am I falling behind where I want to be?",
+          "inquiry": "Falle ich hinter das zurück, wo ich sein möchte?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "shame",
-      "label": "Shame",
+      "label": "Scham",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "Have I fallen short of expectations?",
+          "inquiry": "Bin ich hinter den Erwartungen zurückgeblieben?",
           "strength": 0.8
         },
         {
           "needId": "growth",
-          "inquiry": "Am I living up to my own standards?",
+          "inquiry": "Werde ich meinen eigenen Maßstäben gerecht?",
           "strength": 0.5
         }
       ]
@@ -173,157 +173,157 @@
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "What is preventing me from making my own way?",
+          "inquiry": "Was hindert mich daran, meinen eigenen Weg zu gehen?",
           "strength": 0.9
         },
         {
           "needId": "achievement",
-          "inquiry": "Why can't I move forward?",
+          "inquiry": "Warum komme ich nicht voran?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "guilty",
-      "label": "Guilt",
+      "label": "Schuld",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "Did I make a choice that violated my own standards?",
+          "inquiry": "Habe ich eine Entscheidung getroffen, die gegen meine eigenen Maßstäbe verstößt?",
           "strength": 0.7
         },
         {
           "needId": "belonging",
-          "inquiry": "Have I damaged a relationship that matters to me?",
+          "inquiry": "Habe ich eine Beziehung beschädigt, die mir wichtig ist?",
           "strength": 0.5
         },
         {
           "needId": "growth",
-          "inquiry": "Am I holding back from doing better?",
+          "inquiry": "Halte ich mich davon zurück, es besser zu machen?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "free",
-      "label": "Freedom",
+      "label": "Freiheit",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "What is the path I want to take?",
+          "inquiry": "Welchen Weg möchte ich einschlagen?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "trapped",
-      "label": "Trapped",
+      "label": "Gefangen",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "What is limiting my power to act?",
+          "inquiry": "Was schränkt meine Handlungsfähigkeit ein?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "anger",
-      "label": "Anger",
+      "label": "Wut",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "What's blocking the way?",
+          "inquiry": "Was steht mir im Weg?",
           "strength": 0.8
         },
         {
           "needId": "autonomy",
-          "inquiry": "What boundary or value is being threatened?",
+          "inquiry": "Welche Grenze oder welcher Wert wird bedroht?",
           "strength": 0.7
         }
       ]
     },
     {
       "id": "excitement",
-      "label": "Excitement",
+      "label": "Begeisterung",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "What's fueling me to move?",
+          "inquiry": "Was treibt mich an, mich zu bewegen?",
           "strength": 0.8
         },
         {
           "needId": "growth",
-          "inquiry": "What new possibility am I sensing?",
+          "inquiry": "Welche neue Möglichkeit nehme ich wahr?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "urgency",
-      "label": "Urgency",
+      "label": "Dringlichkeit",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "What do I need to prioritize?",
+          "inquiry": "Was muss ich priorisieren?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "pride",
-      "label": "Pride",
+      "label": "Stolz",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "Can I honor my own contribution?",
+          "inquiry": "Kann ich meinen eigenen Beitrag würdigen?",
           "strength": 0.8
         },
         {
           "needId": "belonging",
-          "inquiry": "Do others see my value?",
+          "inquiry": "Sehen andere meinen Wert?",
           "strength": 0.3
         }
       ]
     },
     {
       "id": "doubt",
-      "label": "Doubt",
+      "label": "Zweifel",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "Am I prepared enough, or is something missing?",
+          "inquiry": "Bin ich ausreichend vorbereitet, oder fehlt etwas?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "How open am I to what's new and possible?",
+          "inquiry": "Wie offen bin ich für das Neue und Mögliche?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "awe",
-      "label": "Awe",
+      "label": "Ehrfurcht",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "Where do I fit in the face of this greater whole?",
+          "inquiry": "Wo ist mein Platz angesichts dieses größeren Ganzen?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "despair",
-      "label": "Despair",
+      "label": "Verzweiflung",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "Has something I counted on disappeared?",
+          "inquiry": "Ist etwas verschwunden, worauf ich gezählt habe?",
           "strength": 0.8
         },
         {
           "needId": "safety",
-          "inquiry": "Is there still a way forward?",
+          "inquiry": "Gibt es noch einen Weg nach vorne?",
           "strength": 0.4
         }
       ]
@@ -334,87 +334,87 @@
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What is calling me forward?",
+          "inquiry": "Was ruft mich nach vorne?",
           "strength": 0.9
         },
         {
           "needId": "growth",
-          "inquiry": "What am I ready to become?",
+          "inquiry": "Was bin ich bereit zu werden?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "emptiness",
-      "label": "Emptiness",
+      "label": "Leere",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What's missing?",
+          "inquiry": "Was fehlt?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "delight",
-      "label": "Delight",
+      "label": "Entzücken",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What's beyond what I could have imagined?",
+          "inquiry": "Was geht über das hinaus, was ich mir hätte vorstellen können?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "Am I noticing my own aliveness?",
+          "inquiry": "Nehme ich meine eigene Lebendigkeit wahr?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "curiosity",
-      "label": "Curiosity",
+      "label": "Neugier",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "What is here for me to learn or discover?",
+          "inquiry": "Was gibt es hier für mich zu lernen oder zu entdecken?",
           "strength": 0.9
         },
         {
           "needId": "meaning",
-          "inquiry": "What limits can I expand?",
+          "inquiry": "Welche Grenzen kann ich erweitern?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "joy",
-      "label": "Joy",
+      "label": "Freude",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "Am I noticing my own expansion or aliveness?",
+          "inquiry": "Nehme ich meine eigene Entfaltung oder Lebendigkeit wahr?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "What makes life feel worth living right now?",
+          "inquiry": "Was lässt das Leben sich gerade jetzt lebenswert anfühlen?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "impatience",
-      "label": "Impatience",
+      "label": "Ungeduld",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "What's holding me back?",
+          "inquiry": "Was hält mich zurück?",
           "strength": 0.7
         },
         {
           "needId": "achievement",
-          "inquiry": "Why isn't progress happening faster?",
+          "inquiry": "Warum geht der Fortschritt nicht schneller?",
           "strength": 0.5
         }
       ]
@@ -425,119 +425,119 @@
       "links": [
         {
           "needId": "growth",
-          "inquiry": "Do I really want to move forward?",
+          "inquiry": "Will ich wirklich vorwärtsgehen?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "What has lost its purpose?",
+          "inquiry": "Was hat seinen Sinn verloren?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "boredom",
-      "label": "Boredom",
+      "label": "Langeweile",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "Is it time to learn or explore?",
+          "inquiry": "Ist es Zeit zu lernen oder zu erkunden?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "sadness",
-      "label": "Sadness",
+      "label": "Traurigkeit",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What connection has been lost or is missing?",
+          "inquiry": "Welche Verbindung wurde verloren oder fehlt?",
           "strength": 0.8
         },
         {
           "needId": "meaning",
-          "inquiry": "What do I care about so much that losing it hurts?",
+          "inquiry": "Was bedeutet mir so viel, dass der Verlust schmerzt?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "anxiety",
-      "label": "Anxiety",
+      "label": "Angstgefühl",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What do I care about that feels at risk?",
+          "inquiry": "Was liegt mir am Herzen und fühlt sich gefährdet an?",
           "strength": 0.8
         },
         {
           "needId": "achievement",
-          "inquiry": "Am I prepared enough for what's ahead?",
+          "inquiry": "Bin ich ausreichend auf das vorbereitet, was kommt?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "gratitude",
-      "label": "Gratitude",
+      "label": "Dankbarkeit",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What connections and gifts have I been given?",
+          "inquiry": "Welche Verbindungen und Geschenke wurden mir zuteil?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "What richness is already present in my life?",
+          "inquiry": "Welcher Reichtum ist bereits in meinem Leben vorhanden?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "hope",
-      "label": "Hope",
+      "label": "Hoffnung",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What opportunities do I see to move toward what I want?",
+          "inquiry": "Welche Möglichkeiten sehe ich, mich dem zu nähern, was ich mir wünsche?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "What am I ready to grow into?",
+          "inquiry": "Wohinein bin ich bereit zu wachsen?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "compassion",
-      "label": "Compassion",
+      "label": "Mitgefühl",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "How can I stay present with suffering — mine or others'?",
+          "inquiry": "Wie kann ich mit dem Leiden präsent bleiben — meinem eigenen oder dem anderer?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "What is this pain teaching me about what matters?",
+          "inquiry": "Was lehrt mich dieser Schmerz darüber, was wirklich zählt?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "grief",
-      "label": "Grief",
+      "label": "Trauer",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What bond has been broken or transformed?",
+          "inquiry": "Welche Bindung wurde zerbrochen oder verwandelt?",
           "strength": 0.9
         },
         {
           "needId": "meaning",
-          "inquiry": "How do I make sense of this loss?",
+          "inquiry": "Wie kann ich diesen Verlust einordnen?",
           "strength": 0.7
         }
       ]
@@ -548,97 +548,97 @@
       "links": [
         {
           "needId": "safety",
-          "inquiry": "Are my challenges greater than my resources?",
+          "inquiry": "Sind meine Herausforderungen größer als meine Ressourcen?",
           "strength": 0.7
         },
         {
           "needId": "achievement",
-          "inquiry": "What do I need to prioritize or let go of?",
+          "inquiry": "Was muss ich priorisieren oder loslassen?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "overwhelm",
-      "label": "Overwhelm",
+      "label": "Überwältigung",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What is too much right now?",
+          "inquiry": "Was ist gerade zu viel?",
           "strength": 0.7
         },
         {
           "needId": "autonomy",
-          "inquiry": "Where have I lost the ability to choose?",
+          "inquiry": "Wo habe ich die Fähigkeit zu wählen verloren?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "contentment",
-      "label": "Contentment",
+      "label": "Zufriedenheit",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What is settled and at peace right now?",
+          "inquiry": "Was ist gerade geklärt und in Frieden?",
           "strength": 0.6
         },
         {
           "needId": "meaning",
-          "inquiry": "Am I aligned with what matters?",
+          "inquiry": "Bin ich im Einklang mit dem, was mir wichtig ist?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "courage",
-      "label": "Courage",
+      "label": "Mut",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What am I willing to risk for what I care about?",
+          "inquiry": "Was bin ich bereit zu riskieren für das, was mir am Herzen liegt?",
           "strength": 0.6
         },
         {
           "needId": "growth",
-          "inquiry": "What becomes possible if I move through this fear?",
+          "inquiry": "Was wird möglich, wenn ich durch diese Angst hindurchgehe?",
           "strength": 0.7
         }
       ]
     },
     {
       "id": "disgust",
-      "label": "Disgust",
+      "label": "Ekel",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What rules have been violated? Is this situation safe?",
+          "inquiry": "Welche Regeln wurden verletzt? Ist diese Situation sicher?",
           "strength": 0.8
         },
         {
           "needId": "belonging",
-          "inquiry": "Does this align with the values of my community?",
+          "inquiry": "Stimmt dies mit den Werten meiner Gemeinschaft überein?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "exhaustion",
-      "label": "Exhaustion",
+      "label": "Erschöpfung",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "Have I been pushing too hard without return?",
+          "inquiry": "Habe ich zu hart gedrängt, ohne etwas zurückzubekommen?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "Has the purpose behind my effort disappeared?",
+          "inquiry": "Ist der Sinn hinter meiner Anstrengung verschwunden?",
           "strength": 0.6
         },
         {
           "needId": "belonging",
-          "inquiry": "Am I trying to do this alone?",
+          "inquiry": "Versuche ich, das alleine zu schaffen?",
           "strength": 0.4
         }
       ]

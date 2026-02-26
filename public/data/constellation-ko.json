@@ -1,49 +1,49 @@
 {
   "meta": {
     "version": "0.2.0",
-    "locale": "en",
+    "locale": "ko",
     "source": "Emotion Rules by Joshua Freedman, Chapter 4: Wholeness — Beyond Opposites, pp. 75-76, 81-83"
   },
   "needs": [
     {
       "id": "safety",
-      "label": "Safety",
-      "description": "Deep in our neural architecture, the drive for safety is primary. Our brains are wired to detect and respond to threats.",
+      "label": "안전",
+      "description": "우리 신경 구조 깊은 곳에서 안전에 대한 욕구는 가장 근본적입니다. 우리의 뇌는 위협을 감지하고 반응하도록 설계되어 있습니다.",
       "color": [0.08, 0.20, 0.48],
       "colorSecondary": [0.18, 0.38, 0.85]
     },
     {
       "id": "belonging",
-      "label": "Belonging",
-      "description": "These social emotions run deep. They shape behavior, values, even self-image. They invite reflection on how and where we seek connection.",
+      "label": "소속감",
+      "description": "이 사회적 감정들은 깊이 뿌리내려 있습니다. 행동, 가치관, 심지어 자아상까지 형성합니다. 우리가 어디서, 어떻게 연결을 추구하는지 성찰하게 합니다.",
       "color": [0.60, 0.42, 0.05],
       "colorSecondary": [0.88, 0.68, 0.15]
     },
     {
       "id": "autonomy",
-      "label": "Autonomy",
-      "description": "A quiet need, until it's taken away; then emotions flare. These signals push us to reclaim authorship of our own lives.",
+      "label": "자율성",
+      "description": "조용한 욕구이지만, 빼앗기면 감정이 폭발합니다. 이 신호들은 우리 자신의 삶의 주체성을 되찾도록 이끕니다.",
       "color": [0.03, 0.45, 0.45],
       "colorSecondary": [0.12, 0.80, 0.82]
     },
     {
       "id": "achievement",
-      "label": "Achievement",
-      "description": "This family of emotions energizes action and asks us to recalibrate. They guide us through ambition, readiness, and challenge.",
+      "label": "성취",
+      "description": "이 감정의 가족은 행동에 에너지를 불어넣고 재조정을 요구합니다. 야망, 준비, 도전을 통해 우리를 안내합니다.",
       "color": [0.60, 0.18, 0.08],
       "colorSecondary": [0.92, 0.35, 0.15]
     },
     {
       "id": "meaning",
-      "label": "Meaning",
-      "description": "These emotions reflect the search for something beyond survival, for what makes life feel meaningful. They orient us toward values and vision.",
+      "label": "의미",
+      "description": "이 감정들은 생존을 넘어선 무언가, 삶을 의미 있게 만드는 것에 대한 탐색을 반영합니다. 가치와 비전을 향해 우리를 이끕니다.",
       "color": [0.35, 0.08, 0.50],
       "colorSecondary": [0.58, 0.22, 0.80]
     },
     {
       "id": "growth",
-      "label": "Growth",
-      "description": "Growth is rarely linear. These feelings often come in waves, pointing us toward discomfort that precedes insight.",
+      "label": "성장",
+      "description": "성장은 좀처럼 직선적이지 않습니다. 이 감정들은 파도처럼 밀려오며, 통찰에 앞서 오는 불편함을 향해 우리를 이끕니다.",
       "color": [0.08, 0.45, 0.14],
       "colorSecondary": [0.18, 0.82, 0.30]
     }
@@ -51,594 +51,594 @@
   "emotions": [
     {
       "id": "trust",
-      "label": "Trust",
+      "label": "신뢰",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "Do I have support and protection?",
+          "inquiry": "나에게 지지와 보호가 있는가?",
           "strength": 0.9
         },
         {
           "needId": "belonging",
-          "inquiry": "Are the bonds around me reliable?",
+          "inquiry": "내 주변의 유대는 믿을 만한가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "fear",
-      "label": "Fear",
+      "label": "두려움",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What is it that I care about, and what is the risk?",
+          "inquiry": "내가 소중히 여기는 것은 무엇이며, 그 위험은 무엇인가?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "vigilance",
-      "label": "Vigilance",
+      "label": "경계",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What's coming next?",
+          "inquiry": "다음에 무슨 일이 일어날까?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "surprise",
-      "label": "Surprise",
+      "label": "놀라움",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What just changed, and how do I need to adapt?",
+          "inquiry": "무엇이 변했으며, 나는 어떻게 적응해야 하는가?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "What is new here for me to learn?",
+          "inquiry": "여기서 내가 배울 수 있는 새로운 것은 무엇인가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "loneliness",
-      "label": "Loneliness",
+      "label": "외로움",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "Am I disconnected from others or myself?",
+          "inquiry": "나는 타인과, 혹은 나 자신과 단절되어 있는가?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "love",
-      "label": "Love",
+      "label": "사랑",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What bonds are worth cherishing and strengthening?",
+          "inquiry": "소중히 여기고 강화할 가치가 있는 유대는 무엇인가?",
           "strength": 0.9
         },
         {
           "needId": "safety",
-          "inquiry": "What do I care so much about that I fear losing it?",
+          "inquiry": "잃을까 두려울 만큼 소중히 여기는 것은 무엇인가?",
           "strength": 0.4
         },
         {
           "needId": "meaning",
-          "inquiry": "What lights me up inside?",
+          "inquiry": "내 안에서 빛나게 하는 것은 무엇인가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "jealousy",
-      "label": "Jealousy",
+      "label": "질투",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "Do I want what others seem to have?",
+          "inquiry": "다른 사람들이 가진 것을 나도 원하는가?",
           "strength": 0.8
         },
         {
           "needId": "achievement",
-          "inquiry": "Am I falling behind where I want to be?",
+          "inquiry": "내가 원하는 곳에서 뒤처지고 있는가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "shame",
-      "label": "Shame",
+      "label": "수치심",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "Have I fallen short of expectations?",
+          "inquiry": "나는 기대에 미치지 못했는가?",
           "strength": 0.8
         },
         {
           "needId": "growth",
-          "inquiry": "Am I living up to my own standards?",
+          "inquiry": "나는 나 자신의 기준에 부합하고 있는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "frustrated",
-      "label": "Frustration",
+      "label": "좌절",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "What is preventing me from making my own way?",
+          "inquiry": "나만의 길을 가는 것을 무엇이 막고 있는가?",
           "strength": 0.9
         },
         {
           "needId": "achievement",
-          "inquiry": "Why can't I move forward?",
+          "inquiry": "왜 앞으로 나아갈 수 없는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "guilty",
-      "label": "Guilt",
+      "label": "죄책감",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "Did I make a choice that violated my own standards?",
+          "inquiry": "나 자신의 기준을 어기는 선택을 했는가?",
           "strength": 0.7
         },
         {
           "needId": "belonging",
-          "inquiry": "Have I damaged a relationship that matters to me?",
+          "inquiry": "내게 소중한 관계를 손상시켰는가?",
           "strength": 0.5
         },
         {
           "needId": "growth",
-          "inquiry": "Am I holding back from doing better?",
+          "inquiry": "더 나아지는 것을 주저하고 있는가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "free",
-      "label": "Freedom",
+      "label": "자유",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "What is the path I want to take?",
+          "inquiry": "내가 가고 싶은 길은 무엇인가?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "trapped",
-      "label": "Trapped",
+      "label": "갇힌 느낌",
       "links": [
         {
           "needId": "autonomy",
-          "inquiry": "What is limiting my power to act?",
+          "inquiry": "나의 행동력을 제한하는 것은 무엇인가?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "anger",
-      "label": "Anger",
+      "label": "분노",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "What's blocking the way?",
+          "inquiry": "무엇이 길을 막고 있는가?",
           "strength": 0.8
         },
         {
           "needId": "autonomy",
-          "inquiry": "What boundary or value is being threatened?",
+          "inquiry": "어떤 경계나 가치가 위협받고 있는가?",
           "strength": 0.7
         }
       ]
     },
     {
       "id": "excitement",
-      "label": "Excitement",
+      "label": "흥분",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "What's fueling me to move?",
+          "inquiry": "나를 움직이게 하는 원동력은 무엇인가?",
           "strength": 0.8
         },
         {
           "needId": "growth",
-          "inquiry": "What new possibility am I sensing?",
+          "inquiry": "내가 감지하고 있는 새로운 가능성은 무엇인가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "urgency",
-      "label": "Urgency",
+      "label": "긴박감",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "What do I need to prioritize?",
+          "inquiry": "무엇을 우선시해야 하는가?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "pride",
-      "label": "Pride",
+      "label": "자부심",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "Can I honor my own contribution?",
+          "inquiry": "나 자신의 기여를 인정할 수 있는가?",
           "strength": 0.8
         },
         {
           "needId": "belonging",
-          "inquiry": "Do others see my value?",
+          "inquiry": "다른 사람들이 나의 가치를 알아보는가?",
           "strength": 0.3
         }
       ]
     },
     {
       "id": "doubt",
-      "label": "Doubt",
+      "label": "의심",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "Am I prepared enough, or is something missing?",
+          "inquiry": "충분히 준비되었는가, 아니면 무언가 빠져 있는가?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "How open am I to what's new and possible?",
+          "inquiry": "새롭고 가능한 것에 나는 얼마나 열려 있는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "awe",
-      "label": "Awe",
+      "label": "경외",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "Where do I fit in the face of this greater whole?",
+          "inquiry": "이 거대한 전체 앞에서 나는 어디에 있는가?",
           "strength": 0.9
         }
       ]
     },
     {
       "id": "despair",
-      "label": "Despair",
+      "label": "절망",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "Has something I counted on disappeared?",
+          "inquiry": "내가 의지하던 무언가가 사라진 것인가?",
           "strength": 0.8
         },
         {
           "needId": "safety",
-          "inquiry": "Is there still a way forward?",
+          "inquiry": "아직 앞으로 나아갈 길이 있는가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "inspiration",
-      "label": "Inspiration",
+      "label": "영감",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What is calling me forward?",
+          "inquiry": "무엇이 나를 앞으로 부르고 있는가?",
           "strength": 0.9
         },
         {
           "needId": "growth",
-          "inquiry": "What am I ready to become?",
+          "inquiry": "나는 무엇이 될 준비가 되어 있는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "emptiness",
-      "label": "Emptiness",
+      "label": "공허",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What's missing?",
+          "inquiry": "무엇이 빠져 있는가?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "delight",
-      "label": "Delight",
+      "label": "기쁨",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What's beyond what I could have imagined?",
+          "inquiry": "내가 상상했던 것 너머에 있는 것은 무엇인가?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "Am I noticing my own aliveness?",
+          "inquiry": "나는 내 안의 생동감을 느끼고 있는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "curiosity",
-      "label": "Curiosity",
+      "label": "호기심",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "What is here for me to learn or discover?",
+          "inquiry": "여기서 내가 배우거나 발견할 수 있는 것은 무엇인가?",
           "strength": 0.9
         },
         {
           "needId": "meaning",
-          "inquiry": "What limits can I expand?",
+          "inquiry": "내가 확장할 수 있는 한계는 무엇인가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "joy",
-      "label": "Joy",
+      "label": "환희",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "Am I noticing my own expansion or aliveness?",
+          "inquiry": "나는 내 안의 확장과 생동감을 느끼고 있는가?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "What makes life feel worth living right now?",
+          "inquiry": "지금 이 순간 삶을 살 만하게 만드는 것은 무엇인가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "impatience",
-      "label": "Impatience",
+      "label": "조바심",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "What's holding me back?",
+          "inquiry": "무엇이 나를 붙잡고 있는가?",
           "strength": 0.7
         },
         {
           "needId": "achievement",
-          "inquiry": "Why isn't progress happening faster?",
+          "inquiry": "왜 진전이 더 빨리 이루어지지 않는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "depression",
-      "label": "Depression",
+      "label": "우울",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "Do I really want to move forward?",
+          "inquiry": "나는 정말로 앞으로 나아가고 싶은가?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "What has lost its purpose?",
+          "inquiry": "무엇이 그 목적을 잃었는가?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "boredom",
-      "label": "Boredom",
+      "label": "지루함",
       "links": [
         {
           "needId": "growth",
-          "inquiry": "Is it time to learn or explore?",
+          "inquiry": "배우거나 탐험할 때가 된 것인가?",
           "strength": 0.8
         }
       ]
     },
     {
       "id": "sadness",
-      "label": "Sadness",
+      "label": "슬픔",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What connection has been lost or is missing?",
+          "inquiry": "어떤 연결이 사라졌거나 부족한가?",
           "strength": 0.8
         },
         {
           "needId": "meaning",
-          "inquiry": "What do I care about so much that losing it hurts?",
+          "inquiry": "잃으면 아플 만큼 소중히 여기는 것은 무엇인가?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "anxiety",
-      "label": "Anxiety",
+      "label": "불안",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What do I care about that feels at risk?",
+          "inquiry": "위험에 처해 있다고 느끼는 소중한 것은 무엇인가?",
           "strength": 0.8
         },
         {
           "needId": "achievement",
-          "inquiry": "Am I prepared enough for what's ahead?",
+          "inquiry": "앞에 놓인 일에 충분히 준비되어 있는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "gratitude",
-      "label": "Gratitude",
+      "label": "감사",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What connections and gifts have I been given?",
+          "inquiry": "내가 받은 연결과 선물은 무엇인가?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "What richness is already present in my life?",
+          "inquiry": "내 삶에 이미 존재하는 풍요로움은 무엇인가?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "hope",
-      "label": "Hope",
+      "label": "희망",
       "links": [
         {
           "needId": "meaning",
-          "inquiry": "What opportunities do I see to move toward what I want?",
+          "inquiry": "원하는 것을 향해 나아갈 기회가 보이는가?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "What am I ready to grow into?",
+          "inquiry": "나는 무엇으로 성장할 준비가 되어 있는가?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "compassion",
-      "label": "Compassion",
+      "label": "연민",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "How can I stay present with suffering — mine or others'?",
+          "inquiry": "나의 또는 타인의 고통 앞에 어떻게 함께할 수 있는가?",
           "strength": 0.7
         },
         {
           "needId": "growth",
-          "inquiry": "What is this pain teaching me about what matters?",
+          "inquiry": "이 아픔이 무엇이 중요한지에 대해 나에게 가르쳐주는 것은?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "grief",
-      "label": "Grief",
+      "label": "애도",
       "links": [
         {
           "needId": "belonging",
-          "inquiry": "What bond has been broken or transformed?",
+          "inquiry": "어떤 유대가 끊어지거나 변형되었는가?",
           "strength": 0.9
         },
         {
           "needId": "meaning",
-          "inquiry": "How do I make sense of this loss?",
+          "inquiry": "이 상실을 어떻게 이해할 수 있는가?",
           "strength": 0.7
         }
       ]
     },
     {
       "id": "stress",
-      "label": "Stress",
+      "label": "스트레스",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "Are my challenges greater than my resources?",
+          "inquiry": "나의 도전이 나의 자원보다 큰가?",
           "strength": 0.7
         },
         {
           "needId": "achievement",
-          "inquiry": "What do I need to prioritize or let go of?",
+          "inquiry": "무엇을 우선시하거나 놓아야 하는가?",
           "strength": 0.5
         }
       ]
     },
     {
       "id": "overwhelm",
-      "label": "Overwhelm",
+      "label": "압도감",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What is too much right now?",
+          "inquiry": "지금 무엇이 너무 과한가?",
           "strength": 0.7
         },
         {
           "needId": "autonomy",
-          "inquiry": "Where have I lost the ability to choose?",
+          "inquiry": "어디에서 선택할 능력을 잃었는가?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "contentment",
-      "label": "Contentment",
+      "label": "만족",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What is settled and at peace right now?",
+          "inquiry": "지금 안정되고 평화로운 것은 무엇인가?",
           "strength": 0.6
         },
         {
           "needId": "meaning",
-          "inquiry": "Am I aligned with what matters?",
+          "inquiry": "나는 중요한 것과 일치하고 있는가?",
           "strength": 0.6
         }
       ]
     },
     {
       "id": "courage",
-      "label": "Courage",
+      "label": "용기",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What am I willing to risk for what I care about?",
+          "inquiry": "소중히 여기는 것을 위해 무엇을 감수할 수 있는가?",
           "strength": 0.6
         },
         {
           "needId": "growth",
-          "inquiry": "What becomes possible if I move through this fear?",
+          "inquiry": "이 두려움을 통과하면 무엇이 가능해지는가?",
           "strength": 0.7
         }
       ]
     },
     {
       "id": "disgust",
-      "label": "Disgust",
+      "label": "혐오",
       "links": [
         {
           "needId": "safety",
-          "inquiry": "What rules have been violated? Is this situation safe?",
+          "inquiry": "어떤 규칙이 위반되었는가? 이 상황은 안전한가?",
           "strength": 0.8
         },
         {
           "needId": "belonging",
-          "inquiry": "Does this align with the values of my community?",
+          "inquiry": "이것이 내 공동체의 가치와 부합하는가?",
           "strength": 0.4
         }
       ]
     },
     {
       "id": "exhaustion",
-      "label": "Exhaustion",
+      "label": "탈진",
       "links": [
         {
           "needId": "achievement",
-          "inquiry": "Have I been pushing too hard without return?",
+          "inquiry": "보상 없이 너무 무리하고 있었는가?",
           "strength": 0.7
         },
         {
           "needId": "meaning",
-          "inquiry": "Has the purpose behind my effort disappeared?",
+          "inquiry": "노력 뒤에 있던 목적이 사라진 것인가?",
           "strength": 0.6
         },
         {
           "needId": "belonging",
-          "inquiry": "Am I trying to do this alone?",
+          "inquiry": "이것을 혼자서 하려고 하고 있는가?",
           "strength": 0.4
         }
       ]

@@ -1,0 +1,874 @@
+{
+  "version": "1.0",
+  "source": "Emotion Rules by Joshua Freedman (2026)",
+  "sourceUrl": "https://emotionrules.com",
+  "needs": [
+    {
+      "id": "safety",
+      "label": { "en": "Safety" },
+      "description": { "en": "Deep in our neural architecture, the drive for safety is primary. Our brains are wired to detect and respond to threats, often before we're consciously aware of them." },
+      "color": "#1a3a6b",
+      "colorSecondary": "#3366cc"
+    },
+    {
+      "id": "belonging",
+      "label": { "en": "Belonging" },
+      "description": { "en": "These social emotions run deep. They shape behavior, values, even self-image. They invite reflection on how and where we seek connection." },
+      "color": "#8b6914",
+      "colorSecondary": "#d4a832"
+    },
+    {
+      "id": "autonomy",
+      "label": { "en": "Autonomy" },
+      "description": { "en": "Autonomy is a quiet need, until it's taken away; then emotions flare. These signals push us to reclaim authorship of our own lives." },
+      "color": "#0d6b6e",
+      "colorSecondary": "#2cc4c9"
+    },
+    {
+      "id": "achievement",
+      "label": { "en": "Achievement" },
+      "description": { "en": "This family of emotions energizes action and asks us to recalibrate. They guide us through ambition, readiness, and challenge." },
+      "color": "#8b3a1a",
+      "colorSecondary": "#e06030"
+    },
+    {
+      "id": "meaning",
+      "label": { "en": "Meaning" },
+      "description": { "en": "These emotions reflect the search for something beyond survival, for what makes life feel meaningful. They orient us toward values and vision." },
+      "color": "#4a1a6b",
+      "colorSecondary": "#8844bb"
+    },
+    {
+      "id": "growth",
+      "label": { "en": "Growth" },
+      "description": { "en": "Growth is rarely linear. These feelings often come in waves, pointing us toward discomfort that precedes insight." },
+      "color": "#1a6b2a",
+      "colorSecondary": "#33cc55"
+    }
+  ],
+  "emotions": [
+    {
+      "id": "trust",
+      "label": { "en": "Trust" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "Do I have support and protection?" },
+          "strength": 0.9
+        },
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Are the bonds around me reliable?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A feeling of security and confidence in people, systems, or yourself — a signal that the rules are in place and you are accepted." },
+        "signal": { "en": "Trust is your system saying: it's safe here. When trust is present, you can open up, collaborate, and invest in relationships. Trust tells us about safety — the rules are in place, and we feel accepted as part of the system. It's also the foundation of belonging; without it, connection stays shallow." },
+        "reflection": { "en": "Where in your life is trust present — and where might you be withholding it?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 81" }
+      }
+    },
+    {
+      "id": "fear",
+      "label": { "en": "Fear" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What is it that I care about, and what is the risk?" },
+          "strength": 0.9
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "An alert that something you care about may be at risk — your system's way of sharpening your attention toward what matters most." },
+        "signal": { "en": "Fear is not a sign of weakness; it's a sign of caring. Fear sharpens your attention and prepares you to protect. The deeper question isn't 'how do I stop being afraid?' but 'what do I love enough to feel afraid about losing?' Fear and love are two sides of commitment — love deepens it, fear occurs when we perceive risk to what we love." },
+        "reflection": { "en": "What would it look like to stay with this fear and listen to what it's protecting?" },
+        "bookRef": { "en": "Emotion Rules, pp. 51, 75, 81" }
+      }
+    },
+    {
+      "id": "vigilance",
+      "label": { "en": "Vigilance" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What's coming next?" },
+          "strength": 0.8
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A heightened state of alertness and watchfulness — your mind scanning for what might be changing around you." },
+        "signal": { "en": "Vigilance is an intense form of anticipation focused on safety. It's your brain in active monitoring mode, looking for signals of change. While it can be exhausting if sustained, it serves a purpose: keeping you one step ahead. The question is whether the scanning is helping you prepare or keeping you stuck in reactive mode." },
+        "reflection": { "en": "Is your vigilance helping you prepare, or is it keeping you from being present?" },
+        "bookRef": { "en": "Emotion Rules, pp. 52, 81" }
+      }
+    },
+    {
+      "id": "surprise",
+      "label": { "en": "Surprise" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What just changed, and how do I need to adapt?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What is new here for me to learn?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A sudden jolt of recognition that something unexpected has happened — your brain's rapid-response system to novelty." },
+        "signal": { "en": "Surprise interrupts your current mental model and forces an update. It serves both safety (something changed — adapt!) and growth (something new — learn!). Surprise is the emotion that bridges the familiar and the unknown. It's brief, but it opens a window where you're especially receptive to new information." },
+        "reflection": { "en": "When you're surprised, what does your first reaction tell you about what you were expecting?" },
+        "bookRef": { "en": "Emotion Rules, pp. 51, 81" }
+      }
+    },
+    {
+      "id": "loneliness",
+      "label": { "en": "Loneliness" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Am I disconnected from others or myself?" },
+          "strength": 0.9
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "An aching sense of disconnection — a signal that your need for meaningful human contact is unmet." },
+        "signal": { "en": "Loneliness is not the same as being alone. You can be surrounded by people and feel lonely, or be by yourself and feel connected. Loneliness is a signal about the quality of connection, not the quantity. It's checking: do I belong? Am I seen? Sometimes it's pointing to disconnection from others; sometimes it's about disconnection from yourself." },
+        "reflection": { "en": "Is this loneliness about needing more people, or about needing deeper connection with the people — or the person — already here?" },
+        "bookRef": { "en": "Emotion Rules, p. 82" }
+      }
+    },
+    {
+      "id": "love",
+      "label": { "en": "Love" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "What bonds are worth cherishing and strengthening?" },
+          "strength": 0.9
+        },
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What do I care so much about that I fear losing it?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A deep feeling of connection, care, and warmth — a signal that something or someone truly matters to you." },
+        "signal": { "en": "Love is your system saying: invest here. It deepens commitment and creates bonds worth protecting. Love isn't just warmth — it's also what makes fear, grief, and jealousy possible, because we only fear losing what we love. Love and fear are both about commitment; love deepens our commitment, and fear occurs when we perceive risk to what we love." },
+        "reflection": { "en": "What would change if you followed where this feeling leads? For more, try clicking one of Love's fellow messengers from the bottom of the screen." },
+        "bookRef": { "en": "Emotion Rules, pp. 54, 75, 82" }
+      }
+    },
+    {
+      "id": "jealousy",
+      "label": { "en": "Jealousy" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Do I want what others seem to have?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Am I falling behind where I want to be?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A sharp awareness of what others have that you want — a signal about ownership, desire, and what you believe you deserve." },
+        "signal": { "en": "Jealousy is often rejected as 'ugly,' but it carries real information. It asks: what do I want? What do I feel I'm missing? Grateful and jealous are both about ownership — what do we have? What are we working to have? What do we deserve? Instead of shaming yourself for jealousy, try listening to what it's pointing you toward." },
+        "reflection": { "en": "What is this jealousy telling you about what you actually want — and is that something you can work toward?" },
+        "bookRef": { "en": "Emotion Rules, pp. 76, 82" }
+      }
+    },
+    {
+      "id": "shame",
+      "label": { "en": "Shame" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Have I fallen short of expectations?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "Am I living up to my own standards?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A painful feeling of falling short — a signal about the gap between who you are and who you or your community expects you to be." },
+        "signal": { "en": "Shame is often maligned. Yes, it can be deeply painful. It can lead to self-suppression or withdrawal. But it also plays a role in moral development. It alerts us to the question: Am I living up to the standards of my community? When used with awareness and compassion, that question becomes a compass toward integrity, not just conformity." },
+        "reflection": { "en": "Whose expectations are you measuring yourself against — and are they truly yours?" },
+        "bookRef": { "en": "Emotion Rules, pp. 81, 82" }
+      }
+    },
+    {
+      "id": "frustrated",
+      "label": { "en": "Frustration" },
+      "needs": [
+        {
+          "needId": "autonomy",
+          "inquiry": { "en": "What is preventing me from making my own way?" },
+          "strength": 0.9
+        },
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Why can't I move forward?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A building tension when something is blocking your path — a signal that you want to move forward but something is in the way." },
+        "signal": { "en": "Frustration is the feeling of thwarted agency. It bridges autonomy (my ability to choose my own path is being blocked) and achievement (I can't make the progress I want). Rather than a sign to give up, frustration signals that what you're trying to do matters to you. It's energy looking for a channel." },
+        "reflection": { "en": "What specifically is blocked — and is there another path you haven't considered?" },
+        "bookRef": { "en": "Emotion Rules, pp. 82, 107" }
+      }
+    },
+    {
+      "id": "guilty",
+      "label": { "en": "Guilt" },
+      "needs": [
+        {
+          "needId": "autonomy",
+          "inquiry": { "en": "Did I make a choice that violated my own standards?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Have I damaged a relationship that matters to me?" },
+          "strength": 0.5
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "Am I holding back from doing better?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A nagging sense that you've done something misaligned with your values — a signal pointing toward accountability and repair." },
+        "signal": { "en": "Guilt bridges three needs at once, which is why it can feel so complex. It asks about autonomy (did I betray my own standards?), belonging (did I harm a connection?), and growth (can I do better?). Growth and guilt both tell us about doing well — are we doing our best? Are we challenging ourselves to do better? Or are we holding back?" },
+        "reflection": { "en": "Is this guilt pointing toward something you need to repair, something you need to forgive yourself for, or something you need to change going forward?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 82" }
+      }
+    },
+    {
+      "id": "free",
+      "label": { "en": "Freedom" },
+      "needs": [
+        {
+          "needId": "autonomy",
+          "inquiry": { "en": "What is the path I want to take?" },
+          "strength": 0.9
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A sense of openness and possibility — a signal that your power to choose and to act is alive." },
+        "signal": { "en": "Freedom and feeling trapped teach us about our own liberty or autonomy. They're both about the power to act. When freedom is present, you feel spacious, capable, self-directed. It's worth noticing, because freedom is easy to take for granted — until it's gone." },
+        "reflection": { "en": "What choices are available to you right now that you might not be seeing?" },
+        "bookRef": { "en": "Emotion Rules, p. 75" }
+      }
+    },
+    {
+      "id": "trapped",
+      "label": { "en": "Trapped" },
+      "needs": [
+        {
+          "needId": "autonomy",
+          "inquiry": { "en": "What is limiting my power to act?" },
+          "strength": 0.9
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A constricting feeling that your options are gone — a signal that your autonomy needs attention." },
+        "signal": { "en": "Feeling trapped is autonomy under threat. These feelings challenge us to see the limits of our own volition — but also to ask whether the walls are as solid as they seem. Sometimes we're trapped by circumstances; sometimes by assumptions. Either way, the feeling is calling you to reclaim agency, even in small ways." },
+        "reflection": { "en": "What one small choice could you make right now to reclaim even a little agency?" },
+        "bookRef": { "en": "Emotion Rules, p. 75" }
+      }
+    },
+    {
+      "id": "anger",
+      "label": { "en": "Anger" },
+      "needs": [
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "What's blocking the way?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "autonomy",
+          "inquiry": { "en": "What boundary or value is being threatened?" },
+          "strength": 0.7
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A surge of energy when something important is threatened or blocked — a mobilizing force that says: this matters, act." },
+        "signal": { "en": "Anger is one of the most misunderstood emotions. We're taught to suppress it, but anger is energy for change. We feel drive to motivate us to move forward; anger comes when we want to move or break through, but we perceive our way is blocked. It serves both achievement (break through the obstacle) and autonomy (protect what's mine). Anger's feeling pair partner is compassion — both fight for freedom and dignity." },
+        "reflection": { "en": "What value or boundary is this anger protecting — and what would compassion add to your response?" },
+        "bookRef": { "en": "Emotion Rules, pp. 51, 75, 76, 82" }
+      }
+    },
+    {
+      "id": "excitement",
+      "label": { "en": "Excitement" },
+      "needs": [
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "What's fueling me to move?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What new possibility am I sensing?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A buzzing, forward-leaning energy — a signal that you sense progress or possibility ahead." },
+        "signal": { "en": "Excitement shows up when we sense progress — when something is working and there's momentum. As one of achievement's messengers, it asks: what's fueling me? But excitement also touches growth, because the thrill often comes from encountering something new. It's the emotional fuel that makes effort feel effortless." },
+        "reflection": { "en": "What is this excitement pointing you toward — and how can you channel it into action?" },
+        "bookRef": { "en": "Emotion Rules, pp. 79, 82, 108" }
+      }
+    },
+    {
+      "id": "urgency",
+      "label": { "en": "Urgency" },
+      "needs": [
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "What do I need to prioritize?" },
+          "strength": 0.8
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A pressing feeling that time is running out — a signal to focus your energy on what matters most right now." },
+        "signal": { "en": "Urgency is time slipping away while something important remains undone. It's a powerful mobilizer — but it can also become a trap. The Tyranny of Urgency compresses your timeline so you think in seconds or minutes, locking you into short-term reactions at the expense of long-term values. The key is to let urgency sharpen your focus without hijacking your perspective." },
+        "reflection": { "en": "Is this truly urgent, or is urgency hijacking your attention from what matters most?" },
+        "bookRef": { "en": "Emotion Rules, pp. 82, 226-227" }
+      }
+    },
+    {
+      "id": "pride",
+      "label": { "en": "Pride" },
+      "needs": [
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Can I honor my own contribution?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Do others see my value?" },
+          "strength": 0.3
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A warm glow of self-recognition — a signal that you've reached a milestone or made a meaningful contribution." },
+        "signal": { "en": "Pride is the milestone marker of achievement. It says: you did something that matters. Pride also touches belonging — part of what makes accomplishment meaningful is being seen and valued by others. The question 'can I honor my own contribution?' is an invitation to self-recognition that many people struggle with." },
+        "reflection": { "en": "Can you let yourself feel this fully — without deflecting or minimizing?" },
+        "bookRef": { "en": "Emotion Rules, pp. 79, 82" }
+      }
+    },
+    {
+      "id": "doubt",
+      "label": { "en": "Doubt" },
+      "needs": [
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Am I prepared enough, or is something missing?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "How open am I to what's new and possible?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A questioning hesitation — a signal that something may not be fully resolved or that you're at the edge of your certainty." },
+        "signal": { "en": "Doubt is the emotion at the boundary between knowing and not-knowing. Wonder and doubt are both about seeing and limiting possibilities. Doubt checks your preparation and readiness, but it can also be an invitation to expand — to question assumptions and see what else might be true. As doubts creep in, our brains move more into a fear/protection response, automatically rejecting novelty. But staying with doubt can open doorways." },
+        "reflection": { "en": "Is your doubt protecting you from a real risk, or keeping you from a growth opportunity?" },
+        "bookRef": { "en": "Emotion Rules, pp. 76, 82, 226" }
+      }
+    },
+    {
+      "id": "awe",
+      "label": { "en": "Awe" },
+      "needs": [
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "Where do I fit in the face of this greater whole?" },
+          "strength": 0.9
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A vast, breathtaking feeling in the presence of something greater than yourself — a signal that you're encountering the edge of what you can comprehend." },
+        "signal": { "en": "Awe is a complex, 'cognitively saturated' emotion — rich in meaning, not just a simple physiological reaction. Research by Dacher Keltner shows that awe helps regulate our nervous system, expand our sense of connection, and diminish the grip of ego. When we experience awe, we often feel smaller in a way that is expansive, not diminishing. It reorients us, helping us see ourselves as part of something larger." },
+        "reflection": { "en": "What becomes available when you allow yourself to feel small in the face of something vast?" },
+        "bookRef": { "en": "Emotion Rules, pp. 55, 83" }
+      }
+    },
+    {
+      "id": "despair",
+      "label": { "en": "Despair" },
+      "needs": [
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "Has something I counted on disappeared?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "safety",
+          "inquiry": { "en": "Is there still a way forward?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A sinking feeling that the path forward has vanished — a signal that something you deeply valued feels lost." },
+        "signal": { "en": "Hope and despair are partners, not opposites. Hope rises when we see opportunities to move toward what we want, and despair means we don't see a way forward — but it still teaches us about the opportunity we crave. In the valley of despair, something is clarified. What truly matters becomes so vividly present. Despair is painful, but it carries the seed of clarity about what you most want." },
+        "reflection": { "en": "Even in this dark moment — what does the intensity of this pain tell you about what you truly value?" },
+        "bookRef": { "en": "Emotion Rules, pp. 69, 75, 83" }
+      }
+    },
+    {
+      "id": "inspiration",
+      "label": { "en": "Inspiration" },
+      "needs": [
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What is calling me forward?" },
+          "strength": 0.9
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What am I ready to become?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A lifting, energizing pull toward something bigger — a signal that you've glimpsed a possibility that resonates with your deepest values." },
+        "signal": { "en": "Inspiration opens your mind to new learning and new becoming. Inspired and bored both teach us about our relationship with learning and growth — inspiration is the open, expansive side of that need. It's calling you toward something, even if you can't yet name it clearly. Follow the pull." },
+        "reflection": { "en": "What is this inspiration calling you toward — and what's one small step you could take today?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 83" }
+      }
+    },
+    {
+      "id": "emptiness",
+      "label": { "en": "Emptiness" },
+      "needs": [
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What's missing?" },
+          "strength": 0.8
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A hollow, vacant feeling — a signal that something essential to your sense of purpose or connection has gone quiet." },
+        "signal": { "en": "Emptiness is meaning's absence made felt. It's the emotional experience of a gap between where you are and where your values say you should be. While uncomfortable, emptiness is also an honest signal — it tells you that something is missing without pretending otherwise. Listening to emptiness can help you clarify what you need to find or rebuild." },
+        "reflection": { "en": "What used to fill this space — and is it something to reclaim, or something new to create?" },
+        "bookRef": { "en": "Emotion Rules, p. 83" }
+      }
+    },
+    {
+      "id": "delight",
+      "label": { "en": "Delight" },
+      "needs": [
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What's beyond what I could have imagined?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "Am I noticing my own aliveness?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A sparkling, unexpected pleasure — a signal that life has surprised you with something wonderful." },
+        "signal": { "en": "Delight sits at the intersection of meaning and growth. It often arrives when something exceeds your expectations — when reality is better than what you imagined. Delight is meaning made tangible: it says, this matters, and it's here. It bridges toward growth because delight expands your sense of what's possible." },
+        "reflection": { "en": "What just delighted you — and what does that reveal about what makes you come alive?" },
+        "bookRef": { "en": "Emotion Rules, p. 83" }
+      }
+    },
+    {
+      "id": "curiosity",
+      "label": { "en": "Curiosity" },
+      "needs": [
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What is here for me to learn or discover?" },
+          "strength": 0.9
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What limits can I expand?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "An alert, open-minded pull toward something unknown — a signal that your brain is ready to learn." },
+        "signal": { "en": "Curiosity and judging both ask us to learn and discover. While we might think it's 'bad to judge,' we're wired to evaluate, to assess, to find meaning and limits. Curiosity expands those limits. Curiosity is the lead emotion for growth — it's what moves you from 'I know' to 'I wonder.' In Taoism, curiosity is more effective than having the right answer." },
+        "reflection": { "en": "What are you curious about right now — and what would it take to follow that thread?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 83, 247" }
+      }
+    },
+    {
+      "id": "joy",
+      "label": { "en": "Joy" },
+      "needs": [
+        {
+          "needId": "growth",
+          "inquiry": { "en": "Am I noticing my own expansion or aliveness?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What makes life feel worth living right now?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A bright, expansive feeling of things going well — a signal that something in your life is aligned and flourishing." },
+        "signal": { "en": "Joy says: can we do more of this? It energizes us to continue what matters. Joy and sorrow are partners — both help us understand what we care about. Joy expands your capacity for love, strengthens bonds, and fuels growth. It's not just 'feeling good' — it's a signal of alignment between your life and your values." },
+        "reflection": { "en": "What conditions created this joy — and how can you create more of them?" },
+        "bookRef": { "en": "Emotion Rules, pp. 51, 75, 83, 89" }
+      }
+    },
+    {
+      "id": "impatience",
+      "label": { "en": "Impatience" },
+      "needs": [
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What's holding me back?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Why isn't progress happening faster?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A restless, forward-pushing energy — a signal that you're ready to move faster than circumstances allow." },
+        "signal": { "en": "Impatience is growth straining against its constraints. It says: I want to be further along. It's the bridge between growth (I'm ready for the next thing) and achievement (why isn't progress happening?). Impatience can be destructive when it leads to rushing, but it's also a sign of vitality — you care about getting somewhere." },
+        "reflection": { "en": "Is this impatience telling you to push harder, or to trust the process?" },
+        "bookRef": { "en": "Emotion Rules, p. 83" }
+      }
+    },
+    {
+      "id": "depression",
+      "label": { "en": "Depression" },
+      "needs": [
+        {
+          "needId": "growth",
+          "inquiry": { "en": "Do I really want to move forward?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What has lost its purpose?" },
+          "strength": 0.6
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A heavy, low-energy state where forward motion feels impossible — a signal that something fundamental may need to change." },
+        "signal": { "en": "Depression sits between growth and meaning, asking deep questions about whether the direction you've been heading still makes sense. It can be a sign that what used to fuel you has run dry. While persistent depression needs professional support, the emotional signal itself often carries important information about misalignment between your life and your needs." },
+        "reflection": { "en": "If this heaviness could speak, what might it be asking you to change — or to grieve?" },
+        "bookRef": { "en": "Emotion Rules, p. 83" }
+      }
+    },
+    {
+      "id": "boredom",
+      "label": { "en": "Boredom" },
+      "needs": [
+        {
+          "needId": "growth",
+          "inquiry": { "en": "Is it time to learn or explore?" },
+          "strength": 0.8
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A flat, understimulated feeling — a signal that your mind is either resting or hungry to engage with something new." },
+        "signal": { "en": "Boredom gets a bad reputation, but it serves two purposes. Sometimes your brain is resting and integrating — it needs the downtime. Other times, boredom is growth calling: you've outgrown the current situation and your mind wants new challenge. Inspired and bored are partners — both teach us about our relationship with learning." },
+        "reflection": { "en": "Is this boredom asking you to rest, or to seek something new?" },
+        "bookRef": { "en": "Emotion Rules, pp. 52, 75, 83" }
+      }
+    },
+    {
+      "id": "sadness",
+      "label": { "en": "Sadness" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "What connection has been lost or is missing?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What do I care about so much that losing it hurts?" },
+          "strength": 0.6
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A deep, sinking feeling of loss or absence — a signal that something precious to you has changed or is slipping away." },
+        "signal": { "en": "Sadness honors what's precious. It's the emotion that says: this mattered. Joy and sorrow are partners — both help us understand what we care about. Joy energizes us to continue what matters, and sorrow strengthens our understanding of what is most important. The raw emotion of sadness can mean so many things: I miss you. I wish I had more time. I'm grateful for what we shared. The same basic emotion gives us different messages depending on the story around it." },
+        "reflection": { "en": "What is this sadness honoring — and can you sit with it rather than push it away?" },
+        "bookRef": { "en": "Emotion Rules, pp. 51, 75, 89, 229-230" }
+      }
+    },
+    {
+      "id": "anxiety",
+      "label": { "en": "Anxiety" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What do I care about that feels at risk?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Am I prepared enough for what's ahead?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A buzzing, unsettled alertness about the unknown — a generalized form of fear where you can't quite pinpoint the risk." },
+        "signal": { "en": "Anxiety is your system's way of preparing you for the unknown. It says: be alert, something important might happen. But it doesn't tell you what to do — so it leaves you buzzing. Anxiety is a form of purpose misdirected: all this energy for something important, without a channel. When you start to create a path, even a small one, anxiety can transform into commitment, clarity, and courage." },
+        "reflection": { "en": "What is this anxiety trying to protect — and what is one small step you could take right now?" },
+        "bookRef": { "en": "Emotion Rules, pp. 147-149" }
+      }
+    },
+    {
+      "id": "gratitude",
+      "label": { "en": "Gratitude" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "What connections and gifts have I been given?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What richness is already present in my life?" },
+          "strength": 0.6
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A warm recognition of goodness received — a signal that something valuable is present in your life right now." },
+        "signal": { "en": "Grateful and jealous are both about ownership — what do we have? What are we working to have? Gratitude is the feeling pair partner for sadness: while sadness honors what's been lost, gratitude honors what's here. Gratitude strengthens your resilience and deepens your sense of connection. It's one of the emotions that bridges belonging and meaning — noticing what you have is both relational and purposeful." },
+        "reflection": { "en": "What is present in your life right now that you might not have been noticing?" },
+        "bookRef": { "en": "Emotion Rules, pp. 76, 89" }
+      }
+    },
+    {
+      "id": "hope",
+      "label": { "en": "Hope" },
+      "needs": [
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "What opportunities do I see to move toward what I want?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What am I ready to grow into?" },
+          "strength": 0.6
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A forward-leaning feeling that a better future is possible — a signal that you still see a path, even if it's narrow." },
+        "signal": { "en": "Hope rises when we see opportunities to move toward what we want. Hope and despair are partners: despair means we don't see a way forward, but it still teaches us about the opportunity we crave. Hope fuels your perseverance. Even a small thread of hope means you haven't lost sight of what matters. Hope bridges meaning (there's something worth working toward) and growth (I can become what's needed)." },
+        "reflection": { "en": "Even a flicker of hope is a signal. What possibility is it pointing you toward?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 89, 108" }
+      }
+    },
+    {
+      "id": "compassion",
+      "label": { "en": "Compassion" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "How can I stay present with suffering — mine or others'?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What is this pain teaching me about what matters?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "An active, caring impulse to be present with pain — yours or someone else's — without turning away." },
+        "signal": { "en": "Compassion is one of the doorways to emotional wisdom. It's about choosing to stay present, to be in the fire together, rooted in a genuine desire to help. That means being present without fixing or fading or solving. Compassion is anger's feeling pair partner — both fight for autonomy, freedom, and dignity, but through very different energies. Compassion is a fundamental human capacity that not only benefits those who receive it but also profoundly enriches those who practice it." },
+        "reflection": { "en": "What would it look like to stay present with this — without needing to fix it?" },
+        "bookRef": { "en": "Emotion Rules, pp. 76, 239-241" }
+      }
+    },
+    {
+      "id": "grief",
+      "label": { "en": "Grief" },
+      "needs": [
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "What bond has been broken or transformed?" },
+          "strength": 0.9
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "How do I make sense of this loss?" },
+          "strength": 0.7
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A deep, whole-body response to profound loss — a signal that a bond you relied on has been fundamentally changed." },
+        "signal": { "en": "Grief is not the opposite of love; it is love, shaped by loss. In grief, what truly matters becomes so vividly present. The pain is part of the healing. The wisdom is in the struggle itself. They're interlocked. Grief psychology shows that 'meaning reconstruction' — reworking your personal narrative to incorporate the loss — is what helps people adjust, cope, and eventually thrive again." },
+        "reflection": { "en": "What is this grief teaching you about what you most loved — and how can you honor that?" },
+        "bookRef": { "en": "Emotion Rules, pp. 69, 79-80, 229-231" }
+      }
+    },
+    {
+      "id": "stress",
+      "label": { "en": "Stress" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "Are my challenges greater than my resources?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "What do I need to prioritize or let go of?" },
+          "strength": 0.5
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A feeling of being stretched thin — a signal that what you're facing feels bigger than what you have to face it with." },
+        "signal": { "en": "Stress means our perceived challenges are bigger than our perceived resources. Three key insights: stress isn't automatically bad — like other emotions, it's a signal. It's rooted in perception. And we can reduce stress by gathering more resources. Stress is also a form of energy. When we shift our mindset about stress, we can transform it from something that drains us into something that fuels resilience." },
+        "reflection": { "en": "What resources — internal or external — could you gather to shift this balance?" },
+        "bookRef": { "en": "Emotion Rules, pp. 131-133" }
+      }
+    },
+    {
+      "id": "overwhelm",
+      "label": { "en": "Overwhelm" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What is too much right now?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "autonomy",
+          "inquiry": { "en": "Where have I lost the ability to choose?" },
+          "strength": 0.6
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A flooding sensation of too much, too fast — a signal that your system needs you to slow down and regain some control." },
+        "signal": { "en": "When overwhelm hits, your vision narrows. You might be thinking in seconds or minutes, maybe hours. Your brain enters triage mode. Overwhelm bridges safety (something is too much for my system) and autonomy (I've lost the power to choose). The first step is to reduce the input — not to solve everything, but to find one thing you can control. Even a small exercise of agency begins to restore balance." },
+        "reflection": { "en": "What one thing could you set down right now to create a little space?" },
+        "bookRef": { "en": "Emotion Rules, pp. 132, 226" }
+      }
+    },
+    {
+      "id": "contentment",
+      "label": { "en": "Contentment" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What is settled and at peace right now?" },
+          "strength": 0.6
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "Am I aligned with what matters?" },
+          "strength": 0.6
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A quiet, settled feeling that things are enough — a signal of alignment between your life and your values." },
+        "signal": { "en": "Content and agitated are partners — sometimes we feel at peace, and sometimes a lack of peace pushes us toward change. Contentment is easy to overlook because it doesn't demand attention the way urgent emotions do. But it's a profound signal: something is right. It bridges safety (things are settled) and meaning (this aligns with what matters). In a culture obsessed with more, contentment asks: what if this is enough?" },
+        "reflection": { "en": "Can you pause and fully receive this feeling — without immediately reaching for the next thing?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 246" }
+      }
+    },
+    {
+      "id": "courage",
+      "label": { "en": "Courage" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What am I willing to risk for what I care about?" },
+          "strength": 0.6
+        },
+        {
+          "needId": "growth",
+          "inquiry": { "en": "What becomes possible if I move through this fear?" },
+          "strength": 0.7
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A resolve to move forward despite uncertainty or risk — a signal that something matters enough to face the fear." },
+        "signal": { "en": "Courage is fear's feeling pair partner. They're not opposites — they arise from the same root: caring deeply about something. Fear says 'this is at risk,' and courage says 'it's worth the risk.' Courage bridges safety and growth because it requires acknowledging the danger (safety) while choosing to step forward anyway (growth). Anxiety can transform into commitment, clarity, and courage when you find a path forward." },
+        "reflection": { "en": "What fear are you willing to walk alongside in order to grow?" },
+        "bookRef": { "en": "Emotion Rules, pp. 76, 149" }
+      }
+    },
+    {
+      "id": "disgust",
+      "label": { "en": "Disgust" },
+      "needs": [
+        {
+          "needId": "safety",
+          "inquiry": { "en": "What rules have been violated? Is this situation safe?" },
+          "strength": 0.8
+        },
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Does this align with the values of my community?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A visceral recoil — a signal that something has crossed a boundary of what feels acceptable or safe." },
+        "signal": { "en": "Disgust evolved to protect us from contamination, but it extends far beyond the physical. Trust and disgust are partners: trust tells us the rules are in place and the situation is safe; disgust tells us rules are violated or the situation is not safe. Disgust also has a moral dimension — researchers call it 'moral disgust' because it responds to ethical violations. Its survival function is to avoid toxicity, whether physical, social, or moral." },
+        "reflection": { "en": "What boundary has been crossed here — and what does that tell you about your values?" },
+        "bookRef": { "en": "Emotion Rules, pp. 51, 75, 76" }
+      }
+    },
+    {
+      "id": "exhaustion",
+      "label": { "en": "Exhaustion" },
+      "needs": [
+        {
+          "needId": "achievement",
+          "inquiry": { "en": "Have I been pushing too hard without return?" },
+          "strength": 0.7
+        },
+        {
+          "needId": "meaning",
+          "inquiry": { "en": "Has the purpose behind my effort disappeared?" },
+          "strength": 0.6
+        },
+        {
+          "needId": "belonging",
+          "inquiry": { "en": "Am I trying to do this alone?" },
+          "strength": 0.4
+        }
+      ],
+      "readMore": {
+        "essence": { "en": "A deep depletion of energy — a signal that you've been giving more than you're receiving, and something fundamental is off balance." },
+        "signal": { "en": "Exhaustion isn't just about working too hard. The real drivers are emotional: burnout happens when your effort feels futile, when you don't feel seen, supported, or successful. It's not about how many hours you worked — it's about how many hours felt like they didn't matter. Exhaustion bridges achievement (pushing without return), meaning (the purpose has vanished), and belonging (doing it alone). The opposite of burnout isn't rest — it's sustainable motivation aligned with your values." },
+        "reflection": { "en": "Which need is most depleted right now — meaning, recognition, connection, or control?" },
+        "bookRef": { "en": "Emotion Rules, pp. 75, 133-135" }
+      }
+    }
+  ]
+}

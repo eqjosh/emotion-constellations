@@ -47,22 +47,31 @@ export function createFloatingInquiries(container) {
   /**
    * Compute screen position for an inquiry element.
    * Places it along the emotion→need vector, offset perpendicular.
+   * For bridge emotions, each inquiry is pushed strongly toward its need.
    */
   function computePosition(emotionX, emotionY, needX, needY, index, totalCount) {
     const vx = needX - emotionX;
     const vy = needY - emotionY;
     const dist = Math.sqrt(vx * vx + vy * vy) || 1;
 
-    // Along-thread ratio: for short threads push further from the star
-    const ratio = dist > 200 ? 0.28 : Math.min(0.45, 55 / dist);
+    // Along-thread ratio: place inquiry partway from emotion to need.
+    // For bridge emotions (2+), push each inquiry further toward its own need
+    // to spread them apart naturally.
+    let ratio;
+    if (totalCount > 1) {
+      // Bridge: push 35-45% toward the respective need
+      ratio = 0.35 + index * 0.05;
+    } else {
+      ratio = dist > 200 ? 0.28 : Math.min(0.45, 55 / dist);
+    }
 
     const px = emotionX + ratio * vx;
     const py = emotionY + ratio * vy;
 
-    // Perpendicular offset — alternate sides, with stagger
+    // Perpendicular offset — alternate sides, with increased base offset
     const side = index % 2 === 0 ? 1 : -1;
-    const baseOffset = 26 + (totalCount > 3 ? 6 : 0);
-    const stagger = Math.floor(index / 2) * 12;
+    const baseOffset = totalCount > 1 ? 40 : 30;  // larger for bridge emotions
+    const stagger = Math.floor(index / 2) * 18;
     const offsetPx = baseOffset + stagger;
     const perpX = (-vy / dist) * offsetPx * side;
     const perpY = (vx / dist) * offsetPx * side;
@@ -87,6 +96,14 @@ export function createFloatingInquiries(container) {
     };
   }
 
+  /**
+   * Check if a position is in the bottom danger zone (near HUD bar).
+   * When it is, bias the escape direction upward.
+   */
+  function isNearBottom(y) {
+    return y > window.innerHeight - 200;
+  }
+
   // --- Overlap detection ---
 
   /**
@@ -107,6 +124,28 @@ export function createFloatingInquiries(container) {
   }
 
   /**
+   * Get actual bounding rect of an inquiry element with some padding.
+   * Uses the real rendered size instead of a fixed estimate.
+   */
+  function getInquiryRect(el, cx, cy) {
+    const r = el.getBoundingClientRect();
+    // Element uses transform: translate(-50%, -50%) so center is at (left + w/2, top + h/2)
+    // But we position by setting left/top which becomes the center due to the CSS transform.
+    // Use actual rendered dimensions with a small padding buffer.
+    const pad = 6;
+    const hw = (r.width / 2) + pad;
+    const hh = (r.height / 2) + pad;
+    return {
+      left: cx - hw,
+      right: cx + hw,
+      top: cy - hh,
+      bottom: cy + hh,
+      hw,
+      hh,
+    };
+  }
+
+  /**
    * Check if rect A overlaps any rect in the list.
    */
   function overlapsAny(rect, rects) {
@@ -120,44 +159,95 @@ export function createFloatingInquiries(container) {
   }
 
   /**
-   * Push a position outward (perpendicular to the thread) until it
-   * doesn't overlap any existing labels. Returns the new position
-   * and whether a leader line is needed.
+   * Multi-directional overlap resolution.
+   *
+   * Tries multiple escape directions when the initial position overlaps:
+   * 1. Perpendicular to the thread (both sides)
+   * 2. Along the thread (toward need, away from emotion)
+   * 3. Diagonal combinations
+   *
+   * Uses actual rendered element size for accurate collision detection.
    */
-  function resolveOverlap(x, y, emotionX, emotionY, needX, needY, index, labelRects) {
-    // Check current position — place a temporary rect (approx 200×40)
-    const hw = 110, hh = 22;
-    const testRect = { left: x - hw, right: x + hw, top: y - hh, bottom: y + hh };
+  function resolveOverlap(cx, cy, el, emotionX, emotionY, needX, needY, index, obstacles) {
+    const rect = getInquiryRect(el, cx, cy);
+    const testRect = { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
 
-    if (!overlapsAny(testRect, labelRects)) {
-      return { x, y, needsLeader: false };
+    if (!overlapsAny(testRect, obstacles)) {
+      return { x: cx, y: cy, needsLeader: false };
     }
 
-    // Push further away from the thread
+    // Compute direction vectors for escape attempts
     const vx = needX - emotionX;
     const vy = needY - emotionY;
     const dist = Math.sqrt(vx * vx + vy * vy) || 1;
-    const side = index % 2 === 0 ? 1 : -1;
-    const perpDirX = (-vy / dist) * side;
-    const perpDirY = (vx / dist) * side;
 
-    // Try increasing perpendicular offset by increments of 40px
-    for (let extra = 40; extra <= 160; extra += 40) {
-      const nx = x + perpDirX * extra;
-      const ny = y + perpDirY * extra;
-      const clamped = clampToViewport(nx, ny);
-      const tr = {
-        left: clamped.x - hw, right: clamped.x + hw,
-        top: clamped.y - hh, bottom: clamped.y + hh,
-      };
-      if (!overlapsAny(tr, labelRects)) {
-        return { x: clamped.x, y: clamped.y, needsLeader: true };
+    // Perpendicular directions
+    const perpX = -vy / dist;
+    const perpY = vx / dist;
+    // Along-thread direction (toward need)
+    const alongX = vx / dist;
+    const alongY = vy / dist;
+
+    // Build escape directions. When near the bottom of the screen,
+    // prioritize upward escape to avoid HUD bar overlap.
+    const side = index % 2 === 0 ? 1 : -1;
+    let directions;
+
+    if (isNearBottom(cy)) {
+      // Near bottom: strongly prefer upward directions
+      directions = [
+        // Pure upward
+        { dx: 0, dy: -1 },
+        // Diagonals upward
+        { dx: 0.5, dy: -0.866 },
+        { dx: -0.5, dy: -0.866 },
+        { dx: 0.707, dy: -0.707 },
+        { dx: -0.707, dy: -0.707 },
+        // Perpendicular (may still help if thread is vertical)
+        { dx: perpX * side, dy: perpY * side },
+        { dx: perpX * -side, dy: perpY * -side },
+      ];
+    } else {
+      directions = [
+        // Perpendicular push (original side based on index)
+        { dx: perpX * side, dy: perpY * side },
+        // Perpendicular push (opposite side)
+        { dx: perpX * -side, dy: perpY * -side },
+        // Along thread toward need
+        { dx: alongX, dy: alongY },
+        // Diagonals: perp + along
+        { dx: (perpX + alongX) * 0.707, dy: (perpY + alongY) * 0.707 },
+        { dx: (-perpX + alongX) * 0.707, dy: (-perpY + alongY) * 0.707 },
+        // Away from emotion
+        { dx: (perpX - alongX) * 0.707, dy: (perpY - alongY) * 0.707 },
+        { dx: (-perpX - alongX) * 0.707, dy: (-perpY - alongY) * 0.707 },
+      ];
+    }
+
+    // Try each direction at increasing step sizes
+    const steps = [35, 55, 80, 110, 150];
+
+    for (const step of steps) {
+      for (const dir of directions) {
+        const nx = cx + dir.dx * step;
+        const ny = cy + dir.dy * step;
+        const clamped = clampToViewport(nx, ny);
+        const tr = {
+          left: clamped.x - rect.hw,
+          right: clamped.x + rect.hw,
+          top: clamped.y - rect.hh,
+          bottom: clamped.y + rect.hh,
+        };
+        if (!overlapsAny(tr, obstacles)) {
+          return { x: clamped.x, y: clamped.y, needsLeader: true };
+        }
       }
     }
 
-    // If all attempts overlap, use the maximum push
-    const nx = x + perpDirX * 160;
-    const ny = y + perpDirY * 160;
+    // Last resort: use the strongest perpendicular push clamped to viewport
+    const fallbackSide = index % 2 === 0 ? 1 : -1;
+    const nx = cx + perpX * fallbackSide * 180;
+    const ny = cy + perpY * fallbackSide * 180;
     const clamped = clampToViewport(nx, ny);
     return { x: clamped.x, y: clamped.y, needsLeader: true };
   }
@@ -301,7 +391,9 @@ export function createFloatingInquiries(container) {
         const need = needNodesById.get(descriptionEl._needId);
         if (need) {
           const labelRects = collectLabelRects();
-          const hw = 160, hh = 45;
+          const r = descriptionEl.getBoundingClientRect();
+          const hw = (r.width / 2) + 8;
+          const hh = (r.height / 2) + 8;
           const maxY = window.innerHeight - 130;
 
           // Try below the need first
@@ -353,6 +445,7 @@ export function createFloatingInquiries(container) {
       const labelRects = collectLabelRects();
 
       // Track placed inquiry rects so bridge-emotion inquiries don't overlap each other
+      // Uses ACTUAL rendered sizes instead of fixed estimates
       const placedInquiryRects = [];
 
       // Clear old leader lines
@@ -371,6 +464,7 @@ export function createFloatingInquiries(container) {
         const allObstacles = labelRects.concat(placedInquiryRects);
         const resolved = resolveOverlap(
           baseClamped.x, baseClamped.y,
+          item.el,
           emotion.x, emotion.y, need.fx, need.fy,
           i, allObstacles
         );
@@ -378,12 +472,9 @@ export function createFloatingInquiries(container) {
         item.el.style.left = `${resolved.x}px`;
         item.el.style.top = `${resolved.y}px`;
 
-        // Record this inquiry's rect for subsequent collision checks
-        const hw = 110, hh = 22;
-        placedInquiryRects.push({
-          left: resolved.x - hw, right: resolved.x + hw,
-          top: resolved.y - hh, bottom: resolved.y + hh,
-        });
+        // Record this inquiry's ACTUAL rendered rect for subsequent collision checks
+        const actualRect = getInquiryRect(item.el, resolved.x, resolved.y);
+        placedInquiryRects.push(actualRect);
 
         // Draw leader line:
         // - Always for bridge emotions (2+ inquiries) so user sees which text → which need

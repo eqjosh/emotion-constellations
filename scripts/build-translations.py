@@ -1,0 +1,175 @@
+#!/usr/bin/env python3
+"""
+Build the fully-translated emotion-constellation-more-info-data.json file.
+"""
+import json, sys, os
+
+output_path = os.path.join(os.path.dirname(__file__), "..", "public", "data", "emotion-constellation-more-info-data.json")
+
+# ─── Helper: build multilingual dict ─────────────────────────────
+def ml(**kwargs):
+    """Shorthand to build a locale dict."""
+    return kwargs
+
+data = {
+  "version": "1.0",
+  "source": "Emotion Rules by Joshua Freedman (2026)",
+  "sourceUrl": "https://emotionrules.com",
+  "needs": [
+    {
+      "id": "safety",
+      "label": ml(en="Safety",es="Seguridad",ko="안전",zh="安全",ar="أمان",he="ביטחון",ja="安全",fr="Sécurité",pt="Segurança",it="Sicurezza",de="Sicherheit"),
+      "description": ml(
+        en="Deep in our neural architecture, the drive for safety is primary. Our brains are wired to detect and respond to threats, often before we're consciously aware of them.",
+        es="En lo más profundo de nuestra arquitectura neuronal, el impulso de seguridad es primordial. Nuestros cerebros están diseñados para detectar y responder a las amenazas, a menudo antes de que seamos conscientes de ellas.",
+        ko="우리 신경 구조 깊숙이, 안전에 대한 욕구는 가장 근본적입니다. 우리의 뇌는 위협을 감지하고 반응하도록 설계되어 있으며, 종종 우리가 의식하기도 전에 작동합니다.",
+        zh="在我们神经结构的深处，对安全的驱动是最基本的。我们的大脑天生就能检测和应对威胁，往往在我们意识到之前就已经做出反应。",
+        ar="في أعماق بنيتنا العصبية، تعد الحاجة إلى الأمان أساسية. أدمغتنا مصممة لاكتشاف التهديدات والاستجابة لها، غالبًا قبل أن ندرك ذلك بوعي.",
+        he="עמוק בארכיטקטורה העצבית שלנו, הדחף לביטחון הוא ראשוני. המוח שלנו מחווט לזהות ולהגיב לאיומים, לעיתים קרובות לפני שאנחנו מודעים לכך באופן מודע.",
+        ja="私たちの神経構造の奥深くに、安全への欲求があります。脳は脅威を察知し反応するように設計されており、意識する前に作動することがよくあります。",
+        fr="Au plus profond de notre architecture neuronale, le besoin de sécurité est primordial. Nos cerveaux sont programmés pour détecter et répondre aux menaces, souvent avant que nous en soyons consciemment conscients.",
+        pt="No fundo de nossa arquitetura neural, o impulso de segurança é primário. Nossos cérebros são programados para detectar e responder a ameaças, muitas vezes antes de termos consciência delas.",
+        it="Nel profondo della nostra architettura neurale, l'impulso alla sicurezza è primario. I nostri cervelli sono programmati per rilevare e rispondere alle minacce, spesso prima che ne siamo coscientemente consapevoli.",
+        de="Tief in unserer neuronalen Architektur ist der Drang nach Sicherheit grundlegend. Unsere Gehirne sind darauf ausgerichtet, Bedrohungen zu erkennen und darauf zu reagieren, oft bevor wir uns dessen bewusst sind.",
+      ),
+      "color": "#1a3a6b",
+      "colorSecondary": "#3366cc"
+    },
+    {
+      "id": "belonging",
+      "label": ml(en="Belonging",es="Pertenencia",ko="소속감",zh="归属",ar="انتماء",he="שייכות",ja="帰属",fr="Appartenance",pt="Pertencimento",it="Appartenenza",de="Zugehörigkeit"),
+      "description": ml(
+        en="These social emotions run deep. They shape behavior, values, even self-image. They invite reflection on how and where we seek connection.",
+        es="Estas emociones sociales son profundas. Moldean el comportamiento, los valores e incluso la autoimagen. Nos invitan a reflexionar sobre cómo y dónde buscamos conexión.",
+        ko="이 사회적 감정은 매우 깊습니다. 행동, 가치관, 심지어 자아상까지 형성합니다. 우리가 어디서 어떻게 연결을 추구하는지 성찰하도록 초대합니다.",
+        zh="这些社会情感根深蒂固。它们塑造行为、价值观，甚至自我形象。它们邀请我们反思如何以及在哪里寻求连接。",
+        ar="هذه المشاعر الاجتماعية عميقة الجذور. إنها تشكل السلوك والقيم وحتى صورة الذات. إنها تدعونا للتأمل في كيفية وأين نبحث عن التواصل.",
+        he="הרגשות החברתיים האלה עמוקים. הם מעצבים התנהגות, ערכים, ואפילו דימוי עצמי. הם מזמינים התבוננות על איך ואיפה אנחנו מחפשים חיבור.",
+        ja="これらの社会的感情は深く根づいています。行動、価値観、さらには自己イメージを形作ります。私たちがどこで、どのようにつながりを求めているかを振り返るよう促します。",
+        fr="Ces émotions sociales sont profondes. Elles façonnent le comportement, les valeurs, même l'image de soi. Elles invitent à réfléchir sur comment et où nous cherchons la connexion.",
+        pt="Essas emoções sociais são profundas. Elas moldam comportamento, valores e até autoimagem. Elas nos convidam a refletir sobre como e onde buscamos conexão.",
+        it="Queste emozioni sociali sono profonde. Modellano il comportamento, i valori, persino l'immagine di sé. Ci invitano a riflettere su come e dove cerchiamo connessione.",
+        de="Diese sozialen Emotionen sind tiefgreifend. Sie formen Verhalten, Werte und sogar das Selbstbild. Sie laden zur Reflexion darüber ein, wie und wo wir Verbindung suchen.",
+      ),
+      "color": "#8b6914",
+      "colorSecondary": "#d4a832"
+    },
+    {
+      "id": "autonomy",
+      "label": ml(en="Autonomy",es="Autonomía",ko="자율성",zh="自主",ar="استقلالية",he="אוטונומיה",ja="自律",fr="Autonomie",pt="Autonomia",it="Autonomia",de="Autonomie"),
+      "description": ml(
+        en="Autonomy is a quiet need, until it's taken away; then emotions flare. These signals push us to reclaim authorship of our own lives.",
+        es="La autonomía es una necesidad silenciosa, hasta que se nos arrebata; entonces las emociones estallan. Estas señales nos impulsan a recuperar la autoría de nuestras propias vidas.",
+        ko="자율성은 조용한 욕구이지만, 빼앗기면 감정이 폭발합니다. 이 신호들은 우리 삶의 주인이 되도록 우리를 밀어줍니다.",
+        zh="自主是一种安静的需求，直到它被夺走；然后情绪会爆发。这些信号推动我们重新掌握自己生活的主导权。",
+        ar="الاستقلالية حاجة هادئة، حتى تُسلب منا؛ عندها تشتعل المشاعر. هذه الإشارات تدفعنا لاستعادة تأليف حياتنا الخاصة.",
+        he="אוטונומיה היא צורך שקט, עד שלוקחים אותו; אז הרגשות מתלקחים. האותות האלה דוחפים אותנו להשיב את הבעלות על חיינו.",
+        ja="自律性は静かな欲求ですが、奪われると感情が爆発します。これらのシグナルは、自分の人生の主導権を取り戻すよう私たちを後押しします。",
+        fr="L'autonomie est un besoin silencieux, jusqu'à ce qu'elle nous soit retirée ; alors les émotions s'enflamment. Ces signaux nous poussent à reprendre la direction de nos propres vies.",
+        pt="A autonomia é uma necessidade silenciosa, até ser tirada de nós; então as emoções explodem. Esses sinais nos impulsionam a retomar a autoria de nossas próprias vidas.",
+        it="L'autonomia è un bisogno silenzioso, finché non viene tolta; allora le emozioni esplodono. Questi segnali ci spingono a riappropriarci della nostra vita.",
+        de="Autonomie ist ein stilles Bedürfnis, bis sie weggenommen wird; dann flammen die Emotionen auf. Diese Signale treiben uns an, die Urheberschaft über unser eigenes Leben zurückzugewinnen.",
+      ),
+      "color": "#0d6b6e",
+      "colorSecondary": "#2cc4c9"
+    },
+    {
+      "id": "achievement",
+      "label": ml(en="Achievement",es="Logro",ko="성취",zh="成就",ar="إنجاز",he="הישג",ja="達成",fr="Accomplissement",pt="Realização",it="Realizzazione",de="Leistung"),
+      "description": ml(
+        en="This family of emotions energizes action and asks us to recalibrate. They guide us through ambition, readiness, and challenge.",
+        es="Esta familia de emociones energiza la acción y nos pide recalibrar. Nos guían a través de la ambición, la preparación y el desafío.",
+        ko="이 감정의 가족은 행동에 에너지를 불어넣고 재조정을 요청합니다. 야망, 준비, 도전을 통해 우리를 안내합니다.",
+        zh="这一类情感激发行动并要求我们重新校准。它们引导我们经历抱负、准备和挑战。",
+        ar="هذه العائلة من المشاعر تنشط الفعل وتطلب منا إعادة المعايرة. إنها ترشدنا عبر الطموح والاستعداد والتحدي.",
+        he="משפחת הרגשות הזו מפעילה פעולה ומבקשת מאיתנו לכייל מחדש. הם מנחים אותנו דרך שאיפה, מוכנות ואתגר.",
+        ja="この感情の家族は行動を活性化し、再調整を求めます。野心、準備、挑戦を通じて私たちを導きます。",
+        fr="Cette famille d'émotions dynamise l'action et nous demande de recalibrer. Elles nous guident à travers l'ambition, la préparation et le défi.",
+        pt="Essa família de emoções energiza a ação e nos pede para recalibrar. Elas nos guiam através da ambição, prontidão e desafio.",
+        it="Questa famiglia di emozioni energizza l'azione e ci chiede di ricalibrare. Ci guidano attraverso ambizione, prontezza e sfida.",
+        de="Diese Familie von Emotionen belebt das Handeln und fordert uns zur Neukalibrierung auf. Sie leiten uns durch Ehrgeiz, Bereitschaft und Herausforderung.",
+      ),
+      "color": "#8b3a1a",
+      "colorSecondary": "#e06030"
+    },
+    {
+      "id": "meaning",
+      "label": ml(en="Meaning",es="Significado",ko="의미",zh="意义",ar="معنى",he="משמעות",ja="意味",fr="Sens",pt="Significado",it="Significato",de="Sinn"),
+      "description": ml(
+        en="These emotions reflect the search for something beyond survival, for what makes life feel meaningful. They orient us toward values and vision.",
+        es="Estas emociones reflejan la búsqueda de algo más allá de la supervivencia, de aquello que hace que la vida se sienta significativa. Nos orientan hacia valores y visión.",
+        ko="이 감정들은 생존을 넘어선 무언가, 삶을 의미있게 만드는 것에 대한 탐색을 반영합니다. 가치와 비전을 향해 우리를 이끕니다.",
+        zh="这些情感反映了对超越生存的追求，对让生命感到有意义的事物的追寻。它们引导我们走向价值观和愿景。",
+        ar="تعكس هذه المشاعر البحث عن شيء يتجاوز البقاء، عما يجعل الحياة ذات معنى. إنها توجهنا نحو القيم والرؤية.",
+        he="רגשות אלה משקפים את החיפוש אחר משהו מעבר להישרדות, אחר מה שגורם לחיים להרגיש משמעותיים. הם מכוונים אותנו לעבר ערכים וחזון.",
+        ja="これらの感情は、生存を超えた何か、人生を意味あるものにするものへの探求を反映しています。価値観とビジョンへと私たちを導きます。",
+        fr="Ces émotions reflètent la recherche de quelque chose au-delà de la survie, de ce qui donne un sens à la vie. Elles nous orientent vers les valeurs et la vision.",
+        pt="Essas emoções refletem a busca por algo além da sobrevivência, pelo que faz a vida parecer significativa. Elas nos orientam em direção a valores e visão.",
+        it="Queste emozioni riflettono la ricerca di qualcosa oltre la sopravvivenza, di ciò che rende la vita significativa. Ci orientano verso valori e visione.",
+        de="Diese Emotionen spiegeln die Suche nach etwas jenseits des Überlebens wider, nach dem, was das Leben sinnvoll erscheinen lässt. Sie orientieren uns an Werten und Visionen.",
+      ),
+      "color": "#4a1a6b",
+      "colorSecondary": "#8844bb"
+    },
+    {
+      "id": "growth",
+      "label": ml(en="Growth",es="Crecimiento",ko="성장",zh="成长",ar="نمو",he="צמיחה",ja="成長",fr="Croissance",pt="Crescimento",it="Crescita",de="Wachstum"),
+      "description": ml(
+        en="Growth is rarely linear. These feelings often come in waves, pointing us toward discomfort that precedes insight.",
+        es="El crecimiento rara vez es lineal. Estos sentimientos a menudo vienen en oleadas, señalándonos hacia la incomodidad que precede al discernimiento.",
+        ko="성장은 거의 선형적이지 않습니다. 이 감정들은 종종 파도처럼 밀려와, 통찰에 앞서는 불편함을 향해 우리를 안내합니다.",
+        zh="成长很少是线性的。这些感受常常如波浪般涌来，指向领悟之前的不适。",
+        ar="النمو نادرًا ما يكون خطيًا. هذه المشاعر غالبًا تأتي في موجات، تشير إلى الانزعاج الذي يسبق البصيرة.",
+        he="צמיחה היא לעיתים רחוקות לינארית. תחושות אלה מגיעות לעיתים קרובות בגלים, ומצביעות לנו לעבר אי-הנוחות שקודמת לתובנה.",
+        ja="成長は直線的であることはめったにありません。これらの感情は波のように押し寄せ、洞察に先立つ不快感へと私たちを導きます。",
+        fr="La croissance est rarement linéaire. Ces sentiments arrivent souvent par vagues, nous dirigeant vers l'inconfort qui précède la prise de conscience.",
+        pt="O crescimento raramente é linear. Esses sentimentos frequentemente vêm em ondas, apontando-nos para o desconforto que precede a compreensão.",
+        it="La crescita è raramente lineare. Questi sentimenti arrivano spesso a ondate, indicandoci il disagio che precede la comprensione.",
+        de="Wachstum ist selten linear. Diese Gefühle kommen oft in Wellen und weisen uns auf das Unbehagen hin, das der Erkenntnis vorausgeht.",
+      ),
+      "color": "#1a6b2a",
+      "colorSecondary": "#33cc55"
+    },
+  ],
+  "emotions": []
+}
+
+# Now build all 39 emotions
+E = data["emotions"]
+
+# ─── 1. TRUST ──────────────────────────────────────────────────────
+E.append({
+  "id": "trust",
+  "label": ml(en="Trust",es="Confianza",ko="신뢰",zh="信任",ar="ثقة",he="אמון",ja="信頼",fr="Confiance",pt="Confiança",it="Fiducia",de="Vertrauen"),
+  "needs": [
+    {"needId":"safety","inquiry":ml(en="Do I have support and protection?",es="¿Tengo apoyo y protección?",ko="나에게 지지와 보호가 있는가?",zh="我有支持和保护吗？",ar="هل لدي الدعم والحماية؟",he="האם יש לי תמיכה והגנה?",ja="私にはサポートと守りがありますか？",fr="Ai-je du soutien et de la protection ?",pt="Tenho apoio e proteção?",it="Ho supporto e protezione?",de="Habe ich Unterstützung und Schutz?"),"strength":0.9},
+    {"needId":"belonging","inquiry":ml(en="Are the bonds around me reliable?",es="¿Son confiables los vínculos que me rodean?",ko="내 주변의 유대는 믿을 만한가?",zh="我周围的纽带可靠吗？",ar="هل الروابط من حولي موثوقة؟",he="האם הקשרים סביבי אמינים?",ja="私の周りの絆は信頼できるものですか？",fr="Les liens autour de moi sont-ils fiables ?",pt="Os vínculos ao meu redor são confiáveis?",it="I legami intorno a me sono affidabili?",de="Sind die Bindungen um mich herum verlässlich?"),"strength":0.5},
+  ],
+  "readMore": {
+    "essence": ml(en="A feeling of security and confidence in people, systems, or yourself — a signal that the rules are in place and you are accepted.",es="Un sentimiento de seguridad y confianza en las personas, los sistemas o en ti mismo — una señal de que las reglas están establecidas y eres aceptado.",ko="사람, 시스템, 또는 자기 자신에 대한 안전감과 확신 — 규칙이 자리잡고 있고 당신이 수용되고 있다는 신호입니다.",zh="对人、系统或自我的安全感和信心——这是规则已就位、你被接纳的信号。",ar="شعور بالأمان والثقة في الناس أو الأنظمة أو في نفسك — إشارة إلى أن القواعد موجودة وأنك مقبول.",he="תחושת ביטחון ואמון באנשים, במערכות או בעצמך — אות שהכללים במקומם ושאתה מקובל.",ja="人、システム、または自分自身への安心感と信頼感 — ルールが整い、あなたが受け入れられているというシグナルです。",fr="Un sentiment de sécurité et de confiance envers les gens, les systèmes ou vous-même — un signal que les règles sont en place et que vous êtes accepté.",pt="Um sentimento de segurança e confiança nas pessoas, sistemas ou em si mesmo — um sinal de que as regras estão em vigor e você é aceito.",it="Un sentimento di sicurezza e fiducia nelle persone, nei sistemi o in te stesso — un segnale che le regole sono al loro posto e sei accettato.",de="Ein Gefühl von Sicherheit und Vertrauen in Menschen, Systeme oder sich selbst — ein Signal, dass die Regeln gelten und du akzeptiert bist."),
+    "signal": ml(en="Trust is your system saying: it's safe here. When trust is present, you can open up, collaborate, and invest in relationships. Trust tells us about safety — the rules are in place, and we feel accepted as part of the system. It's also the foundation of belonging; without it, connection stays shallow.",es="La confianza es tu sistema diciendo: aquí estás seguro. Cuando hay confianza, puedes abrirte, colaborar e invertir en relaciones. La confianza nos habla de seguridad — las reglas están establecidas y nos sentimos aceptados como parte del sistema. También es la base de la pertenencia; sin ella, la conexión permanece superficial.",ko="신뢰는 당신의 시스템이 말하는 것입니다: 여기는 안전합니다. 신뢰가 있을 때, 마음을 열고, 협력하고, 관계에 투자할 수 있습니다. 신뢰는 안전에 대해 알려줍니다 — 규칙이 자리잡고 있고, 우리는 시스템의 일부로 수용됩니다. 또한 소속감의 기반이기도 합니다; 신뢰 없이는 연결이 피상적으로 남습니다.",zh="信任是你的系统在说：这里是安全的。当信任存在时，你可以敞开心扉、合作并投入关系。信任告诉我们关于安全——规则已就位，我们感到被接纳为系统的一部分。它也是归属感的基础；没有它，连接只会停留在表面。",ar="الثقة هي نظامك يقول: الأمان هنا. عندما تكون الثقة حاضرة، يمكنك الانفتاح والتعاون والاستثمار في العلاقات. الثقة تخبرنا عن الأمان — القواعد موجودة، ونشعر بأننا مقبولون كجزء من النظام. إنها أيضًا أساس الانتماء؛ بدونها يبقى التواصل سطحيًا.",he="אמון הוא המערכת שלך אומרת: בטוח כאן. כשאמון נוכח, אתה יכול להיפתח, לשתף פעולה ולהשקיע ביחסים. אמון מספר לנו על ביטחון — הכללים במקומם, ואנחנו מרגישים מקובלים כחלק מהמערכת. הוא גם הבסיס לשייכות; בלעדיו, החיבור נשאר שטחי.",ja="信頼はあなたのシステムが伝えていること：ここは安全です。信頼があるとき、心を開き、協力し、関係に投資できます。信頼は安全について教えてくれます——ルールが整い、私たちはシステムの一部として受け入れられていると感じます。帰属感の基盤でもあります；信頼なくして、つながりは浅いままです。",fr="La confiance est votre système qui dit : c'est sûr ici. Quand la confiance est présente, vous pouvez vous ouvrir, collaborer et investir dans les relations. La confiance nous renseigne sur la sécurité — les règles sont en place, et nous nous sentons acceptés. C'est aussi le fondement de l'appartenance ; sans elle, la connexion reste superficielle.",pt="A confiança é o seu sistema dizendo: é seguro aqui. Quando a confiança está presente, você pode se abrir, colaborar e investir em relacionamentos. A confiança nos fala sobre segurança — as regras estão em vigor e nos sentimos aceitos como parte do sistema. É também a base do pertencimento; sem ela, a conexão permanece superficial.",it="La fiducia è il tuo sistema che dice: qui è sicuro. Quando la fiducia è presente, puoi aprirti, collaborare e investire nelle relazioni. La fiducia ci parla di sicurezza — le regole sono al loro posto e ci sentiamo accettati come parte del sistema. È anche il fondamento dell'appartenenza; senza di essa, la connessione resta superficiale.",de="Vertrauen ist dein System, das sagt: Hier ist es sicher. Wenn Vertrauen vorhanden ist, kannst du dich öffnen, zusammenarbeiten und in Beziehungen investieren. Vertrauen sagt uns etwas über Sicherheit — die Regeln sind da, und wir fühlen uns als Teil des Systems akzeptiert. Es ist auch die Grundlage von Zugehörigkeit; ohne Vertrauen bleibt Verbindung oberflächlich."),
+    "reflection": ml(en="Where in your life is trust present — and where might you be withholding it?",es="¿En qué parte de tu vida está presente la confianza — y dónde podrías estar reteniéndola?",ko="삶의 어디에서 신뢰가 존재하나요 — 그리고 어디에서 그것을 보류하고 있을 수 있나요?",zh="在你生活的哪些方面信任存在——你可能在哪里保留着它？",ar="أين في حياتك تتواجد الثقة — وأين قد تكون تحجبها؟",he="היכן בחייך האמון נוכח — והיכן ייתכן שאתה מסתיר אותו?",ja="あなたの人生のどこに信頼がありますか——そしてどこでそれを差し控えているかもしれませんか？",fr="Où dans votre vie la confiance est-elle présente — et où pourriez-vous la retenir ?",pt="Onde em sua vida a confiança está presente — e onde você pode estar retendo-a?",it="Dove nella tua vita è presente la fiducia — e dove potresti trattenerla?",de="Wo in deinem Leben ist Vertrauen vorhanden — und wo hältst du es vielleicht zurück?"),
+    "bookRef": {"en": "Emotion Rules, pp. 75, 81"},
+  }
+})
+
+# ─── 2. FEAR ───────────────────────────────────────────────────────
+E.append({
+  "id": "fear",
+  "label": ml(en="Fear",es="Miedo",ko="두려움",zh="恐惧",ar="خوف",he="פחד",ja="恐れ",fr="Peur",pt="Medo",it="Paura",de="Angst"),
+  "needs": [
+    {"needId":"safety","inquiry":ml(en="What is it that I care about, and what is the risk?",es="¿Qué es lo que me importa y cuál es el riesgo?",ko="내가 소중히 여기는 것은 무엇이며, 위험은 무엇인가?",zh="我在意的是什么，风险是什么？",ar="ما الذي أهتم به، وما هو الخطر؟",he="מה אכפת לי ממנו, ומהו הסיכון?",ja="私が大切にしているのは何で、リスクは何ですか？",fr="Qu'est-ce qui m'importe et quel est le risque ?",pt="O que me importa e qual é o risco?",it="A cosa tengo e qual è il rischio?",de="Was ist mir wichtig und was ist das Risiko?"),"strength":0.9},
+  ],
+  "readMore": {
+    "essence": ml(en="An alert that something you care about may be at risk — your system's way of sharpening your attention toward what matters most.",es="Una alerta de que algo que te importa puede estar en riesgo — la forma en que tu sistema agudiza tu atención hacia lo que más importa.",ko="당신이 소중히 여기는 것이 위험에 처해 있을 수 있다는 경고 — 가장 중요한 것에 주의를 집중시키는 시스템의 방식입니다.",zh="一个警报，表明你在意的东西可能处于危险之中——你的系统将注意力集中在最重要事物上的方式。",ar="تنبيه بأن شيئًا تهتم به قد يكون في خطر — طريقة نظامك في شحذ انتباهك نحو ما يهم أكثر.",he="התראה שמשהו שאכפת לך ממנו עשוי להיות בסכנה — הדרך של המערכת שלך לחדד את תשומת הלב למה שחשוב ביותר.",ja="あなたが大切にしているものが危険にさらされているかもしれないという警告 — 最も大切なものに注意を向けさせるシステムの働きです。",fr="Une alerte que quelque chose qui vous tient à cœur pourrait être en danger — la façon dont votre système aiguise votre attention vers ce qui compte le plus.",pt="Um alerta de que algo que você valoriza pode estar em risco — a maneira do seu sistema de aguçar sua atenção para o que mais importa.",it="Un avviso che qualcosa a cui tieni potrebbe essere a rischio — il modo in cui il tuo sistema affina la tua attenzione verso ciò che conta di più.",de="Ein Alarm, dass etwas, das dir wichtig ist, gefährdet sein könnte — die Art deines Systems, deine Aufmerksamkeit auf das Wesentlichste zu schärfen."),
+    "signal": ml(en="Fear is not a sign of weakness; it's a sign of caring. Fear sharpens your attention and prepares you to protect. The deeper question isn't 'how do I stop being afraid?' but 'what do I love enough to feel afraid about losing?' Fear and love are two sides of commitment — love deepens it, fear occurs when we perceive risk to what we love.",es="El miedo no es signo de debilidad; es signo de que algo te importa. El miedo agudiza tu atención y te prepara para proteger. La pregunta más profunda no es '¿cómo dejo de tener miedo?' sino '¿qué amo tanto como para temer perderlo?' El miedo y el amor son dos caras del compromiso — el amor lo profundiza, el miedo aparece cuando percibimos riesgo en lo que amamos.",ko="두려움은 약함의 징후가 아니라, 관심의 징후입니다. 두려움은 주의를 날카롭게 하고 보호할 준비를 합니다. 더 깊은 질문은 '어떻게 두려움을 멈출 수 있을까?'가 아니라 '잃는 것이 두려울 만큼 내가 무엇을 사랑하는가?'입니다. 두려움과 사랑은 헌신의 양면입니다 — 사랑은 그것을 깊게 하고, 두려움은 우리가 사랑하는 것에 위험을 느낄 때 발생합니다.",zh="恐惧不是软弱的标志；而是在乎的标志。恐惧使你的注意力敏锐，让你准备好保护。更深层的问题不是'我怎样才能不害怕？'而是'我爱什么到害怕失去它？'恐惧和爱是承诺的两面——爱加深承诺，恐惧在我们感知到所爱之物面临风险时出现。",ar="الخوف ليس علامة ضعف؛ إنه علامة اهتمام. الخوف يشحذ انتباهك ويعدك للحماية. السؤال الأعمق ليس 'كيف أتوقف عن الخوف؟' بل 'ما الذي أحبه بما يكفي لأخاف فقدانه؟' الخوف والحب وجهان للالتزام — الحب يعمقه، والخوف يحدث عندما ندرك خطرًا على ما نحب.",he="פחד אינו סימן לחולשה; הוא סימן לאכפתיות. פחד מחדד את תשומת הלב ומכין אותך להגן. השאלה העמוקה יותר אינה 'איך אפסיק לפחד?' אלא 'מה אני אוהב מספיק כדי לפחד לאבד?' פחד ואהבה הם שני צדדים של מחויבות — אהבה מעמיקה אותה, פחד מתרחש כשאנו חשים סיכון למה שאנו אוהבים.",ja="恐れは弱さのしるしではありません。それは大切にしている証です。恐れはあなたの注意を鋭くし、守る準備をさせます。より深い問いは「どうすれば怖くなくなるか？」ではなく、「失うことが怖いほど何を愛しているか？」です。恐れと愛はコミットメントの両面です——愛がそれを深め、恐れは愛するものへのリスクを感じたときに生じます。",fr="La peur n'est pas un signe de faiblesse ; c'est un signe d'attention. La peur aiguise votre attention et vous prépare à protéger. La question profonde n'est pas 'comment arrêter d'avoir peur ?' mais 'qu'est-ce que j'aime assez pour craindre de le perdre ?' La peur et l'amour sont les deux faces de l'engagement — l'amour l'approfondit, la peur survient quand nous percevons un risque pour ce que nous aimons.",pt="O medo não é sinal de fraqueza; é sinal de que você se importa. O medo aguça sua atenção e prepara você para proteger. A pergunta mais profunda não é 'como paro de ter medo?' mas 'o que eu amo o suficiente para temer perder?' Medo e amor são dois lados do compromisso — o amor o aprofunda, o medo surge quando percebemos risco ao que amamos.",it="La paura non è un segno di debolezza; è un segno di cura. La paura affina la tua attenzione e ti prepara a proteggere. La domanda più profonda non è 'come smetto di aver paura?' ma 'cosa amo abbastanza da temere di perderlo?' Paura e amore sono due facce dell'impegno — l'amore lo approfondisce, la paura si presenta quando percepiamo un rischio per ciò che amiamo.",de="Angst ist kein Zeichen von Schwäche; sie ist ein Zeichen von Fürsorge. Angst schärft deine Aufmerksamkeit und bereitet dich darauf vor, zu schützen. Die tiefere Frage ist nicht 'Wie höre ich auf, Angst zu haben?' sondern 'Was liebe ich genug, um Angst zu haben, es zu verlieren?' Angst und Liebe sind zwei Seiten des Engagements — Liebe vertieft es, Angst entsteht, wenn wir ein Risiko für das wahrnehmen, was wir lieben."),
+    "reflection": ml(en="What would it look like to stay with this fear and listen to what it's protecting?",es="¿Cómo sería quedarte con este miedo y escuchar lo que está protegiendo?",ko="이 두려움과 함께 머물며 그것이 보호하고 있는 것에 귀 기울인다면 어떤 모습일까요?",zh="如果留在这种恐惧中，倾听它在保护什么，会是什么样子？",ar="كيف سيبدو البقاء مع هذا الخوف والاستماع إلى ما يحميه؟",he="איך ייראה להישאר עם הפחד הזה ולהקשיב למה שהוא מגן עליו?",ja="この恐れと共にいて、それが何を守っているのかに耳を傾けるとしたら、どのような姿になるでしょうか？",fr="À quoi ressemblerait le fait de rester avec cette peur et d'écouter ce qu'elle protège ?",pt="Como seria permanecer com esse medo e ouvir o que ele está protegendo?",it="Come sarebbe restare con questa paura e ascoltare ciò che sta proteggendo?",de="Wie würde es aussehen, bei dieser Angst zu bleiben und darauf zu hören, was sie beschützt?"),
+    "bookRef": {"en": "Emotion Rules, pp. 51, 75, 81"},
+  }
+})
+
+print(f"Built {len(E)} emotions so far...")
+# Save partial and continue in next script
+with open("/tmp/emotions_partial.json", "w") as f:
+    json.dump(data, f)
+print("Needs + 2 emotions built. Continuing with remaining emotions in part 2...")

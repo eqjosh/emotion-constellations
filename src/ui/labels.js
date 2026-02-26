@@ -75,10 +75,65 @@ export function createLabelManager(container) {
 
       for (const emotion of emotionNodes) {
         const el = emotionLabels.get(emotion.id);
-        if (el) {
-          el.style.left = `${emotion.x}px`;
-          el.style.top = `${emotion.y}px`;
+        if (!el) continue;
+
+        // Start from the emotion's simulation position
+        let lx = emotion.x;
+        let ly = emotion.y;
+
+        // Emotion labels render at translate(-50%, -130%) so the text
+        // sits ~15px above the star. Check from that offset position.
+        const textY = ly - 15;
+
+        // Push emotion label away from nearby need labels to prevent overlap
+        for (const need of needNodes) {
+          const dx = lx - need.fx;
+          const dy = textY - need.fy;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const minDist = 38; // px threshold
+
+          if (dist < minDist && dist > 0) {
+            const push = (minDist - dist);
+            lx += (dx / dist) * push;
+            ly += (dy / dist) * push;
+          }
         }
+
+        el.style.left = `${lx}px`;
+        el.style.top = `${ly}px`;
+      }
+    },
+
+    /**
+     * Set per-element opacity during entry animation.
+     * @param {Function} needOpacityFn - (index) => 0..1
+     * @param {Function} emotionOpacityFn - (index) => 0..1
+     */
+    setEntryOpacities(needOpacityFn, emotionOpacityFn) {
+      let i = 0;
+      for (const [, el] of needLabels) {
+        el.style.opacity = needOpacityFn(i);
+        i++;
+      }
+      let j = 0;
+      for (const [, el] of emotionLabels) {
+        el.style.opacity = emotionOpacityFn(j);
+        j++;
+      }
+    },
+
+    /**
+     * Update label text content (e.g. on locale change).
+     * Nodes should already have updated labels.
+     */
+    updateLabels(needNodes, emotionNodes) {
+      for (const need of needNodes) {
+        const el = needLabels.get(need.id);
+        if (el) el.textContent = need.label;
+      }
+      for (const emotion of emotionNodes) {
+        const el = emotionLabels.get(emotion.id);
+        if (el) el.textContent = emotion.label;
       }
     },
 

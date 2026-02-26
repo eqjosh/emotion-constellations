@@ -300,8 +300,8 @@ export function createSelectionState(emotionNodes, needNodes, needNodesById) {
           // Connection to the selected need from a linked emotion — brighten
           return lerp(baseOpacity, CONNECTIONS.activeOpacity, t);
         }
-        // Unrelated connection — dim
-        return lerp(baseOpacity, baseOpacity * 0.3, t);
+        // Unrelated connection — aggressively dim
+        return lerp(baseOpacity, CONNECTIONS.dimmedOpacity, t);
       }
 
       return baseOpacity;

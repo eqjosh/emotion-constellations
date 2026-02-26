@@ -11,6 +11,7 @@
  */
 
 import { on, emit } from '../core/events.js';
+import { t } from '../core/ui-strings.js';
 
 export function createHudBar(parentContainer) {
   // Create the bar element
@@ -33,55 +34,78 @@ export function createHudBar(parentContainer) {
     return id.charAt(0).toUpperCase() + id.slice(1);
   }
 
+  function makePill(text, classes, dataAttrs, style) {
+    const btn = document.createElement('button');
+    btn.className = classes;
+    btn.textContent = text;
+    if (style) btn.setAttribute('style', style);
+    for (const [k, v] of Object.entries(dataAttrs || {})) {
+      btn.dataset[k] = v;
+    }
+    return btn;
+  }
+
   // --- Content builders ---
 
   function showEmotion(data) {
-    const { id, emotion, inquiries = [], fellowMessengers = [] } = data;
+    const { emotion, inquiries = [], fellowMessengers = [] } = data;
     if (!emotion) return;
 
-    let html = '';
+    bar.textContent = ''; // safe clear
 
-    // Title
-    html += `<span class="hud-bar__title">${emotion.label}</span>`;
+    const title = document.createElement('span');
+    title.className = 'hud-bar__title';
+    title.textContent = t('hud.fellowMessengers', { emotion: emotion.label });
+    bar.appendChild(title);
 
-    // Need pills
-    html += '<div class="hud-bar__pills">';
+    const pills = document.createElement('div');
+    pills.className = 'hud-bar__pills';
+
     for (const inq of inquiries) {
       const color = toCSS(inq.needColor);
-      html += `<button class="hud-bar__pill hud-bar__pill--need" style="--pill-color: ${color}" data-need-id="${inq.needId}">${inq.needLabel}</button>`;
+      const btn = makePill(inq.needLabel, 'hud-bar__pill hud-bar__pill--need', { needId: inq.needId },
+        `--pill-color: ${color}`);
+      pills.appendChild(btn);
     }
 
-    // Fellow messenger pills
     for (const fellowId of fellowMessengers) {
-      html += `<button class="hud-bar__pill hud-bar__pill--fellow" data-emotion-id="${fellowId}">${formatLabel(fellowId)}</button>`;
+      const btn = makePill(formatLabel(fellowId), 'hud-bar__pill hud-bar__pill--fellow', { emotionId: fellowId });
+      pills.appendChild(btn);
     }
-    html += '</div>';
 
-    bar.innerHTML = html;
+    bar.appendChild(pills);
     wireEvents();
     show();
   }
 
   function showNeed(data) {
-    const { id, need, needEmotions = [] } = data;
+    const { need, needEmotions = [] } = data;
     if (!need) return;
+
+    bar.textContent = ''; // safe clear
 
     const needColor = toCSS(need.colorSecondary || need.color);
 
-    let html = '';
+    const title = document.createElement('span');
+    title.className = 'hud-bar__title';
+    title.textContent = need.label;
+    title.style.color = needColor;
+    bar.appendChild(title);
 
-    // Title (colored)
-    html += `<span class="hud-bar__title" style="color: ${needColor}">${need.label}</span>`;
+    const pills = document.createElement('div');
+    pills.className = 'hud-bar__pills';
 
-    // Exploration hint + linked emotion pills
-    html += '<div class="hud-bar__pills">';
-    html += `<span class="hud-bar__hint">explore:</span>`;
+    const hint = document.createElement('span');
+    hint.className = 'hud-bar__hint';
+    hint.textContent = t('hud.explore');
+    pills.appendChild(hint);
+
     for (const item of needEmotions) {
-      html += `<button class="hud-bar__pill hud-bar__pill--emotion" data-emotion-id="${item.emotionId}">${item.emotionLabel}</button>`;
+      const btn = makePill(item.emotionLabel, 'hud-bar__pill hud-bar__pill--emotion', { emotionId: item.emotionId });
+      pills.appendChild(btn);
     }
-    html += '</div>';
 
-    bar.innerHTML = html;
+    bar.appendChild(pills);
     wireEvents();
     show();
   }
@@ -95,11 +119,13 @@ export function createHudBar(parentContainer) {
       });
     }
 
-    // Emotion pill clicks (fellow messengers or linked emotions)
+    // Emotion pill clicks → navigate to that emotion + open wisdom panel
     for (const btn of bar.querySelectorAll('[data-emotion-id]')) {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        emit('input:emotion-click', { id: btn.dataset.emotionId });
+        const emotionId = btn.dataset.emotionId;
+        emit('input:emotion-click', { id: emotionId });
+        emit('wisdom:open', { id: emotionId });
       });
     }
   }

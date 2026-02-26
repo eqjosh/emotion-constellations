@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "version": "0.2.0",
+    "locale": "es",
+    "source": "Emotion Rules by Joshua Freedman, Chapter 4: Wholeness — Beyond Opposites, pp. 75-76, 81-83"
+  },
+  "needs": [
+    {
+      "id": "safety",
+      "label": "Seguridad",
+      "description": "En lo profundo de nuestra arquitectura neuronal, el impulso de seguridad es primario. Nuestros cerebros están diseñados para detectar y responder a las amenazas.",
+      "color": [0.08, 0.20, 0.48],
+      "colorSecondary": [0.18, 0.38, 0.85]
+    },
+    {
+      "id": "belonging",
+      "label": "Pertenencia",
+      "description": "Estas emociones sociales son profundas. Moldean el comportamiento, los valores, incluso la autoimagen. Invitan a reflexionar sobre cómo y dónde buscamos conexión.",
+      "color": [0.60, 0.42, 0.05],
+      "colorSecondary": [0.88, 0.68, 0.15]
+    },
+    {
+      "id": "autonomy",
+      "label": "Autonomía",
+      "description": "Una necesidad silenciosa, hasta que nos la quitan; entonces las emociones estallan. Estas señales nos impulsan a recuperar la autoría de nuestras propias vidas.",
+      "color": [0.03, 0.45, 0.45],
+      "colorSecondary": [0.12, 0.80, 0.82]
+    },
+    {
+      "id": "achievement",
+      "label": "Logro",
+      "description": "Esta familia de emociones energiza la acción y nos pide recalibrar. Nos guían a través de la ambición, la disposición y el desafío.",
+      "color": [0.60, 0.18, 0.08],
+      "colorSecondary": [0.92, 0.35, 0.15]
+    },
+    {
+      "id": "meaning",
+      "label": "Sentido",
+      "description": "Estas emociones reflejan la búsqueda de algo más allá de la supervivencia, de aquello que hace que la vida se sienta significativa. Nos orientan hacia los valores y la visión.",
+      "color": [0.35, 0.08, 0.50],
+      "colorSecondary": [0.58, 0.22, 0.80]
+    },
+    {
+      "id": "growth",
+      "label": "Crecimiento",
+      "description": "El crecimiento rara vez es lineal. Estos sentimientos suelen llegar en oleadas, señalándonos hacia la incomodidad que precede a la comprensión.",
+      "color": [0.08, 0.45, 0.14],
+      "colorSecondary": [0.18, 0.82, 0.30]
+    }
+  ],
+  "emotions": [
+    {"id":"trust","label":"Confianza","links":[{"needId":"safety","inquiry":"¿Tengo apoyo y protección?","strength":0.9},{"needId":"belonging","inquiry":"¿Son fiables los vínculos que me rodean?","strength":0.5}]},
+    {"id":"fear","label":"Miedo","links":[{"needId":"safety","inquiry":"¿Qué es lo que me importa y cuál es el riesgo?","strength":0.9}]},
+    {"id":"vigilance","label":"Vigilancia","links":[{"needId":"safety","inquiry":"¿Qué viene después?","strength":0.8}]},
+    {"id":"surprise","label":"Sorpresa","links":[{"needId":"safety","inquiry":"¿Qué acaba de cambiar y cómo necesito adaptarme?","strength":0.7},{"needId":"growth","inquiry":"¿Qué hay de nuevo aquí para mí?","strength":0.4}]},
+    {"id":"loneliness","label":"Soledad","links":[{"needId":"belonging","inquiry":"¿Estoy desconectado de los demás o de mí mismo?","strength":0.9}]},
+    {"id":"love","label":"Amor","links":[{"needId":"belonging","inquiry":"¿Qué vínculos vale la pena cuidar y fortalecer?","strength":0.9},{"needId":"safety","inquiry":"¿Qué me importa tanto que temo perderlo?","strength":0.4},{"needId":"meaning","inquiry":"¿Qué me ilumina por dentro?","strength":0.5}]},
+    {"id":"jealousy","label":"Celos","links":[{"needId":"belonging","inquiry":"¿Deseo lo que otros parecen tener?","strength":0.8},{"needId":"achievement","inquiry":"¿Me estoy quedando atrás de donde quiero estar?","strength":0.4}]},
+    {"id":"shame","label":"Vergüenza","links":[{"needId":"belonging","inquiry":"¿He fallado ante las expectativas?","strength":0.8},{"needId":"growth","inquiry":"¿Estoy a la altura de mis propios estándares?","strength":0.5}]},
+    {"id":"frustrated","label":"Frustración","links":[{"needId":"autonomy","inquiry":"¿Qué me impide seguir mi propio camino?","strength":0.9},{"needId":"achievement","inquiry":"¿Por qué no puedo avanzar?","strength":0.5}]},
+    {"id":"guilty","label":"Culpa","links":[{"needId":"autonomy","inquiry":"¿Tomé una decisión que violó mis propios principios?","strength":0.7},{"needId":"belonging","inquiry":"¿He dañado una relación que me importa?","strength":0.5},{"needId":"growth","inquiry":"¿Me estoy frenando de hacerlo mejor?","strength":0.4}]},
+    {"id":"free","label":"Libertad","links":[{"needId":"autonomy","inquiry":"¿Cuál es el camino que quiero tomar?","strength":0.9}]},
+    {"id":"trapped","label":"Atrapado","links":[{"needId":"autonomy","inquiry":"¿Qué está limitando mi poder de actuar?","strength":0.9}]},
+    {"id":"anger","label":"Ira","links":[{"needId":"achievement","inquiry":"¿Qué está bloqueando el camino?","strength":0.8},{"needId":"autonomy","inquiry":"¿Qué límite o valor está siendo amenazado?","strength":0.7}]},
+    {"id":"excitement","label":"Entusiasmo","links":[{"needId":"achievement","inquiry":"¿Qué me impulsa a moverme?","strength":0.8},{"needId":"growth","inquiry":"¿Qué nueva posibilidad estoy percibiendo?","strength":0.4}]},
+    {"id":"urgency","label":"Urgencia","links":[{"needId":"achievement","inquiry":"¿Qué necesito priorizar?","strength":0.8}]},
+    {"id":"pride","label":"Orgullo","links":[{"needId":"achievement","inquiry":"¿Puedo honrar mi propia contribución?","strength":0.8},{"needId":"belonging","inquiry":"¿Los demás ven mi valor?","strength":0.3}]},
+    {"id":"doubt","label":"Duda","links":[{"needId":"achievement","inquiry":"¿Estoy suficientemente preparado o falta algo?","strength":0.7},{"needId":"meaning","inquiry":"¿Qué tan abierto estoy a lo nuevo y posible?","strength":0.5}]},
+    {"id":"awe","label":"Asombro","links":[{"needId":"meaning","inquiry":"¿Dónde encajo ante esta totalidad mayor?","strength":0.9}]},
+    {"id":"despair","label":"Desesperación","links":[{"needId":"meaning","inquiry":"¿Ha desaparecido algo con lo que yo contaba?","strength":0.8},{"needId":"safety","inquiry":"¿Todavía hay un camino hacia adelante?","strength":0.4}]},
+    {"id":"inspiration","label":"Inspiración","links":[{"needId":"meaning","inquiry":"¿Qué me está llamando hacia adelante?","strength":0.9},{"needId":"growth","inquiry":"¿En qué estoy listo para convertirme?","strength":0.5}]},
+    {"id":"emptiness","label":"Vacío","links":[{"needId":"meaning","inquiry":"¿Qué falta?","strength":0.8}]},
+    {"id":"delight","label":"Deleite","links":[{"needId":"meaning","inquiry":"¿Qué hay más allá de lo que pude haber imaginado?","strength":0.7},{"needId":"growth","inquiry":"¿Estoy notando mi propia vitalidad?","strength":0.5}]},
+    {"id":"curiosity","label":"Curiosidad","links":[{"needId":"growth","inquiry":"¿Qué hay aquí para aprender o descubrir?","strength":0.9},{"needId":"meaning","inquiry":"¿Qué límites puedo expandir?","strength":0.4}]},
+    {"id":"joy","label":"Alegría","links":[{"needId":"growth","inquiry":"¿Estoy notando mi propia expansión o vitalidad?","strength":0.7},{"needId":"meaning","inquiry":"¿Qué hace que la vida valga la pena en este momento?","strength":0.5}]},
+    {"id":"impatience","label":"Impaciencia","links":[{"needId":"growth","inquiry":"¿Qué me está frenando?","strength":0.7},{"needId":"achievement","inquiry":"¿Por qué el progreso no ocurre más rápido?","strength":0.5}]},
+    {"id":"depression","label":"Depresión","links":[{"needId":"growth","inquiry":"¿Realmente quiero seguir adelante?","strength":0.7},{"needId":"meaning","inquiry":"¿Qué ha perdido su propósito?","strength":0.6}]},
+    {"id":"boredom","label":"Aburrimiento","links":[{"needId":"growth","inquiry":"¿Es momento de aprender o explorar?","strength":0.8}]},
+    {"id":"sadness","label":"Tristeza","links":[{"needId":"belonging","inquiry":"¿Qué conexión se ha perdido o está ausente?","strength":0.8},{"needId":"meaning","inquiry":"¿Qué me importa tanto que perderlo duele?","strength":0.6}]},
+    {"id":"anxiety","label":"Ansiedad","links":[{"needId":"safety","inquiry":"¿Qué me importa que siento en riesgo?","strength":0.8},{"needId":"achievement","inquiry":"¿Estoy suficientemente preparado para lo que viene?","strength":0.5}]},
+    {"id":"gratitude","label":"Gratitud","links":[{"needId":"belonging","inquiry":"¿Qué conexiones y regalos he recibido?","strength":0.7},{"needId":"meaning","inquiry":"¿Qué riqueza ya está presente en mi vida?","strength":0.6}]},
+    {"id":"hope","label":"Esperanza","links":[{"needId":"meaning","inquiry":"¿Qué oportunidades veo para acercarme a lo que quiero?","strength":0.7},{"needId":"growth","inquiry":"¿En qué estoy listo para crecer?","strength":0.6}]},
+    {"id":"compassion","label":"Compasión","links":[{"needId":"belonging","inquiry":"¿Cómo puedo estar presente ante el sufrimiento, el mío o el de otros?","strength":0.7},{"needId":"growth","inquiry":"¿Qué me enseña este dolor sobre lo que importa?","strength":0.5}]},
+    {"id":"grief","label":"Duelo","links":[{"needId":"belonging","inquiry":"¿Qué vínculo se ha roto o transformado?","strength":0.9},{"needId":"meaning","inquiry":"¿Cómo doy sentido a esta pérdida?","strength":0.7}]},
+    {"id":"stress","label":"Estrés","links":[{"needId":"safety","inquiry":"¿Son mis desafíos mayores que mis recursos?","strength":0.7},{"needId":"achievement","inquiry":"¿Qué necesito priorizar o soltar?","strength":0.5}]},
+    {"id":"overwhelm","label":"Agobio","links":[{"needId":"safety","inquiry":"¿Qué es demasiado en este momento?","strength":0.7},{"needId":"autonomy","inquiry":"¿Dónde he perdido la capacidad de elegir?","strength":0.6}]},
+    {"id":"contentment","label":"Serenidad","links":[{"needId":"safety","inquiry":"¿Qué está tranquilo y en paz ahora mismo?","strength":0.6},{"needId":"meaning","inquiry":"¿Estoy alineado con lo que importa?","strength":0.6}]},
+    {"id":"courage","label":"Valentía","links":[{"needId":"safety","inquiry":"¿Qué estoy dispuesto a arriesgar por lo que me importa?","strength":0.6},{"needId":"growth","inquiry":"¿Qué se hace posible si atravieso este miedo?","strength":0.7}]},
+    {"id":"disgust","label":"Asco","links":[{"needId":"safety","inquiry":"¿Qué reglas se han violado? ¿Es segura esta situación?","strength":0.8},{"needId":"belonging","inquiry":"¿Esto se alinea con los valores de mi comunidad?","strength":0.4}]},
+    {"id":"exhaustion","label":"Agotamiento","links":[{"needId":"achievement","inquiry":"¿He estado esforzándome demasiado sin recompensa?","strength":0.7},{"needId":"meaning","inquiry":"¿Ha desaparecido el propósito detrás de mi esfuerzo?","strength":0.6},{"needId":"belonging","inquiry":"¿Estoy intentando hacer esto solo?","strength":0.4}]}
+  ]
+}

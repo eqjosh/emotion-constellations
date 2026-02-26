@@ -13,7 +13,7 @@ import {
   forceCenter,
 } from 'd3-force';
 import { needGravityForce } from './forces.js';
-import { PHYSICS, LAYOUT } from '../core/constants.js';
+import { PHYSICS, LAYOUT, ROTATION } from '../core/constants.js';
 
 /**
  * Compute the weighted centroid of an emotion's linked needs.
@@ -37,9 +37,11 @@ export function createSimulation(data, width, height) {
 
   // Position needs in a loose organic ring
   const needCount = data.needs.length;
-  const cx = width / 2;
+  const cx = width / 2 + width * (LAYOUT.centerXOffset || 0);
   const cy = height / 2;
   const ringRadius = Math.min(width, height) * LAYOUT.needRingRadius;
+
+  const hStretch = LAYOUT.needHorizontalStretch || 1.0;
 
   const needNodes = data.needs.map((need, i) => {
     const angle = (i / needCount) * Math.PI * 2 + LAYOUT.needRingOffset;
@@ -51,8 +53,8 @@ export function createSimulation(data, width, height) {
       color: need.color,
       colorSecondary: need.colorSecondary,
       intensity: 1.0,
-      // Fixed position
-      fx: cx + Math.cos(angle) * ringRadius,
+      // Fixed position — horizontal stretch widens the constellation
+      fx: cx + Math.cos(angle) * ringRadius * hStretch,
       fy: cy + Math.sin(angle) * ringRadius,
     };
     needNodesById.set(need.id, node);
@@ -101,6 +103,27 @@ export function createSimulation(data, width, height) {
     simulation.tick();
   }
 
+  // Ambient rotation state
+  let rotationAngle = 0;       // current cumulative rotation (radians)
+  let rotationPaused = false;   // true when something is selected
+  let rotationEaseT = 1;        // 0→1 easing factor when resuming
+  let currentCx = cx;
+  let currentCy = cy;
+  let currentRadius = ringRadius;
+
+  // Store base angles per need for rotation
+  const needBaseAngles = needNodes.map((_, i) =>
+    (i / needCount) * Math.PI * 2 + LAYOUT.needRingOffset
+  );
+
+  function updateNeedPositions() {
+    needNodes.forEach((node, i) => {
+      const angle = needBaseAngles[i] + rotationAngle;
+      node.fx = currentCx + Math.cos(angle) * currentRadius * hStretch;
+      node.fy = currentCy + Math.sin(angle) * currentRadius;
+    });
+  }
+
   return {
     simulation,
     needNodes,
@@ -108,24 +131,41 @@ export function createSimulation(data, width, height) {
     allNodes,
     needNodesById,
 
-    /** Advance one simulation step */
+    /** Advance one simulation step + ambient rotation */
     tick() {
+      // Ambient rotation: slowly rotate need positions around center
+      if (!rotationPaused) {
+        if (rotationEaseT < 1) {
+          rotationEaseT = Math.min(1, rotationEaseT + (1000 / 60) / ROTATION.resumeEaseDuration);
+        }
+        const eased = rotationEaseT * rotationEaseT * (3 - 2 * rotationEaseT); // smoothstep
+        rotationAngle += ROTATION.speed * eased;
+        updateNeedPositions();
+      }
+
       simulation.tick();
+    },
+
+    /** Pause rotation (e.g. during selection) */
+    pauseRotation() {
+      rotationPaused = true;
+    },
+
+    /** Resume rotation with ease-in */
+    resumeRotation() {
+      rotationPaused = false;
+      rotationEaseT = 0; // start easing back in
     },
 
     /** Update layout when canvas resizes */
     resize(newWidth, newHeight) {
-      const newCx = newWidth / 2;
-      const newCy = newHeight / 2;
-      const newRadius = Math.min(newWidth, newHeight) * LAYOUT.needRingRadius;
+      currentCx = newWidth / 2 + newWidth * (LAYOUT.centerXOffset || 0);
+      currentCy = newHeight / 2;
+      currentRadius = Math.min(newWidth, newHeight) * LAYOUT.needRingRadius;
 
-      needNodes.forEach((node, i) => {
-        const angle = (i / needCount) * Math.PI * 2 + LAYOUT.needRingOffset;
-        node.fx = newCx + Math.cos(angle) * newRadius;
-        node.fy = newCy + Math.sin(angle) * newRadius;
-      });
+      updateNeedPositions();
 
-      simulation.force('center', forceCenter(newCx, newCy).strength(PHYSICS.centeringStrength));
+      simulation.force('center', forceCenter(currentCx, currentCy).strength(PHYSICS.centeringStrength));
       simulation.alpha(0.3).restart();
     },
 

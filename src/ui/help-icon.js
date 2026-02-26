@@ -1,0 +1,61 @@
+/**
+ * Windrose help icon — top-right corner button to open the chat panel.
+ *
+ * Shows a compass-rose SVG icon. On hover, shows "Click for Help" tooltip.
+ * On click, opens the wisdom panel in welcome mode (no emotion selected)
+ * or toggles the panel if already open.
+ *
+ * Hides when the panel is open, reappears when closed.
+ *
+ * Emits 'help:open' when clicked.
+ */
+
+import { emit, on } from '../core/events.js';
+import { t } from '../core/ui-strings.js';
+
+export function createHelpIcon(container) {
+  const el = document.createElement('button');
+  el.className = 'help-icon';
+  el.setAttribute('aria-label', t('help.tooltip'));
+  el.innerHTML = `
+    <svg class="help-icon__svg" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+      <path d="m1152 600-422.4-72 141.6-200.4-199.2 142.8-72-422.4-72 422.4-200.4-142.8 142.8 200.4-422.4 72 422.4 72-142.8 200.4 200.4-142.8 72 422.4 72-422.4 200.4 141.6-142.8-199.2zm-36 0h-516l75.602-75.602zm-268.8-247.2-166.8 166.8-6-36-1.1992-7.1992zm-247.2-268.8v507.6l-73.199-73.199 7.1992-44.398zm-247.2 268.8 165.6 165.6-36 6-7.1992 1.1992zm-268.8 247.2h507.6l-73.199 73.199zm268.8 247.2 165.6-165.6 6 36 1.1992 7.1992zm247.2 268.8v-507.6l73.199 73.199zm247.2-268.8-166.8-166.8 36-6 7.1992-1.1992z" fill="currentColor"/>
+    </svg>
+    <span class="help-icon__tooltip">${t('help.tooltip')}</span>
+  `;
+
+  // Prevent canvas deselect
+  el.addEventListener('pointerdown', (e) => {
+    e.stopPropagation();
+  });
+
+  el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    emit('help:open', {});
+  });
+
+  container.appendChild(el);
+
+  // Hide/show when panel opens/closes
+  const unsubOpen = on('panel:opened', () => {
+    el.classList.add('help-icon--hidden');
+  });
+  const unsubClose = on('panel:closed', () => {
+    el.classList.remove('help-icon--hidden');
+  });
+
+  return {
+    /** Update tooltip text (e.g. on locale change) */
+    updateLocale() {
+      el.setAttribute('aria-label', t('help.tooltip'));
+      const tooltip = el.querySelector('.help-icon__tooltip');
+      if (tooltip) tooltip.textContent = t('help.tooltip');
+    },
+
+    destroy() {
+      unsubOpen();
+      unsubClose();
+      if (el.parentNode) el.remove();
+    },
+  };
+}
